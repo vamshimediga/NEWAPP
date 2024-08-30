@@ -168,6 +168,7 @@
     <Compile Include="Repositories\Implemention\ProjectInfoRepository.cs" />
     <Compile Include="Repositories\Implemention\PsplCompanyReposisitory.cs" />
     <Compile Include="Repositories\Implemention\RestaurantRepository.cs" />
+    <Compile Include="Repositories\Implemention\SampleStudentRepository.cs" />
     <Compile Include="Repositories\Implemention\StockoverflowRepository.cs" />
     <Compile Include="Repositories\Implemention\TabRepository.cs" />
     <Compile Include="Repositories\Implemention\UserAdminRepository.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Repositories\Interfaces\IProjectInfo.cs" />
     <Compile Include="Repositories\Interfaces\IPsplCompany.cs" />
     <Compile Include="Repositories\Interfaces\IRestaurant.cs" />
+    <Compile Include="Repositories\Interfaces\ISampleStudent.cs" />
     <Compile Include="Repositories\Interfaces\IStockoverflow.cs" />
     <Compile Include="Repositories\Interfaces\ITab.cs" />
     <Compile Include="Repositories\Interfaces\IUserAdmin.cs" />

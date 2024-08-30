@@ -59,5 +59,8 @@ namespace Data
         public ILeads leads { get; }
 
         public ICourse  course { get; }
+
+       
+        public ISampleStudent smpleStudent { get; }
     }
 }

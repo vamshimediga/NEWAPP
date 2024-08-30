@@ -35,6 +35,7 @@ namespace Data
             service.AddScoped<IRestaurant, RestaurantRepository>();
             service.AddScoped<ILeads, LeadsRepository>();   
             service.AddScoped<ICourse, CourseRepository>(); 
+            service.AddScoped<ISampleStudent, SampleStudentRepository>();
         }
     }
 }

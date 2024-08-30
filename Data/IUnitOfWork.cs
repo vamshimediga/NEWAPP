@@ -42,6 +42,7 @@ namespace Data
         ILeads leads { get; }
 
         ICourse course { get; }
+        ISampleStudent smpleStudent { get; }
 
     }
 }

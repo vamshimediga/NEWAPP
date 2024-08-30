@@ -57,8 +57,9 @@ namespace startupfile
           services.AddScoped<IMediaWithCategory, MediaWithCategoryRepository>();
           services.AddScoped<IRestaurant, RestaurantRepository>();
           services.AddScoped<ILeads, LeadsRepository>();
-            services.AddScoped<ICourse, CourseRepository>();
-            services.AddControllersWithViews(options =>
+          services.AddScoped<ICourse, CourseRepository>();
+            services.AddScoped<ISampleStudent, SampleStudentRepository>();
+          services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
             });
