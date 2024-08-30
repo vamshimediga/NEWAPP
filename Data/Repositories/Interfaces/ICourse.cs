@@ -15,7 +15,7 @@ namespace Data.Repositories.Interfaces
 
         int update(Course course);  
 
-       bool delete(int id);
+         bool delete(int id);
 
 
     }
