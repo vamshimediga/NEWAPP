@@ -1,0 +1,95 @@
+﻿@model DomainModels.Lead
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Lead</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="createLeadForm">
+            @Html.AntiForgeryToken() <!-- Include the anti-forgery token -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeadID" class="control-label"></label>
+                <input asp-for="LeadID" class="form-control" />
+                <span asp-validation-for="LeadID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeadSource" class="control-label"></label>
+                <input asp-for="LeadSource" class="form-control" />
+                <span asp-validation-for="LeadSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedDate" class="control-label"></label>
+                <input asp-for="ModifiedDate" class="form-control" />
+                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#createLeadForm").submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = $(this).serialize(); // Serialize the form data
+
+            $.ajax({
+                url: '@Url.Action("Create", "Lead")', // The action URL
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Handle success response (e.g., redirect to the index page)
+                    window.location.href = '@Url.Action("Index", "Lead")';
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle error response
+                    alert('Error: ' + textStatus + ' - ' + errorThrown);
+                }
+            });
+        });
+    });
+</script>

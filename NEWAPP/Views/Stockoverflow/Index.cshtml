@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DomainModels.Stockoverflow>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StackID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StackName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StackEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StackPhone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StackID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StackName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StackEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StackPhone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.StackID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.StackID}) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.StackID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

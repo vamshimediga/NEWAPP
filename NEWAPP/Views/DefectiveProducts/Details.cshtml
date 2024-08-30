@@ -1,0 +1,48 @@
+﻿@model DomainModels.DefectiveProducts
+
+@{
+    ViewData["Title"]= "Details";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <span>@ViewBag.UserName</span>
+    <span>@ViewBag.UserAge</span>
+    <span>@ViewBag.cookieValue</span>
+<div>
+    <h4>DefectiveProducts</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DefectiveProductID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DefectiveProductID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DefectDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DefectDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.DefectiveProductID }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

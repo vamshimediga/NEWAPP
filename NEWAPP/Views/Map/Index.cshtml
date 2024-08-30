@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Contact Map";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addressLine1">Address Line 1:</label>
+                <input type="text" class="form-control" id="addressLine1" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addressLine2">Address Line 2:</label>
+                <input type="text" class="form-control" id="addressLine2" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" class="form-control" id="city" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" class="form-control" id="state" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="zip">Zip:</label>
+                <input type="text" class="form-control" id="zip" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" class="form-control" id="country" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" style="margin-top: 30px;" onclick="updateMap()">Update Map</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div id="map" style="height: 500px; width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5NeYHYfIx9GJWITBLbS74PtQUT-ZrNvU&libraries=places,geometry"></script>
+
+<script>
+    function initMap() {debugger
+        var location = { lat: 17.415371, lng: 78.421432 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: location
+        });
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true,
+           
+        });
+
+        window.updateMap = function () {debugger
+            var addressLine1 = document.getElementById('addressLine1').value;
+            var addressLine2 = document.getElementById('addressLine2').value;
+            var city = document.getElementById('city').value;
+            var state = document.getElementById('state').value;
+            var zip = document.getElementById('zip').value;
+            var country = document.getElementById('country').value;
+
+            var address = `${addressLine1}, ${addressLine2}, ${city}, ${state}, ${zip}, ${country}`;
+            findLocation(address);
+        };
+
+        function findLocation(address) {debugger
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function (results, status) {debugger
+                if (status == google.maps.GeocoderStatus.OK) {debugger
+                    map.setCenter(results[0].geometry.location);
+                    marker.setPosition(results[0].geometry.location);
+                    map.setZoom(12);
+                } else {
+                    alert("Sorry, this search produced no results.");
+                }
+            });
+        }
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+

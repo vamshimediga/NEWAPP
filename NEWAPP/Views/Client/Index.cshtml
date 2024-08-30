@@ -1,0 +1,147 @@
+﻿@using DomainModels
+
+@model IEnumerable<DomainModels.Client>;
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<button id="selectAll" class="btn btn-primary">Select All</button>
+<button id="deselectAll" class="btn btn-primary">Deselect All</button>
+<button id="deleteAll" class="btn btn-primary">Delete</button>
+<button id="downloadExcel" class="btn btn-primary">Download Excel</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Select
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Client client in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" class="clientCheckbox" name="selectedClients" value="@client.ClientID" />
+                </td>
+                <td>
+                    <a asp-controller="Client" asp-action="Edit" asp-route-id="@client.ClientID">
+                        @client.ClientID
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => client.State)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            debugger
+            
+            const selectAllButton = document.getElementById('selectAll');
+            const deselectAllButton = document.getElementById('deselectAll');
+            const clientCheckboxes = document.querySelectorAll('.clientCheckbox');
+            const deleteSelectedButton = document.getElementById('deleteAll');
+            selectAllButton.addEventListener('click', function () {debugger
+                clientCheckboxes.forEach(checkbox => {debugger
+                    checkbox.checked = true;
+                });
+            });
+
+            deselectAllButton.addEventListener('click', function () {
+                clientCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            });
+            deleteSelectedButton.addEventListener('click', function () {
+                debugger
+                const selectedIds = getSelectedClientIds();
+
+                $.ajax({
+                    url: '@Url.Action("Delete", "Client")',
+                    type: 'POST',
+                    data: { ids: selectedIds },
+                    traditional: true,
+                    success: function (response) {
+                        if (response.success) {
+                            
+                            window.location.href = '@Url.Action("Index")';
+                        } else {
+                            alert('Error deleting clients');
+                        }
+                    },
+                    error: function () {
+                        alert('Error deleting clients');
+                    }
+                });
+            });
+
+            function getSelectedClientIds() {
+                const selectedClientIds = [];
+                const clientCheckboxes = document.querySelectorAll('.clientCheckbox:checked');
+
+                clientCheckboxes.forEach(checkbox => {
+                    selectedClientIds.push(checkbox.value);
+                });
+
+                return selectedClientIds;
+            }
+           
+
+        });
+
+       
+        // Example to get selected client IDs
+       
+    </script>
+}

@@ -1,0 +1,40 @@
+﻿@model DomainModels.Tab
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Tab</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tabID" class="control-label"></label>
+                <input asp-for="tabID" class="form-control" />
+                <span asp-validation-for="tabID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tabName" class="control-label"></label>
+                <input asp-for="tabName" class="form-control" />
+                <span asp-validation-for="tabName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tabPosition" class="control-label"></label>
+                <input asp-for="tabPosition" class="form-control" />
+                <span asp-validation-for="tabPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

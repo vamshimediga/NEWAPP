@@ -1,0 +1,83 @@
+﻿@model DomainModels.ProjectInfo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { id = "createForm" }))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {debugger
+            $("#createForm").submit(function (event) {debugger
+                event.preventDefault(); // Prevent the form from submitting via the browser
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Create", "ProjectInfo")',
+                    data: $(this).serialize(),
+                    success: function (response) {debugger
+                        // Handle success, for example:
+                        alert('Project created successfully. New Project ID: ' + response.id);
+                        window.location.href = '@Url.Action("Index", "ProjectInfo")'
+                    },
+                    error: function () {
+                        // Handle error
+                        alert('An error occurred while creating the project.');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

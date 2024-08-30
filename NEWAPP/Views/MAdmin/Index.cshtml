@@ -1,0 +1,109 @@
+﻿@model IEnumerable<DomainModels.MAdmin>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flag)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            @if (!item.Flag)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedAt)
+                    </td>
+                    <td>
+                        @if (!item.Flag)
+                        {
+                           @*  <button class="btn btn-success flag-button" data-id="@item.Id">Active</button> *@
+                            <button class="btn btn-danger flag-button" data-id="@item.Id">Inactive</button>
+                        }
+                        
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+           
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.flag-button').on('click', function () {debugger
+                var button = $(this);
+                var id = button.data('id');
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "MAdmin")',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (response) {
+                        if (response.flag) {
+                            button.removeClass('btn-danger').addClass('btn-success').text('Active');
+                            window.location.href = '@Url.Action("Index", "UserAdmin")';
+                        } else {
+                            button.removeClass('btn-success').addClass('btn-danger').text('Inactive');
+                        }
+                    },
+                    error: function () {
+                        alert('Error toggling flag.');
+                    }
+                });
+            });
+        });
+    </script>
+}

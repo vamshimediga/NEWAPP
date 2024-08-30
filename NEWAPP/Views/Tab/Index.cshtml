@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DomainModels.Tab>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.tabID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tabName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tabPosition)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tabID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tabName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tabPosition)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.tabID }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.tabID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.tabID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,107 @@
+﻿@model DomainModels.Lead
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Lead</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12" >
+        @Html.AntiForgeryToken()
+        <form asp-action="Edit" method="post">
+            <div class="row">
+               
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="LeadID">LeadID</label>
+                            <input type="text" asp-for="LeadID" class="form-control" />
+                            <span asp-validation-for="LeadID" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FirstName">FirstName</label>
+                            <input type="text" asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="LastName">LastName</label>
+                            <input type="text" asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="alert-danger"></span>
+                        </div>
+                    </div>
+             </div>
+                    
+            <div class="row">
+                
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Email">Email</label>
+                            <input type="text" asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">PhoneNumber</label>
+                            <input type="text" asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="LeadSource">LeadSource</label>
+                            <input type="text" asp-for="LeadSource" class="form-control" />
+                            <span asp-validation-for="LeadSource" class="alert-danger"></span>
+                        </div>
+                    </div>
+             </div>
+             
+            <div class="row">
+               
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Status">Status</label>
+                            <input type="text" asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CreatedDate">CreatedDate</label>
+                            <input type="datetime" asp-for="CreatedDate" class="form-control" />
+                            <span asp-validation-for="CreatedDate" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ModifiedDate">ModifiedDate</label>
+                            <input type="text" asp-for="ModifiedDate" class="form-control" />
+                            <span asp-validation-for="ModifiedDate" class="alert-danger"></span>
+                        </div>
+                    </div>
+
+               
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+            

@@ -1,0 +1,71 @@
+﻿@model DomainModels.DefectiveProducts
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>DefectiveProducts</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="editForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DefectiveProductID" class="control-label"></label>
+                <input asp-for="DefectiveProductID" class="form-control" />
+                <span asp-validation-for="DefectiveProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label"></label>
+                <input asp-for="ProductID" class="form-control" />
+                <span asp-validation-for="ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefectDescription" class="control-label"></label>
+                <input asp-for="DefectDescription" class="form-control" />
+                <span asp-validation-for="DefectDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" id="saveButton" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {debugger
+            $('#saveButton').click(function () {debugger
+                var formData = {
+                    DefectiveProductID: $('#DefectiveProductID').val(),
+                    ProductID: $('#ProductID').val(),
+                    DefectDescription: $('#DefectDescription').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Edit", "DefectiveProducts")',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {debugger
+                            window.location.href = '@Url.Action("Index", "DefectiveProducts")';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        alert('Error: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+}

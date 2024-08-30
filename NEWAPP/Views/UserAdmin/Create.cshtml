@@ -1,0 +1,83 @@
+﻿@model DomainModels.UserAdmin
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>UserAdmin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="createUserAdminForm" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedAt" class="control-label"></label>
+                <input asp-for="UpdatedAt" class="form-control" />
+                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Flag" /> @Html.DisplayNameFor(model => model.Flag)
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="button" id="createUserAdminBtn" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // AJAX form submission
+            $('#createUserAdminBtn').click(function () {debugger
+                $.ajax({
+                    url: '@Url.Action("Create", "UserAdmin")', // Replace with your controller action URL
+                    method: 'POST',
+                    data: $('#createUserAdminForm').serialize(),
+                    success: function (response) {
+                        window.location.href = '@Url.Action("Index", "UserAdmin")';
+                    },
+                    error: function (error) {
+                        // Handle error response
+                        console.error('Error creating UserAdmin:', error);
+                        // Optionally, display error messages or handle UI updates
+                    }
+                });
+            });
+        });
+    </script>
+}

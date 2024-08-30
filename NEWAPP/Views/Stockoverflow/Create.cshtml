@@ -1,0 +1,101 @@
+﻿@model DomainModels.Stockoverflow
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Stockoverflow</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="StackID" class="control-label"></label>
+                <input asp-for="StackID" class="form-control" />
+                <span asp-validation-for="StackID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackName" class="control-label"></label>
+                <input asp-for="StackName" class="form-control" id="StackName" />
+                <span asp-validation-for="StackName" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.StackEmail)
+                @Html.TextBoxFor(model => model.StackEmail, new { @class = "form-control", id = "StackEmail" })
+                <span id="EmailError" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackPhone" class="control-label"></label>
+                <input asp-for="StackPhone" class="form-control" id="StackPhone" />
+                <span asp-validation-for="StackPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="createButton" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#createButton").click(function (e) {debugger
+                e.preventDefault();
+
+                var stockoverflow = {
+                    StackName: $("#StackName").val(),
+                    StackEmail: $("#StackEmail").val(),
+                    StackPhone: $("#StackPhone").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Create", "Stockoverflow")',
+                    data: JSON.stringify(stockoverflow),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {debugger
+                        if (response.success) {
+                            alert("Record created successfully. ID: " + response.id);
+                            window.location.href = '@Url.Action("Index", "Stockoverflow")';
+                        } else {
+                            alert("Error creating record: " + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while creating the record.");
+                    }
+                });
+            });
+
+            $('#StackEmail').blur(function () {debugger
+                var email = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("IsEmailAvailable", "Stockoverflow")',
+                    type: 'POST',
+                    data: { email: email },
+                    success: function (data) {debugger
+                        if (data) {
+                            $('#EmailError').text('Email already exists');
+                        } else {
+                            $('#EmailError').text('');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

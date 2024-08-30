@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DomainModels.DefectiveProducts>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<span>@ViewBag.cookieValue</span>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DefectiveProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefectDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefectiveProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefectDescription)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DefectiveProductID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.DefectiveProductID }) |
+                    <button class="deleteLink btn btn-danger" data-id="@item.DefectiveProductID">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function closeParentModal() {
+            $('#parentModal').modal('hide');
+        }
+
+        $(".deleteLink").click(function (e) {debugger
+            e.preventDefault();  // Prevent the default button behavior
+            var id = $(this).data("id");
+            $.ajax({
+                url: '/DefectiveProducts/Delete/' + id,
+                type: 'GET',
+                success: function (data) {debugger
+                    $('#parentModal .modal-body').html(data);
+                    $('#parentModalLabel').text('Delete DefectiveProduct');
+                    $('#parentModal').modal('show');
+                },
+                error: function () {
+                    alert('Error occurred while fetching DefectiveProduct details.');
+                }
+            });
+        });
+    </script>
+}
+<div class="modal fade" id="parentModal" tabindex="-1" role="dialog" aria-labelledby="parentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="parentModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeParentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>

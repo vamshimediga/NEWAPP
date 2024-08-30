@@ -1,0 +1,74 @@
+﻿@model DomainModels.Manager
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@using (Html.BeginForm("Create", "Manager", FormMethod.Post))
+{
+    <h1>Create</h1>
+
+
+    <h4>Manager</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ManagerID, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ManagerID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ManagerID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Email,new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" id="createManagerBtn" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        @* $(document).ready(function () {
+            $("#createManagerBtn").click(function () {debugger
+                $.ajax({
+                    url: '@Url.Action("Create", "Manager")',
+                    type: 'POST',
+                    data: $("#createManagerForm").serialize(),
+                    success: function (result.indexOf('<!DOCTYPE html>') === -1) {
+                        debugger
+
+                        window.location.href = '@Url.Action("Index", "Manager")';
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        alert("Error creating manager: " + xhr.responseText);
+                    }
+                });
+            });
+        });*@
+    </script> 
+}

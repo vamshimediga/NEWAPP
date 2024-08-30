@@ -1,0 +1,194 @@
+﻿@model IEnumerable<DomainModels.Employees>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<input type="date" id="dateInput">
+<table class="table" id="employeeTable">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="selectAll" />
+                <label for="selectAll">SELECT ALL</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    <input type="checkbox" name="selectedEmployees" value="@item.EmployeeId" class="employeeCheckbox" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId })
+                    <a href="#" class="deleteLink" data-id="@item.EmployeeId">Delete</a>
+                   
+                   
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {debugger
+            var currentDate = new Date();
+            var year = currentDate.getFullYear();
+            var month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+            var day = currentDate.getDate().toString().padStart(2, "0");
+            var formattedDate = `${year}-${month}-${day}`;
+            document.getElementById("dateInput").value = formattedDate;
+            // Function to handle select all checkbox
+            document.getElementById("selectAll").addEventListener("change", function () {debugger
+                var checkboxes = document.querySelectorAll(".employeeCheckbox");
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.checked = this.checked;
+                }, this);
+            });
+
+            // Event delegation for handling individual checkbox change
+            document.querySelector("tbody").addEventListener("change", function (event) {debugger
+                if (event.target.classList.contains("employeeCheckbox")) {
+                    var allChecked = true;
+                    var checkboxes = document.querySelectorAll(".employeeCheckbox");
+                    checkboxes.forEach(function (checkbox) {
+                        if (!checkbox.checked) {
+                            allChecked = false;
+                        }
+                    });
+                    document.getElementById("selectAll").checked = allChecked;
+                }
+            });
+
+            document.querySelectorAll('.deleteLink').forEach(link => {debugger
+                link.addEventListener('click', function (event) {debugger
+                    event.preventDefault(); // Prevent default link behavior
+
+                    var employeeId = this.getAttribute('data-id');
+
+                    // Send AJAX request to delete the selected employee
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Employee")', // Replace with your controller and action names
+                        type: 'POST',
+                        data: { id: employeeId },
+                        success: function (response) {debugger
+                            if (response.success) {
+                                // Optionally, update UI or show a message
+                                alert('Employee deleted successfully');
+                                // Reload the page or update UI as needed
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete employee');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed to delete employee');
+                        }
+                    });
+                });
+            });
+
+            document.getElementById("dateInput").addEventListener("change", function () {
+                var selectedDate = new Date(this.value);
+                selectedDate.setHours(0, 0, 0, 0); // Set time to midnight
+                var currentDate = new Date();
+                currentDate.setHours(0, 0, 0, 0); // S
+                if (!this.value) {
+                    document.getElementById("employeeTable").style.display = "block";
+                }
+              
+                else if (selectedDate >= currentDate) {
+                    document.getElementById("employeeTable").style.display = "block";
+                    document.getElementById("employeeTable").style.width = "100%";
+                }
+               
+                else {
+                    document.getElementById("employeeTable").style.display = "none";
+                }
+            });
+
+        });
+
+        // $(document).ready(function () {
+        //     var currentDate = new Date();
+        //     var year = currentDate.getFullYear();
+        //     var month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+        //     var day = currentDate.getDate().toString().padStart(2, "0");
+        //     var formattedDate = `${year}-${month}-${day}`;
+        //     $("#dateInput").val(formattedDate);
+
+        //     // Function to handle select all checkbox
+        //     $("#selectAll").change(function () {debugger
+        //         $(".employeeCheckbox").prop("checked", $(this).prop("checked"));
+        //     });
+
+        //     // Event delegation for handling individual checkbox change
+        //     $("tbody").on("change", ".employeeCheckbox", function () {debugger
+        //         var allChecked = $(".employeeCheckbox:checked").length === $(".employeeCheckbox").length;
+        //         $("#selectAll").prop("checked", allChecked);
+        //     });
+
+        //     $(".deleteLink").click(function (event) {debugger
+        //         event.preventDefault(); // Prevent default link behavior
+
+        //         var employeeId = $(this).data('id');
+
+        //         // Send AJAX request to delete the selected employee
+        //         $.ajax({
+        //             url: '@Url.Action("Delete", "Employee")', // Replace with your controller and action names
+        //             type: 'POST',
+        //             data: { id: employeeId },
+        //             success: function (response) {
+        //                 if (response.success) {
+        //                     // Optionally, update UI or show a message
+        //                     alert('Employee deleted successfully');
+        //                     // Reload the page or update UI as needed
+        //                     window.location.reload();
+        //                 } else {
+        //                     alert('Failed to delete employee');
+        //                 }
+        //             },
+        //             error: function () {
+        //                 alert('Failed to delete employee');
+        //             }
+        //         });
+        //     });
+
+        //     $("#dateInput").change(function () {debugger
+        //         var selectedDate = new Date($(this).val());
+        //         selectedDate.setHours(0, 0, 0, 0); // Set time to midnight
+        //         var currentDate = new Date();
+        //         currentDate.setHours(0, 0, 0, 0);
+
+        //         if (!$(this).val()) {
+        //             $("#employeeTable").show();
+        //         } else if (selectedDate >= currentDate) {
+        //             $("#employeeTable").show().css("width", "100%");
+        //         } else {
+        //             $("#employeeTable").hide();
+        //         }
+        //     });
+        // });
+
+    </script>
+}

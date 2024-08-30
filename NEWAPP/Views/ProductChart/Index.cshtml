@@ -1,0 +1,132 @@
+﻿@model List<DomainModels.ProductChart>
+
+@{
+    ViewBag.Title = "Sales Data";
+}
+
+<h2>Sales Data ProductChart</h2>
+
+<label for="productSelect">Select Product:</label>
+<select id="productSelect" onchange="drawPieChart()" class="form-control col-3">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Product">@item.Product</option>
+    }
+</select>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Product');
+        data.addColumn('number', 'Q1');
+        data.addColumn('number', 'Q2');
+        data.addColumn('number', 'Q3');
+        data.addColumn('number', 'Q4');
+
+        data.addRows([
+    @foreach (var item in Model)
+    {
+        @:['@item.Product', @item.Q1, @item.Q2, @item.Q3, @item.Q4],
+    }
+                ]);
+
+        var options = {
+            title: 'Product Sales per Quarter',
+            chartArea: { width: '50%' },
+            hAxis: {
+                title: 'Total Sales',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Product'
+            }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        drawPieChart();
+       
+       
+    }
+    function drawPieChart() {debugger
+        var product = document.getElementById("productSelect").value;
+
+        $.ajax({
+            url: '@Url.Action("GetProductData", "ProductChart")',
+            data: { product: product },
+            success: function (data) {debugger
+                if (data) {
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('string', 'Quarter');
+                    dataTable.addColumn('number', 'Sales');
+
+                    dataTable.addRows([
+                        ['Q1', data.q1],
+                        ['Q2', data.q2],
+                        ['Q3', data.q3],
+                        ['Q4', data.q4]
+                    ]);
+
+                    var options = {
+                        title: 'Sales Data for Product ' + product,
+                        is3D: true
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+                    chart.draw(dataTable, options);
+                    drawLineChart();
+                }
+            }
+        });
+       
+    }
+    
+    function drawLineChart() {
+        
+        var product = document.getElementById("productSelect").value;
+
+        $.ajax({
+            url: '@Url.Action("GetProductData", "ProductChart")',
+            data: { product: product },
+            success: function (data) {
+                debugger
+                if (data) {
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('string', 'Quarter');
+                    dataTable.addColumn('number', 'Sales');
+
+                    dataTable.addRows([
+                        ['Q1', data.q1],
+                        ['Q2', data.q2],
+                        ['Q3', data.q3],
+                        ['Q4', data.q4]
+                    ]);
+
+                    var options = {
+                        title: 'Sales Data for Product ' + product,
+                        is3D: true
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('lineChart_div'));
+                   
+                    chart.draw(dataTable, options);
+
+                }
+            }
+        });
+
+    }
+  
+
+    
+</script>
+
+
+<div style="display: flex;">
+    <div id="chart_div" style="width: 33%; height: 500px;"></div>
+    <div id="piechart_div" style="width: 33%; height: 500px;"></div>
+    <div id="lineChart_div" style="width: 33%; height: 500px;"></div>
+</div>
+

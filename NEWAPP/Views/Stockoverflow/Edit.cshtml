@@ -1,0 +1,46 @@
+﻿@model DomainModels.Stockoverflow
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Stockoverflow</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StackID" class="control-label"></label>
+                <input asp-for="StackID" class="form-control" />
+                <span asp-validation-for="StackID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackName" class="control-label"></label>
+                <input asp-for="StackName" class="form-control" />
+                <span asp-validation-for="StackName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackEmail" class="control-label"></label>
+                <input asp-for="StackEmail" class="form-control" />
+                <span asp-validation-for="StackEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackPhone" class="control-label"></label>
+                <input asp-for="StackPhone" class="form-control" />
+                <span asp-validation-for="StackPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

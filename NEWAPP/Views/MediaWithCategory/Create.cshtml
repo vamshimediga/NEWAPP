@@ -1,0 +1,91 @@
+﻿@model DomainModels.MediaWithCategory
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>MediaWithCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "MediaWithCategory", FormMethod.Post, new { id = "createForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MediaType" class="control-label"></label>
+                <input asp-for="MediaType" class="form-control" />
+                <span asp-validation-for="MediaType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryID" class="control-label"></label>
+                <input asp-for="CategoryID" class="form-control" />
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#createForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent the form from submitting via the browser
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Create", "MediaWithCategory")',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        // Check if the response indicates success
+                        if (response.success) {
+                            window.location.href = '@Url.Action("Index", "MediaWithCategory")';
+                        } else {
+                            // Display server-side validation errors
+                            if (response.errors) {
+                                var validationSummary = $(".validation-summary-errors");
+                                validationSummary.empty(); // Clear previous errors
+
+                                $.each(response.errors, function (index, error) {
+                                    validationSummary.append("<div>" + error + "</div>");
+                                });
+                            } else {
+                                alert('Error: ' + response.message);
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while creating the media.');
+                    }
+                });
+            });
+        });
+    </script>
+}

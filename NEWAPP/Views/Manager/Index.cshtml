@@ -1,0 +1,103 @@
+﻿@model IEnumerable<DomainModels.Manager>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<button id="deleteSelected" class="btn btn-primary">Delete Selected</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" class="managerCheckbox" value="@item.ManagerID" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManagerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ManagerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ManagerID }) |
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Select/Deselect all checkboxes
+            $('#selectAll').on('change', function () {
+                $('.managerCheckbox').prop('checked', $(this).prop('checked'));
+            });
+            // Delete selected records
+            $('#deleteSelected').on('click', function () {
+                var selectedIds = [];
+                $('.managerCheckbox:checked').each(function () {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Manager")', // Adjust this URL based on your controller/action
+                        type: 'POST',
+                        data: JSON.stringify(selectedIds),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (response) {
+                            if (response.success) {
+                                alert('Selected records deleted successfully.');
+                                location.reload(); // Reload the page to reflect changes
+                            } else {
+                                alert('An error occurred while deleting the records.');
+                            }
+                        },
+                        error: function () {
+                            alert('An error occurred while processing your request.');
+                        }
+                    });
+                } else {
+                    alert('Please select at least one record to delete.');
+                }
+            });
+
+        });
+
+    </script>
+}
