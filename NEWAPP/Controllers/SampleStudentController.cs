@@ -27,10 +27,6 @@ namespace NEWAPP.Controllers
             return View();
         }
 
-
-
-
-
         // GET: SampleStudentController/Create
         public ActionResult Create()
         {
