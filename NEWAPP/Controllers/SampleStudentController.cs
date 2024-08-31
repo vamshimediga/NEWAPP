@@ -33,6 +33,9 @@ namespace NEWAPP.Controllers
             return View();
         }
 
+
+
+
         // POST: SampleStudentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
