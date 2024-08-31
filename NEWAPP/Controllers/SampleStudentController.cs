@@ -21,7 +21,7 @@ namespace NEWAPP.Controllers
             return View(sampleStudents);
         }
 
-        // GET: SampleStudentController/Details/0
+        // GET: SampleStudentController/Details/5
         public ActionResult Details(int id)
         {
             return View();
