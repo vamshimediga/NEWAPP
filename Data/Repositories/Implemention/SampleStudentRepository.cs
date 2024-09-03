@@ -21,7 +21,12 @@ namespace Data.Repositories.Implemention
         {
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
-       
+
+        public SampleStudent GetStudent(int id)
+        {
+            SampleStudent student = _connection.QueryFirstOrDefault<SampleStudent>("GetStudentById",new { @StudentID =id});
+            return student; 
+        }
 
         public List<SampleStudent> GetStudents()
         {
