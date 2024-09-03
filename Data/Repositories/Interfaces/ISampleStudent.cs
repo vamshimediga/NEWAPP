@@ -10,5 +10,7 @@ namespace Data.Repositories.Interfaces
     public interface ISampleStudent
     {
         List<SampleStudent> GetStudents();
+
+        SampleStudent GetStudent(int id);
     }
 }

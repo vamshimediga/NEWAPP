@@ -112,5 +112,42 @@ namespace NEWAPP.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public IActionResult FileUpload()
+        {
+            return View();
+        }
+
+        // POST: FileUpload
+        [HttpPost]
+        public async Task<IActionResult> FileUpload(FileUploadModel model)
+        {
+            if (model.File != null && model.File.Length > 0)
+            {
+                // Get the file name and combine it with the target directory path
+                var fileName = Path.GetFileName(model.File.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads"));
+
+                // Save the file to the target directory
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.File.CopyToAsync(stream);
+                }
+
+                ViewBag.Message = "File uploaded successfully!";
+                ViewBag.FileName = fileName;
+            }
+            else
+            {
+                ViewBag.Message = "Please select a file.";
+            }
+
+            return View();
+        }
+
     }
 }

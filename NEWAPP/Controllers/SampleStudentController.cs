@@ -54,7 +54,8 @@ namespace NEWAPP.Controllers
         // GET: SampleStudentController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SampleStudent sampleStudent = _sampleStudent.GetStudent(id);
+            return View(sampleStudent);
         }
 
         // POST: SampleStudentController/Edit/5

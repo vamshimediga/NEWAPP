@@ -1,0 +1,40 @@
+﻿@model DomainModels.FileUploadModel;
+
+@{
+    ViewData["Title"] = "FileUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>FileUpload</h1>
+
+
+<h2>Upload File</h2>
+
+<form asp-action="FileUpload" asp-controller="MAdmin" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="Description">Description:</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <label for="File">Select file:</label>
+        <input type="file" asp-for="File" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <input type="submit" value="Upload" class="btn btn-primary" />
+    </div>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
+
+@if (ViewBag.FileName != null)
+{
+    <h3>Uploaded File:</h3>
+    <p>@ViewBag.FileName</p>
+}

@@ -14,6 +14,7 @@ using NEWAPP.Filters.ActionFilters;
 using OfficeOpenXml;
 using NEWAPP.Filters.AuthorizationFilter;
 using NEWAPP.Filters.ExceptionFilter;
+using Microsoft.AspNetCore.Http.Features;
 
 
 namespace startupfile
@@ -31,8 +32,11 @@ namespace startupfile
         {
           services.AddControllersWithViews().AddNewtonsoftJson();
           services.AddHttpClient();
-         
-          services.AddScoped<CustomExceptionFilter>();
+            services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 104857600; // 100 MB
+            });
+            services.AddScoped<CustomExceptionFilter>();
           services.AddScoped<CustomAuthorizationFilte>();
           services.AddScoped<IClient, ClientRepository>();
           services.AddScoped<ICompanyUsers, CompanyUsersRepository>();
