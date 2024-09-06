@@ -1,0 +1,72 @@
+﻿@model DomainModels.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>@ViewData["Title"]</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form id="loginForm">
+                    <div id="error-message" class="alert alert-danger d-none"></div>
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').on('submit', function (e) {debugger
+                e.preventDefault(); // Prevent the default form submission
+
+                // Clear previous error messages
+                $('#error-message').addClass('d-none').text('');
+
+                // Collect form data
+                var formData = $(this).serialize();
+
+                // Send AJAX request
+                $.ajax({
+                    url: '/auth/login',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Store the token in localStorage and redirect
+                        localStorage.setItem('token', response.token);
+                        window.location.href = '/'; // Redirect to the home page or any other page
+                    },
+                    error: function (xhr) {
+                        // Display error message
+                        $('#error-message').removeClass('d-none').text(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

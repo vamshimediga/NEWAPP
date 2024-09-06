@@ -15,6 +15,8 @@ using OfficeOpenXml;
 using NEWAPP.Filters.AuthorizationFilter;
 using NEWAPP.Filters.ExceptionFilter;
 using Microsoft.AspNetCore.Http.Features;
+using NEWAPP;
+using DomainModels;
 
 
 namespace startupfile
@@ -30,8 +32,33 @@ namespace startupfile
 
         public void ConfigureServices(IServiceCollection services)
         {
-          services.AddControllersWithViews().AddNewtonsoftJson();
-          services.AddHttpClient();
+            // Add TokenService to the DI container
+            services.AddSingleton<TokenService>(new TokenService("A4e1eYB4WmI1D9Cj/NBzNp1HzNs30WqO2yZVoUmD8GQ="));
+            services.AddControllersWithViews().AddNewtonsoftJson();
+            var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+
+            
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
+            services.AddHttpClient();
             services.Configure<FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = 104857600; // 100 MB
@@ -63,25 +90,13 @@ namespace startupfile
           services.AddScoped<ILeads, LeadsRepository>();
           services.AddScoped<ICourse, CourseRepository>();
             services.AddScoped<ISampleStudent, SampleStudentRepository>();
+            services.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
           services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = "your-issuer",
-                        ValidAudience = "your-audience",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-key"))
-                    };
-                });
+            
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

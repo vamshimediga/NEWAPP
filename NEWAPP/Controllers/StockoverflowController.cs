@@ -16,7 +16,7 @@ namespace NEWAPP.Controllers
         _stockoverflowRepo = stockoverflow;
         }
         [HttpGet]
-        [Route("/")]
+        
         [Route("StockoverflowList")]
         public ActionResult Index()
         {
