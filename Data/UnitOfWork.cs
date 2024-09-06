@@ -1,5 +1,6 @@
 ﻿using Data.Repositories.Implemention;
 using Data.Repositories.Interfaces;
+using DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,5 +63,7 @@ namespace Data
 
        
         public ISampleStudent smpleStudent { get; }
+
+        public ICustomerDATARepository<CustomerData> CustomerDATARepository { get; }
     }
 }

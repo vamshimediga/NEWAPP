@@ -1,4 +1,5 @@
 ﻿using Data.Repositories.Interfaces;
+using DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,8 @@ namespace Data
 
         ICourse course { get; }
         ISampleStudent smpleStudent { get; }
+
+        ICustomerDATARepository<CustomerData> CustomerDATARepository { get; }
 
     }
 }

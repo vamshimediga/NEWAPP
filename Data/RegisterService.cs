@@ -1,5 +1,6 @@
 ﻿using Data.Repositories.Implemention;
 using Data.Repositories.Interfaces;
+using DomainModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace Data
             service.AddScoped<ILeads, LeadsRepository>();   
             service.AddScoped<ICourse, CourseRepository>(); 
             service.AddScoped<ISampleStudent, SampleStudentRepository>();
+            service.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
         }
     }
 }

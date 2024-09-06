@@ -93,6 +93,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="CompanyUsers.cs" />
     <Compile Include="Course.cs" />
+    <Compile Include="CustomerData.cs" />
     <Compile Include="DefectiveProducts.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="FileUploadModel.cs" />
