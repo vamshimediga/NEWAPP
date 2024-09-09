@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Data.Repositories.Implemention
 {
@@ -20,9 +22,13 @@ namespace Data.Repositories.Implemention
         connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         } 
 
-        public  Task<bool> DeleteAsync(int id)
+        public async  Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            string ids=  string.Join(",", id);
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@CustomerIDsToDelete", ids);
+            int affectedRows = await connection.ExecuteAsync("DeleteMultipleCustomers", dynamicParameters);
+            return true;  
         }
 
         public async Task<List<CustomerData>> GetAllAsync()
@@ -31,9 +37,11 @@ namespace Data.Repositories.Implemention
             return customerDatas;
         }
 
-        public Task<CustomerData> GetByIdAsync(int id)
+        public async  Task<CustomerData> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            CustomerData CustomerData = await connection.QueryFirstOrDefaultAsync<CustomerData>("GetCustomerByID", new { @CustomerID = id });
+            return CustomerData;
+          
         }
 
         public async  Task<int> InsertAsync(CustomerData entity)
@@ -51,9 +59,23 @@ namespace Data.Repositories.Implemention
 
         }
 
-        public  Task<int> UpdateAsync(CustomerData entity)
+
+        public async Task<int> UpdateAsync(CustomerData entity)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@CustomerID", entity.CustomerID, DbType.Int32, ParameterDirection.InputOutput);
+            parameters.Add("@FirstName", entity.FirstName);
+            parameters.Add("@LastName", entity.LastName);
+            parameters.Add("@Email", entity.Email);
+            parameters.Add("@PhoneNumber", entity.PhoneNumber);
+
+            // Execute the stored procedure
+            await connection.ExecuteAsync("UpdateCustomerData", parameters);
+
+            // Retrieve the updated CustomerID (Output parameter)
+            int id = parameters.Get<int>("@CustomerID");
+            return id;
         }
+
     }
 }

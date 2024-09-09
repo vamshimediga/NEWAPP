@@ -38,3 +38,7 @@
     <h3>Uploaded File:</h3>
     <p>@ViewBag.FileName</p>
 }
+@if (ViewBag.FileName != null)
+{
+    <a href="/MAdmin/Download?fileName=@ViewBag.FileName">Download @ViewBag.FileName</a>
+}

@@ -149,5 +149,25 @@ namespace NEWAPP.Controllers
             return View();
         }
 
+          [HttpGet]
+    public IActionResult Download(string fileName)
+    {
+        if (string.IsNullOrEmpty(fileName))
+        {
+            return Content("File name is not provided.");
+        }
+
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return Content("File not found.");
+        }
+
+        // Get the MIME type based on the file extension
+        var mimeType = "application/octet-stream"; // Default binary file type
+        return PhysicalFile(filePath, mimeType, fileName);
+    }
+
     }
 }
