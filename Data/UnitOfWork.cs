@@ -65,5 +65,9 @@ namespace Data
         public ISampleStudent smpleStudent { get; }
 
         public ICustomerDATARepository<CustomerData> CustomerDATARepository { get; }
+
+        public IHumanResources humanResources { get; }
+
+        public ILeadSource leadSource { get; }
     }
 }

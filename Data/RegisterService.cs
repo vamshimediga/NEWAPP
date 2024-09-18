@@ -38,6 +38,8 @@ namespace Data
             service.AddScoped<ICourse, CourseRepository>(); 
             service.AddScoped<ISampleStudent, SampleStudentRepository>();
             service.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
+            service.AddScoped<IHumanResources, HumanResourcesRepository>();
+            service.AddScoped<ILeadSource, LeadSourceRepository>();
         }
     }
 }

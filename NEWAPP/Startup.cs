@@ -63,7 +63,7 @@ namespace startupfile
             {
                 options.MultipartBodyLengthLimit = 104857600; // 100 MB
             });
-            services.AddScoped<CustomExceptionFilter>();
+          services.AddScoped<CustomExceptionFilter>();
           services.AddScoped<CustomAuthorizationFilte>();
           services.AddScoped<IClient, ClientRepository>();
           services.AddScoped<ICompanyUsers, CompanyUsersRepository>();
@@ -89,9 +89,11 @@ namespace startupfile
           services.AddScoped<IRestaurant, RestaurantRepository>();
           services.AddScoped<ILeads, LeadsRepository>();
           services.AddScoped<ICourse, CourseRepository>();
-            services.AddScoped<ISampleStudent, SampleStudentRepository>();
-            services.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
-          services.AddControllersWithViews(options =>
+          services.AddScoped<ISampleStudent, SampleStudentRepository>();
+          services.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
+          services.AddScoped<IHumanResources, HumanResourcesRepository>();
+          services.AddScoped<ILeadSource, LeadSourceRepository>();
+            services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
             });

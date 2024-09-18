@@ -98,7 +98,9 @@
     <Compile Include="Employees.cs" />
     <Compile Include="FileUploadModel.cs" />
     <Compile Include="HRMGER.cs" />
+    <Compile Include="HumanResources.cs" />
     <Compile Include="Lead.cs" />
+    <Compile Include="LeadSource.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="MAdmin.cs" />
     <Compile Include="Manager.cs" />

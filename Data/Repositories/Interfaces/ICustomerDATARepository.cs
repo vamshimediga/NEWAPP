@@ -13,6 +13,7 @@ namespace Data.Repositories.Interfaces
         Task<int> InsertAsync(T entity);
         Task<int> UpdateAsync(T entity);
         Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteMultipleAsync(List<int> ids);
     }
 
 }

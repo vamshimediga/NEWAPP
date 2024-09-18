@@ -21,11 +21,11 @@ namespace DomainModels
         [Required]
         public int Credits { get; set; }  // Number of credits for the course
 
-        public int? DepartmentID { get; set; }  // Nullable DepartmentID, as it can be NULL
+        public Nullable<int> DepartmentID { get; set; }  // Nullable DepartmentID, as it can be NULL
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;  // Default to current date and time
 
-        public DateTime? ModifiedDate { get; set; }  // Nullable ModifiedDate, as it can be NULL
+        public Nullable<DateTime> ModifiedDate { get; set; }  // Nullable ModifiedDate, as it can be NULL
     }
 
 }

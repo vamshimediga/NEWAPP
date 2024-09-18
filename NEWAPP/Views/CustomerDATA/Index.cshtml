@@ -10,9 +10,19 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<p>
+    <button id="delete-button" class="btn btn-danger">Delete Selected</button>
+</p>
+
+<div id="result"></div>
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                <input type="checkbox" id="select-all" /> <!-- Checkbox to select/deselect all -->
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.CustomerID)
             </th>
@@ -32,29 +42,83 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.CustomerID }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                 @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr id="row-@item.CustomerID">
+                <td>
+                    <input type="checkbox" class="customer-checkbox" value="@item.CustomerID" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle "Select All" checkbox
+            $('#select-all').click(function () {
+                var isChecked = $(this).is(':checked');
+                $('.customer-checkbox').prop('checked', isChecked);
+            });
+
+            // Handle Delete Selected button click
+            $('#delete-button').click(function () {
+                debugger;
+                var selectedCustomers = [];
+
+                $('.customer-checkbox:checked').each(function () {
+                    selectedCustomers.push(parseInt($(this).val()));
+                });
+
+                if (selectedCustomers.length === 0) {
+                    alert("No customers selected for deletion.");
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("DeleteMultiple", "CustomerDATA")', // Ensure this matches your controller and action
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(selectedCustomers), // Convert array to JSON
+                    success: function (response) {
+                        if (response.success) {
+                            $('#result').html('<div class="alert alert-success">' + response.message + '</div>');
+                            // Remove deleted rows from the table
+                            selectedCustomers.forEach(function (id) {
+                                $('#row-' + id).remove();
+                            });
+                        } else {
+                            $('#result').html('<div class="alert alert-danger">' + response.message + '</div>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: " + error);
+                        $('#result').html('<div class="alert alert-danger">An error occurred while processing your request.</div>');
+                    }
+                });
+            });
+        });
+
+    </script>
+}

@@ -114,6 +114,34 @@ namespace NEWAPP.Controllers
                 return View("Error");
             }
         }
+
+        [HttpPost]
         
+        public async Task<ActionResult> DeleteMultiple([FromBody] List<int> ids)
+        {
+            try
+            {
+                if (ids == null || !ids.Any())
+                {
+                    return Json(new { success = false, message = "No customers selected for deletion." });
+                }
+
+                bool result = await _customerDATARepository.DeleteMultipleAsync(ids);
+                if (result)
+                {
+                    return Json(new { success = true, message = "Customer data deleted successfully!" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Error occurred while deleting customer data." });
+                }
+            }
+            catch
+            {
+                return Json(new { success = false, message = "An error occurred while deleting customer data." });
+            }
+        }
+
+
     }
 }

@@ -47,5 +47,9 @@ namespace Data
 
         ICustomerDATARepository<CustomerData> CustomerDATARepository { get; }
 
+        IHumanResources humanResources { get; }
+
+        ILeadSource leadSource { get; }
+
     }
 }

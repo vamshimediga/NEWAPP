@@ -31,6 +31,19 @@ namespace Data.Repositories.Implemention
             return true;  
         }
 
+        public async Task<bool> DeleteMultipleAsync(List<int> ids)
+        {
+            string idss="";
+            foreach (int id in ids)
+            {
+                idss = string.Join(",", ids);
+            }
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@CustomerIDsToDelete", idss);
+            int affectedRows = await connection.ExecuteAsync("DeleteMultipleCustomers", dynamicParameters);
+            return true;
+        }
+
         public async Task<List<CustomerData>> GetAllAsync()
         {
             List<CustomerData> customerDatas = (List<CustomerData>)await connection.QueryAsync<CustomerData>("GetAllCustomers");
