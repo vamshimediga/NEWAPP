@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.LeadSourceID)
             </th>
             <th>
@@ -34,6 +37,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+               <td>
+                    <input type="checkbox" class="row-select" data-id="@item.LeadSourceID" />
+             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LeadSourceID)
             </td>
@@ -50,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.ModifiedDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new {  id=item.LeadSourceID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

@@ -10,6 +10,10 @@ namespace Data.Repositories.Interfaces
     public interface ILeadSource
     {
         Task<List<LeadSource>> GetleadSources();
+        Task<LeadSource> GetById(int id);
         Task<int> Insert(LeadSource leadSource);
+
+        Task<int> Update(LeadSource leadSource);
+       
     }
 }
