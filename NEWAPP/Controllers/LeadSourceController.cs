@@ -27,11 +27,7 @@ namespace NEWAPP.Controllers
         }
 
 
-        // GET: LeadSourceController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+      
 
         // GET: LeadSourceController/Create
         public ActionResult Create()
@@ -138,7 +134,13 @@ namespace NEWAPP.Controllers
             return "123456"; // Example OTP
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteMultiple(string leadSourceIds)
+        {
 
+            bool flag=  await _leadSource.DeleteMultipleAsync(leadSourceIds);
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

@@ -10,6 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<button id="deleteSelected" class="btn btn-danger">Delete Selected</button>
 <table class="table">
     <thead>
         <tr>
@@ -58,9 +59,42 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.LeadSourceID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectAll').click(function () {debugger
+            $('.row-select').prop('checked', this.checked);
+        });
+
+        $('#deleteSelected').click(function () {debugger
+            var selectedIds = [];
+            $('.row-select:checked').each(function () {
+                selectedIds.push($(this).data('id'));
+            });
+
+            if (selectedIds.length > 0) {
+                if (confirm("Are you sure you want to delete the selected Lead Sources?")) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteMultiple", "LeadSource")',
+                        type: 'POST',
+                        data: { leadSourceIds: selectedIds.join(',') },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            } else {
+                alert("Please select at least one record.");
+            }
+        });
+      
+    });
+</script>
+
+

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
+using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,32 +23,21 @@ namespace Data.Repositories.Implemention
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public Task<int> Delete(int id)
+     
+
+     
+
+        public async Task<bool> DeleteMultipleAsync(string leadSourceIds)
         {
-            throw new NotImplementedException();
+            var sql = "[dbo].[DeleteMultipleLeadsourceIds]"; // Stored procedure for multiple delete
+            var parameters = new DynamicParameters();
+            parameters.Add("@LeadSourceIDs", leadSourceIds);
+            await _connection.ExecuteAsync(sql, parameters);
+            return true;
         }
 
-        //public async Task<bool> DeleteAsync(int id)
-        //{
-        //    string ids = string.Join(",", id);
-        //    DynamicParameters dynamicParameters = new DynamicParameters();
-        //    dynamicParameters.Add("@LeadsourceToDelete", ids);
-        //    int affectedRows = await _connection.ExecuteAsync("DeleteMultipleLeadsource", dynamicParameters);
-        //    return true;
-        //}
 
-        //public async Task<bool> DeleteMultipleAsync(List<int> ids)
-        //{
-        //    string idss = "";
-        //    foreach (int id in ids)
-        //    {
-        //        idss = string.Join(",", ids);
-        //    }
-        //    DynamicParameters dynamicParameters = new DynamicParameters();
-        //    dynamicParameters.Add("@LeadsourceToDelete", idss);
-        //    int affectedRows = await _connection.ExecuteAsync("DeleteMultipleLeadsource", dynamicParameters);
-        //    return true;
-        //}
+
 
         public async Task<LeadSource> GetById(int id)
         {
