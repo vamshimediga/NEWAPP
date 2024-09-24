@@ -4,6 +4,7 @@ using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using NEWAPP.Models;
@@ -24,15 +25,27 @@ namespace NEWAPP.Controllers
         }
         // GET: api/<LeadSourceController>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            List<LeadSource> leadSources = await _leadSource.GetleadSources();
+            List<LeadSource> leadSources;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                leadSources = await _leadSource.SearchLeadSourcesAsync(searchTerm);
+            }
+            else
+            {
+                leadSources = await _leadSource.GetleadSources();
+            }
+
             List<LeadSourceViewModel> viewModel = _mapper.Map<List<LeadSourceViewModel>>(leadSources);
             return View(viewModel);
+            //List<LeadSource> leadSources = await _leadSource.GetleadSources();
+            //List<LeadSourceViewModel> viewModel = _mapper.Map<List<LeadSourceViewModel>>(leadSources);
+            //return View(viewModel);
         }
 
 
-      
+
 
         // GET: LeadSourceController/Create
         public ActionResult Create()
@@ -100,7 +113,7 @@ namespace NEWAPP.Controllers
                         await _leadSource.Update(originalLeadSource);
 
                         // Optionally send an email after updating
-                        await SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
+                       
 
                         return RedirectToAction(nameof(Index));
                     }
@@ -187,6 +200,19 @@ namespace NEWAPP.Controllers
             bool flag=  await _leadSource.DeleteMultipleAsync(leadSourceIds);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            // Fetch the lead sources based on the search term
+            var leadSources = await _leadSource.SearchLeadSourcesAsync(searchTerm);
+
+            // Map LeadSource entities to LeadSourceViewModel
+            var viewModel = _mapper.Map<List<LeadSourceViewModel>>(leadSources);
+
+            // Return the view with the filtered or unfiltered results
+            return View(viewModel);
+        }
+
 
     }
 }

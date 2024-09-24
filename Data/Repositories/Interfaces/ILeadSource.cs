@@ -14,8 +14,8 @@ namespace Data.Repositories.Interfaces
         Task<int> Insert(LeadSource leadSource);
 
         Task<int> Update(LeadSource leadSource);
+        Task<List<LeadSource>> SearchLeadSourcesAsync(string searchTerm);
 
-       
         Task<bool> DeleteMultipleAsync(string leadSourceIds); // For bulk delete
 
     }

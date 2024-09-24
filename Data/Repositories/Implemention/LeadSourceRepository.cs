@@ -88,5 +88,16 @@ namespace Data.Repositories.Implemention
 
             return updatedID; // Return the updated LeadSourceID
         }
+        public async Task<List<LeadSource>> SearchLeadSourcesAsync(string searchTerm)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@searchTerm", searchTerm);
+
+            string storedProcedure = "[dbo].[SearchLeadSource]";
+
+            var result = await _connection.QueryAsync<LeadSource>(storedProcedure, parameters);
+
+            return result.ToList();
+        }
     }
 }

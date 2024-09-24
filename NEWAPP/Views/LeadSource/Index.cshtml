@@ -11,6 +11,14 @@
     <a asp-action="Create">Create New</a>
 </p>
 <button id="deleteSelected" class="btn btn-danger">Delete Selected</button>
+<form method="get" asp-action="Index">
+    <div class="form-group">
+        <label for="searchTerm">Search LeadSourceName:</label>
+        <input type="text" name="searchTerm" class="form-control" value="@ViewContext.HttpContext.Request.Query["searchTerm"]" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -93,6 +101,7 @@
                 alert("Please select at least one record.");
             }
         });
+        
       
     });
 </script>
