@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DomainModels.LeadSource>
+﻿@model IEnumerable<LeadSourceViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,13 +21,13 @@
                 @Html.DisplayNameFor(model => model.LeadSourceID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SourceName)
+                @Html.DisplayNameFor(model => model.LeadSourceName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                @Html.DisplayNameFor(model => model.CreatedDateFormatted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedDate)
@@ -45,13 +45,13 @@
                 @Html.DisplayFor(modelItem => item.LeadSourceID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SourceName)
+                    @Html.DisplayFor(modelItem => item.LeadSourceName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
+                    @Html.DisplayFor(modelItem => item.CreatedDateFormatted)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedDate)

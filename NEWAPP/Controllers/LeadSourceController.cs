@@ -1,10 +1,12 @@
-﻿using Data.Repositories.Implemention;
+﻿using AutoMapper;
+using Data.Repositories.Implemention;
 using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using NEWAPP.Models;
 using System.Net.Mail;
 
 namespace NEWAPP.Controllers
@@ -13,17 +15,20 @@ namespace NEWAPP.Controllers
     {
         public readonly ILeadSource _leadSource;
         private readonly IConfiguration _configuration;
-        public LeadSourceController(ILeadSource leadSource,IConfiguration configuration)
+        private readonly IMapper _mapper; // Inject AutoMapper
+        public LeadSourceController(ILeadSource leadSource,IConfiguration configuration, IMapper mapper)
         {
             _leadSource = leadSource;
-            _configuration = configuration; 
+            _configuration = configuration;
+            _mapper = mapper;
         }
         // GET: api/<LeadSourceController>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<LeadSource> leadSources = await _leadSource.GetleadSources();
-            return View(leadSources); // Pass the data to the view
+            List<LeadSourceViewModel> viewModel = _mapper.Map<List<LeadSourceViewModel>>(leadSources);
+            return View(viewModel);
         }
 
 
@@ -32,20 +37,26 @@ namespace NEWAPP.Controllers
         // GET: LeadSourceController/Create
         public ActionResult Create()
         {
-            LeadSource LeadSource = new LeadSource();
-            return View(LeadSource);
+            LeadSourceViewModel leadSourceViewModel = new LeadSourceViewModel();
+            return View(leadSourceViewModel);
         }
 
         // POST: LeadSourceController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(LeadSource leadSource)
+        public async Task<ActionResult> Create(LeadSourceViewModel leadSourceViewModel)
         {
             try
             {
-                int id= await _leadSource.Insert(leadSource);
-                SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    // Map ViewModel back to Domain Model
+                    LeadSource leadSource = _mapper.Map<LeadSource>(leadSourceViewModel);
+                    int id = await _leadSource.Insert(leadSource);
+                    SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(leadSourceViewModel);
             }
             catch
             {
@@ -57,24 +68,59 @@ namespace NEWAPP.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             LeadSource leadSource = await _leadSource.GetById(id);
-            return View(leadSource);
+            LeadSourceViewModel leadSourceViewModel = _mapper.Map<LeadSourceViewModel>(leadSource);
+            return View(leadSourceViewModel); // Pass ViewModel to the view
         }
 
         // POST: LeadSourceController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(LeadSource leadSource)
+        public async Task<ActionResult> Edit(LeadSourceViewModel leadSourceViewModel)
         {
             try
             {
-                int id =await _leadSource.Update(leadSource);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    LeadSource originalLeadSource = await _leadSource.GetById(leadSourceViewModel.LeadSourceID);
+
+                    // Check if the original entity was found
+                    if (originalLeadSource != null)
+                    {
+                        // Update only the necessary properties
+                        originalLeadSource.LeadSourceID = leadSourceViewModel.LeadSourceID;
+                        originalLeadSource.SourceName = leadSourceViewModel.LeadSourceName;
+                        originalLeadSource.ModifiedDate = leadSourceViewModel.ModifiedDate; 
+                        originalLeadSource.Description = leadSourceViewModel.Description;
+                        // Optionally update any other properties here
+                        // e.g., originalLeadSource.SomeOtherProperty = leadSourceViewModel.SomeOtherProperty;
+
+                        // Keep CreatedDate as is, since it's already stored in the originalLeadSource
+
+                        // Update the entity in the database
+                        await _leadSource.Update(originalLeadSource);
+
+                        // Optionally send an email after updating
+                        await SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
+
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    // Handle the case where the original entity was not found (e.g., return a not found view)
+                    return NotFound();
+                }
+
+                return View(leadSourceViewModel);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Log the exception for debugging
+                Console.WriteLine(ex.Message);
+
+                return View(leadSourceViewModel); // Return view with error if the exception is caught
             }
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> SendSecureCodeSMTP(string Email,string FullName)
