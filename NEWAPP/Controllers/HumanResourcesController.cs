@@ -1,7 +1,9 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWAPP.Models;
 
 namespace NEWAPP.Controllers
 {
@@ -9,13 +11,17 @@ namespace NEWAPP.Controllers
     {
         // GET: HumanResourcesController
         public readonly IHumanResources _humanResourcesRepo;
-        public HumanResourcesController(IHumanResources humanResources) {
-        _humanResourcesRepo = humanResources;
+        private readonly IMapper _mapper;
+        public HumanResourcesController(IHumanResources humanResources, IMapper mapper)
+        {
+            _humanResourcesRepo = humanResources;
+            _mapper = mapper;
         }
         public async Task<ActionResult> Index()
         {
-            List<HumanResources> humanResources = await _humanResourcesRepo.GetHumanResources(); 
-            return View(humanResources);
+            List<HumanResources> humanResources = await _humanResourcesRepo.GetHumanResources();
+            List<HumanResourcesViewModel> humanResourcesDTOs = _mapper.Map<List<HumanResourcesViewModel>>(humanResources);
+            return View(humanResourcesDTOs);
         }
 
         // GET: HumanResourcesController/Details/5
