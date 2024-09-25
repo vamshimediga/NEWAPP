@@ -22,6 +22,15 @@ namespace Data.Repositories.Implemention
             _dbconnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
+        public async Task<bool> Delete(string ids)
+        {
+            var sql = "[dbo].[DeleteMultipleEmployeesSimple]"; // Stored procedure for multiple delete
+            var parameters = new DynamicParameters();
+            parameters.Add("@EmployeeIDs", ids);
+            await _dbconnection.ExecuteAsync(sql, parameters);
+            return true;
+        }
+
         public async Task<List<HumanResources>> GetHumanResources()
         {
             List<HumanResources> humanResources = (List<HumanResources>)await _dbconnection.QueryAsync<HumanResources>("GetAllHumanResources");

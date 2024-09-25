@@ -4,22 +4,22 @@ using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NEWAPP.Models;
-
+using DomainModels;
 namespace NEWAPP.Controllers
 {
-    public class HumanResourcesController : Controller
+    public class HumanResources : Controller
     {
         // GET: HumanResourcesController
         public readonly IHumanResources _humanResourcesRepo;
         private readonly IMapper _mapper;
-        public HumanResourcesController(IHumanResources humanResources, IMapper mapper)
+        public HumanResources(IHumanResources humanResources, IMapper mapper)
         {
             _humanResourcesRepo = humanResources;
             _mapper = mapper;
         }
         public async Task<ActionResult> Index()
         {
-            List<HumanResources> humanResources = await _humanResourcesRepo.GetHumanResources();
+            List<DomainModels.HumanResources> humanResources = await _humanResourcesRepo.GetHumanResources();
             List<HumanResourcesViewModel> humanResourcesDTOs = _mapper.Map<List<HumanResourcesViewModel>>(humanResources);
             return View(humanResourcesDTOs);
         }
@@ -33,14 +33,14 @@ namespace NEWAPP.Controllers
         // GET: HumanResourcesController/Create
         public ActionResult Create()
         {
-            HumanResources humanResources = new HumanResources();
+            DomainModels.HumanResources humanResources = new DomainModels.HumanResources();
             return View(humanResources);
         }
 
         // POST: HumanResourcesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(HumanResources humanResources)
+        public async Task<ActionResult> Create(DomainModels.HumanResources humanResources)
         {
             try
             {
@@ -56,14 +56,14 @@ namespace NEWAPP.Controllers
         // GET: HumanResourcesController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            HumanResources humanResources = await _humanResourcesRepo.GetHumanResourcesById(id);
+            DomainModels.HumanResources humanResources = await _humanResourcesRepo.GetHumanResourcesById(id);
             return View(humanResources);
         }
 
         // POST: HumanResourcesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(HumanResources humanResources)
+        public async Task<ActionResult> Edit(DomainModels.HumanResources humanResources)
         {
             try
             {
@@ -77,24 +77,12 @@ namespace NEWAPP.Controllers
         }
 
         // GET: HumanResourcesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: HumanResourcesController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteMultiple(string Ids)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            bool flag = await _humanResourcesRepo.Delete(Ids);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

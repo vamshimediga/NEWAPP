@@ -13,5 +13,7 @@ namespace Data.Repositories.Interfaces
         Task<HumanResources>GetHumanResourcesById(int Id);
         Task<int> Insert(HumanResources humanResources);
         Task<int> Update(HumanResources humanResources);
+
+        Task<bool> Delete(string ids);
     }
 }
