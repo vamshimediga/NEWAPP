@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NEWAPP.Models;
 using DomainModels;
+using Data.Repositories.Implemention;
 namespace NEWAPP.Controllers
 {
     public class HumanResources : Controller
@@ -42,13 +43,20 @@ namespace NEWAPP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(DomainModels.HumanResources humanResources)
         {
+           
+
             try
             {
                 int id = await _humanResourcesRepo.Insert(humanResources);
+                TempData["Message"] = "HumanResources data created successfully!";
+                TempData["MessageType"] = "success"; // 'success', 'error', 'info', 'warning'
                 return RedirectToAction(nameof(Index));
+              
             }
             catch
             {
+                TempData["Message"] = "Error occurred while creating customer data.";
+                TempData["MessageType"] = "error";
                 return View();
             }
         }

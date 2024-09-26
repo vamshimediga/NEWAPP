@@ -1,34 +1,39 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NEWAPP.Models;
 
 namespace NEWAPP.Controllers
 {
     public class ManagerController : Controller
     {
         // GET: ManagerController
+        private readonly IMapper _mapper;
         public readonly IManager _manager;
-        public ManagerController(IManager manager)
+        public ManagerController(IManager manager, IMapper mapper)
         {
             _manager = manager;
+            _mapper = mapper;
         }
 
         public ActionResult Index()
-
-
-        
         {
             List<Manager> managers = _manager.GetManagers();
-            return View(managers);
+            List<ManagerViewModel> viewModel = _mapper.Map<List<ManagerViewModel>>(managers);
+            return View(viewModel);
+            
         }
 
         // GET: ManagerController/Details/5
         public ActionResult Details(int id)
         {
+
             Manager manager = _manager.GetManager(id);
-            return View(manager);
+            ManagerViewModel viewModel = _mapper.Map<ManagerViewModel>(manager);
+            return View(viewModel);
         }
 
         // GET: ManagerController/Create
@@ -56,6 +61,7 @@ namespace NEWAPP.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     int id = _manager.Insert(manager);
                     return RedirectToAction("Index");
                 }

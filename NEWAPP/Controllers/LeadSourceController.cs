@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using NEWAPP.Models;
+using Newtonsoft.Json;
 using System.Net.Mail;
+using System.Net.Http;
+using System.Collections.Generic;
+
 
 namespace NEWAPP.Controllers
 {
@@ -17,11 +21,13 @@ namespace NEWAPP.Controllers
         public readonly ILeadSource _leadSource;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper; // Inject AutoMapper
-        public LeadSourceController(ILeadSource leadSource,IConfiguration configuration, IMapper mapper)
+        private  readonly HttpClient _httpClient; 
+        public LeadSourceController(ILeadSource leadSource,IConfiguration configuration, IMapper mapper, HttpClient httpClient)
         {
             _leadSource = leadSource;
             _configuration = configuration;
             _mapper = mapper;
+            _httpClient = httpClient;
         }
         // GET: api/<LeadSourceController>
         [HttpGet]
@@ -63,8 +69,12 @@ namespace NEWAPP.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string json = JsonConvert.SerializeObject(leadSourceViewModel);
+
+                    // Deserialize JSON string back to LeadSourceViewModel (just for demo)
+                    LeadSourceViewModel deserializedLeadSourceViewModel = JsonConvert.DeserializeObject<LeadSourceViewModel>(json);
                     // Map ViewModel back to Domain Model
-                    LeadSource leadSource = _mapper.Map<LeadSource>(leadSourceViewModel);
+                    LeadSource leadSource = _mapper.Map<LeadSource>(deserializedLeadSourceViewModel);
                     int id = await _leadSource.Insert(leadSource);
                     SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
                     return RedirectToAction(nameof(Index));
@@ -212,7 +222,41 @@ namespace NEWAPP.Controllers
             // Return the view with the filtered or unfiltered results
             return View(viewModel);
         }
+        // GET: LeadSourceController/Edit/5
+        [HttpGet]
+        [Route("CountriesList")]
+        public async Task<ActionResult> CountriesList()
+        {
+            string URL = _configuration["Apis:CountriesApiUrl"];
+            HttpResponseMessage responseMessage = await _httpClient.GetAsync($"{URL}");
 
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonResponse = await responseMessage.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an array of Country objects
+                //var countries = JsonConvert.DeserializeObject<Country[]>(jsonResponse);
+                //List<CountriesViewModel> mappedCountries = new List<CountriesViewModel>();  
+                //foreach (var item in countries)
+                //{
+                //  mappedCountries.Add( new CountriesViewModel() { Name:item.name});
+
+                //}
+                //// Map the response to our DTO
+                //List<CountriesViewModel> mappedCountries = countries.f(country => new()
+                //{
+                //    Name = country.Name?.Common,
+                //    Capital = country.Capital != null && country.Capital.Count > 0 ? country.Capital[0] : "N/A",
+                //    Flag = country.Flag
+                //}).ToList();
+
+                return View(jsonResponse);
+            }
+            else
+            {
+                // Handle error
+                return View("Error");
+            }
+        }
 
     }
 }

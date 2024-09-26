@@ -20,6 +20,12 @@ namespace NEWAPP
             CreateMap<HumanResources, HumanResourcesViewModel>()
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
             .ForMember(dest => dest.HireDate, opt => opt.MapFrom(src => src.HireDate.ToString("yyyy-MM-dd")));
+
+            CreateMap<Manager, ManagerViewModel>()
+           .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+
+            CreateMap<Country, CountriesViewModel>();
+            //.ForMember(dest => dest.FormattedName, opt => opt.MapFrom(src => $"{src.Name} {src.Capital}"));
         }
     }
 }
