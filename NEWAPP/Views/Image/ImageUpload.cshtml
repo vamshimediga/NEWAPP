@@ -1,0 +1,27 @@
+﻿@model ImageUploadViewModel
+@{
+    ViewData["Title"] = "ImageUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h2>Upload and Display Image as Base64</h2>
+
+<form asp-action="UploadImage" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="imageFile">Select an image:</label>
+        <input type="file" name="imageFile" id="imageFile" />
+    </div>
+    <div>
+        <input type="submit" value="Upload" />
+    </div>
+</form>
+
+@if (Model != null && Model.Base64Image != null)
+{
+    <h3>Uploaded Image:</h3>
+    <img src="data:image/png;base64,@Model.Base64Image" alt="Uploaded Image" />
+}
+
