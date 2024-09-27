@@ -39,6 +39,12 @@ namespace DomainModels
         [Required]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
+       
+
+        
+     
+      
     }
 }

@@ -1,7 +1,10 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWAPP.Models;
+using Newtonsoft.Json;
 
 namespace NEWAPP.Controllers
 {
@@ -9,41 +12,49 @@ namespace NEWAPP.Controllers
     {
         // GET: LeadController
         public ILeads _leadrepo;
-        public LeadController(ILeads leads) {
+        private readonly IMapper _mapper; // Inject AutoMapper
+        public LeadController(ILeads leads,IMapper mapper) {
         
-        _leadrepo = leads;
+            _leadrepo = leads;
+            _mapper = mapper;
         }
         public ActionResult Index()
         
         {
             List<Lead> leads = _leadrepo.Leads();
-            return View(leads);
+            List<LeadViewModel> viewModel = _mapper.Map<List<LeadViewModel>>(leads);
+            return View(viewModel);
         }
 
         // GET: LeadController/Details/5
         public ActionResult Details(int id)
         {
-            Lead lead = new Lead();
+            LeadViewModel lead = new LeadViewModel();
             return View(lead);
         }
 
         // GET: LeadController/Create
         public ActionResult Create()
         {
-            Lead lead = new Lead();
+            LeadViewModel lead = new LeadViewModel();
             return View(lead);
         }
 
         // POST: LeadController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Lead model)
+        public ActionResult Create(LeadViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    int id = _leadrepo.insert(model);
+                    string json = JsonConvert.SerializeObject(model);
+                    // Deserialize JSON string back to LeadSourceViewModel (just for demo)
+                    LeadViewModel LeadViewModel = JsonConvert.DeserializeObject<LeadViewModel>(json);
+                    // Map ViewModel back to Domain Model
+                    Lead lead = _mapper.Map<Lead>(LeadViewModel);
+                    int id = _leadrepo.insert(lead);
                     return Json(new { success = true, message = "Lead created successfully" });
                 }
                 catch (Exception ex)

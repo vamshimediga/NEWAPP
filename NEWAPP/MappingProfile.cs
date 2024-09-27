@@ -26,6 +26,10 @@ namespace NEWAPP
 
             CreateMap<Country, CountriesViewModel>();
             //.ForMember(dest => dest.FormattedName, opt => opt.MapFrom(src => $"{src.Name} {src.Capital}"));
+
+            CreateMap<Lead, LeadViewModel>();
+            CreateMap<LeadViewModel, Lead>();
+
         }
     }
 }
