@@ -31,7 +31,6 @@ namespace NEWAPP.Controllers
                     model.Base64Image = Convert.ToBase64String(imageBytes);
                 }
             }
-
             return View("ImageUpload", model);
         }
 
