@@ -27,21 +27,30 @@ namespace NEWAPP.Controllers
         // GET: UserDataController/Create
         public ActionResult Create()
         {
-            return View();
+            UserData userData = new UserData();
+            return View(userData);
         }
 
         // POST: UserDataController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(UserData userData)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (userData == null) { 
+                   return NotFound();
+                }
+                else
+                {
+                   await _userData.InsertUserData(userData);
+                   return RedirectToAction(nameof(Index));
+                }
+               
             }
             catch
             {
-                return View();
+                return View(userData);
             }
         }
 

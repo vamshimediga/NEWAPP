@@ -4,6 +4,7 @@ using DomainModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,6 +20,17 @@ namespace Data.Repositories.Implemention
         {
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
+
+        public async Task InsertUserData(UserData userData)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@UserName", userData.UserName);
+            parameters.Add("@Email", userData.Email);
+            parameters.Add("@Address", userData.Profile.Address);
+            parameters.Add("@PhoneNumber", userData.Profile.PhoneNumber);
+            await _connection.ExecuteAsync("InsertUserAndProfile", parameters);
+        }
+
         public async Task<List<UserData>> UserDataAsync()
         {
             var sql = @"

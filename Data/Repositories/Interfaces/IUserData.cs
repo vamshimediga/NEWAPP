@@ -10,5 +10,6 @@ namespace Data.Repositories.Interfaces
     public interface IUserData
     {
         Task<List<UserData>> UserDataAsync(); 
+        Task InsertUserData(UserData userData); 
     }
 }
