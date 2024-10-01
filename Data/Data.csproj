@@ -175,6 +175,7 @@
     <Compile Include="Repositories\Implemention\StockoverflowRepository.cs" />
     <Compile Include="Repositories\Implemention\TabRepository.cs" />
     <Compile Include="Repositories\Implemention\UserAdminRepository.cs" />
+    <Compile Include="Repositories\Implemention\UserDataRepository.cs" />
     <Compile Include="Repositories\Implemention\UserradiochkdropRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAdminUsers.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Repositories\Interfaces\IStockoverflow.cs" />
     <Compile Include="Repositories\Interfaces\ITab.cs" />
     <Compile Include="Repositories\Interfaces\IUserAdmin.cs" />
+    <Compile Include="Repositories\Interfaces\IUserData.cs" />
     <Compile Include="Repositories\Interfaces\IUserradiochkdrop.cs" />
     <Compile Include="SessionExtensions.cs" />
     <Compile Include="UnitOfWork.cs" />

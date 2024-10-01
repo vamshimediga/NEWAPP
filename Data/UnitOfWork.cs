@@ -69,5 +69,7 @@ namespace Data
         public IHumanResources humanResources { get; }
 
         public ILeadSource leadSource { get; }
+
+        public IUserData UserData { get; }
     }
 }

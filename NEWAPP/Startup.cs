@@ -94,6 +94,7 @@ namespace startupfile
           services.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
           services.AddScoped<IHumanResources, HumanResourcesRepository>();
           services.AddScoped<ILeadSource, LeadSourceRepository>();
+          services.AddScoped<IUserData, UserDataRepository>();
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally

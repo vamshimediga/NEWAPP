@@ -118,6 +118,8 @@
     <Compile Include="Tab.cs" />
     <Compile Include="UserAdmin.cs" />
     <Compile Include="Userchkradio.cs" />
+    <Compile Include="UserData.cs" />
+    <Compile Include="UserProfile.cs" />
     <Compile Include="Xlsheet.cs" />
   </ItemGroup>
   <ItemGroup>

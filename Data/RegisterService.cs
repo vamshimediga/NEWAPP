@@ -40,6 +40,7 @@ namespace Data
             service.AddScoped<ICustomerDATARepository<CustomerData>, CustomerDATARepository>();
             service.AddScoped<IHumanResources, HumanResourcesRepository>();
             service.AddScoped<ILeadSource, LeadSourceRepository>();
+            service.AddScoped<IUserData, UserDataRepository>();
         }
     }
 }

@@ -50,6 +50,8 @@ namespace Data
         IHumanResources humanResources { get; }
 
         ILeadSource leadSource { get; }
+        IUserData UserData { get; }
+
 
     }
 }
