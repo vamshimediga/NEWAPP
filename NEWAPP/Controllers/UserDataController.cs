@@ -1,73 +1,97 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWAPP.Models;
+using Newtonsoft.Json;
 
 namespace NEWAPP.Controllers
 {
     public class UserDataController : Controller
     {
         public readonly IUserData _userData;
-        public UserDataController(IUserData userData)
+        public readonly IMapper _mapper;
+        public UserDataController(IUserData userData,IMapper mapper)
         {
             _userData = userData;
+            _mapper = mapper;
         }
         public async Task<ActionResult> Index()
         {
+           
             List<UserData> UserData = await _userData.UserDataAsync();
-            return View(UserData);
+            List<UserDataViewModel> viewModel = _mapper.Map<List<UserDataViewModel>>(UserData);
+            return View(viewModel);
         }
 
-        // GET: UserDataController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+      
+      
         // GET: UserDataController/Create
         public ActionResult Create()
         {
-            UserData userData = new UserData();
-            return View(userData);
+            UserDataViewModel userDataViewModel = new UserDataViewModel();
+            return View(userDataViewModel);
         }
 
         // POST: UserDataController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(UserData userData)
+        public async Task<ActionResult> Create(UserDataViewModel userDataViewModel)
         {
             try
             {
-                if (userData == null) { 
+                if (userDataViewModel == null) { 
                    return NotFound();
                 }
                 else
                 {
-                   await _userData.InsertUserData(userData);
+                    string json = JsonConvert.SerializeObject(userDataViewModel);
+                    // Deserialize JSON string back to LeadSourceViewModel (just for demo)
+                    UserDataViewModel userDataviewmodel = JsonConvert.DeserializeObject<UserDataViewModel>(json);
+                    // Map ViewModel back to Domain Model
+                    UserData userData = _mapper.Map<UserData>(userDataviewmodel);
+                    await _userData.InsertUserData(userData);
                    return RedirectToAction(nameof(Index));
                 }
                
             }
             catch
             {
-                return View(userData);
+                return View(userDataViewModel);
             }
         }
 
         // GET: UserDataController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            UserData userData = await _userData.UserDataById(id);
+            UserDataViewModel viewModel = _mapper.Map<UserDataViewModel>(userData);
+            return View(viewModel);
         }
 
         // POST: UserDataController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(UserDataViewModel userDataViewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (userDataViewModel == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    string json = JsonConvert.SerializeObject(userDataViewModel);
+                    // Deserialize JSON string back to LeadSourceViewModel (just for demo)
+                    UserDataViewModel userDataviewmodel = JsonConvert.DeserializeObject<UserDataViewModel>(json);
+                    // Map ViewModel back to Domain Model
+                    UserData userData = _mapper.Map<UserData>(userDataviewmodel);
+                    await _userData.UpdateUserData(userData);
+                    return RedirectToAction(nameof(Index));
+                }
+               
             }
             catch
             {

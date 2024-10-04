@@ -11,5 +11,9 @@ namespace Data.Repositories.Interfaces
     {
         Task<List<UserData>> UserDataAsync(); 
         Task InsertUserData(UserData userData); 
+
+        Task<UserData> UserDataById(int id);
+
+        Task UpdateUserData(UserData userData);
     }
 }

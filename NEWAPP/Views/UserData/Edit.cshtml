@@ -1,45 +1,56 @@
 ﻿@model UserDataViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create User</h1>
+<h1>Edit</h1>
 
-<h4>User Information</h4>
+<h4>UserData</h4>
 <hr />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         @Html.AntiForgeryToken()
-        <form asp-action="Create">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-
-            <h4>Profile Information</h4>
+            <div class="form-group">
+                <label asp-for="Profile.ProfileID" class="control-label"></label>
+                <input asp-for="Profile.ProfileID" class="form-control" />
+                <span asp-validation-for="Profile.ProfileID" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Profile.Address" class="control-label"></label>
                 <input asp-for="Profile.Address" class="form-control" />
                 <span asp-validation-for="Profile.Address" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Profile.PhoneNumber" class="control-label"></label>
                 <input asp-for="Profile.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Profile.PhoneNumber" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="Profile.UserID" class="control-label"></label>
+                <input asp-for="Profile.UserID" class="form-control" />
+                <span asp-validation-for="Profile.UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -48,3 +59,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+

@@ -30,6 +30,9 @@ namespace NEWAPP
             CreateMap<Lead, LeadViewModel>();
             CreateMap<LeadViewModel, Lead>();
 
+            CreateMap<UserData, UserDataViewModel>();
+            CreateMap<UserDataViewModel, UserData>();
+
         }
     }
 }
