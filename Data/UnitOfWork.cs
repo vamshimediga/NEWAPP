@@ -71,5 +71,8 @@ namespace Data
         public ILeadSource leadSource { get; }
 
         public IUserData UserData { get; }
+
+    
+        public IPersonData PersonData {  get; }
     }
 }

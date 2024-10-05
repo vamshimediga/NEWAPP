@@ -51,7 +51,7 @@ namespace Data
 
         ILeadSource leadSource { get; }
         IUserData UserData { get; }
-
+        IPersonData PersonData { get; }
 
     }
 }

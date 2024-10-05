@@ -41,6 +41,7 @@ namespace Data
             service.AddScoped<IHumanResources, HumanResourcesRepository>();
             service.AddScoped<ILeadSource, LeadSourceRepository>();
             service.AddScoped<IUserData, UserDataRepository>();
+            service.AddScoped<IPersonData, PersonDataRepository>();
         }
     }
 }

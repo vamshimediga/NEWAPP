@@ -88,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressData.cs" />
     <Compile Include="AdminUser.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="MasterAdmin.cs" />
     <Compile Include="MediaWithCategory.cs" />
     <Compile Include="OrdersWithCustomer.cs" />
+    <Compile Include="PersonData.cs" />
     <Compile Include="ProductChart.cs" />
     <Compile Include="ProjectInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

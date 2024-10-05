@@ -167,6 +167,7 @@
     <Compile Include="Repositories\Implemention\ManagerRepository.cs" />
     <Compile Include="Repositories\Implemention\MediaWithCategoryRepository.cs" />
     <Compile Include="Repositories\Implemention\OrdersWithCustomerRepository.cs" />
+    <Compile Include="Repositories\Implemention\PersonDataRepository.cs" />
     <Compile Include="Repositories\Implemention\ProductChartRepository.cs" />
     <Compile Include="Repositories\Implemention\ProjectInfoRepository.cs" />
     <Compile Include="Repositories\Implemention\PsplCompanyReposisitory.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Repositories\Interfaces\IManager.cs" />
     <Compile Include="Repositories\Interfaces\IMediaWithCategory.cs" />
     <Compile Include="Repositories\Interfaces\IOrdersWithCustomer.cs" />
+    <Compile Include="Repositories\Interfaces\IPersonData.cs" />
     <Compile Include="Repositories\Interfaces\IProductChart.cs" />
     <Compile Include="Repositories\Interfaces\IProjectInfo.cs" />
     <Compile Include="Repositories\Interfaces\IPsplCompany.cs" />
