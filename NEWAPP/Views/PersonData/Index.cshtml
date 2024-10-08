@@ -61,9 +61,9 @@
                 <td>@(item.Address != null ? item.Address.City : "N/A")</td>
                 <td>@(item.Address != null ? item.Address.PostalCode : "N/A")</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.PersonID }) 
+                    @Html.ActionLink("Details", "Details", new { id = item.PersonID }) 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PersonID })
             </td>
         </tr>
 }

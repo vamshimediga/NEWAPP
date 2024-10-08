@@ -24,9 +24,31 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
-        public Task<PersonData> GetPersonById(int id)
+       
+        public async Task<PersonData> GetPersonById(int personId)
         {
-            throw new NotImplementedException();
+            // SQL query to get person data by PersonID
+            string sqlPersonData = @"SELECT p.* FROM PersonData p WHERE p.PersonID = @PersonID";
+
+            // SQL query to get address data by PersonID
+            string sqlAddressData = @"SELECT a.* FROM AddressData a WHERE a.PersonID = @PersonID";
+
+            // Fetch the person data using the personId parameter
+            PersonData personData = await _connection.QueryFirstOrDefaultAsync<PersonData>(sqlPersonData, new { PersonID = personId });
+
+            if (personData != null)
+            {
+                // Fetch the address data for the person
+                AddressData address = await _connection.QueryFirstOrDefaultAsync<AddressData>(sqlAddressData, new { PersonID = personId });
+
+                // Assign the address to the person if it exists
+                if (address != null)
+                {
+                    personData.Address = address;
+                }
+            }
+
+            return personData;
         }
 
         public async Task<List<PersonData>> GetPersonList()

@@ -15,5 +15,11 @@ namespace NEWAPP.Controllers
             List<PersonData> personDatas = await _personData.GetPersonList();
             return View(personDatas);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            PersonData personData = await _personData.GetPersonById(id);
+            return  View(personData);
+        }
     }
 }
