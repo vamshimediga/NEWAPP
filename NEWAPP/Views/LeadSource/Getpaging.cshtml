@@ -1,0 +1,70 @@
+﻿@model IEnumerable<NEWAPP.Models.LeadSourceViewModel>
+
+@{
+    ViewData["Title"] = "Getpaging";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Getpaging</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="leadSourceTable" class="table display" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().LeadSourceID)</th>
+            <th>@Html.DisplayNameFor(model => model.First().LeadSourceName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Description)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ModifiedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().CreatedDateFormatted)</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#leadSourceTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "/LeadSource/Getpaging",
+                "type": "GET",
+                "data": function (d) {
+                  
+                }
+            },
+            "columns": [
+                { "data": "leadSourceID" },
+                { "data": "leadSourceName" },
+                { "data": "description" },
+                { "data": "modifiedDate" },
+                { "data": "createdDateFormatted" },
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return `
+                                <a href="/LeadSource/Edit/${row.leadSourceID}">Edit</a> |
+                                <a href="/LeadSource/Details/${row.leadSourceID}">Details</a> |
+                                <a href="/LeadSource/Delete/${row.leadSourceID}">Delete</a>
+                        `;
+                    }
+                }
+            ],
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "order": [[0, 'asc']]
+        });
+    });
+</script>

@@ -116,6 +116,7 @@
     <Compile Include="PsplCompany.cs" />
     <Compile Include="Restaurant.cs" />
     <Compile Include="SampleStudent.cs" />
+    <Compile Include="Stock.cs" />
     <Compile Include="Stockoverflow.cs" />
     <Compile Include="Tab.cs" />
     <Compile Include="UserAdmin.cs" />

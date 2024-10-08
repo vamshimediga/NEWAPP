@@ -1,0 +1,79 @@
+﻿@model IEnumerable<NEWAPP.Models.StockViewModel>
+
+@{
+    ViewData["Title"] = "StockList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Stock List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table id="stockTable" class="table display">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Currency)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.DisplaySymbol)</th>
+            <th>@Html.DisplayNameFor(model => model.Figi)</th>
+            <th>@Html.DisplayNameFor(model => model.Isin)</th>
+            <th>@Html.DisplayNameFor(model => model.Mic)</th>
+            <th>@Html.DisplayNameFor(model => model.ShareClassFIGI)</th>
+            <th>@Html.DisplayNameFor(model => model.Symbol)</th>
+            <th>@Html.DisplayNameFor(model => model.Symbol2)</th>
+            <th>@Html.DisplayNameFor(model => model.Type)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Currency)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.DisplaySymbol)</td>
+                <td>@Html.DisplayFor(modelItem => item.Figi)</td>
+                <td>@Html.DisplayFor(modelItem => item.Isin)</td>
+                <td>@Html.DisplayFor(modelItem => item.Mic)</td>
+                <td>@Html.DisplayFor(modelItem => item.ShareClassFIGI)</td>
+                <td>@Html.DisplayFor(modelItem => item.Symbol)</td>
+                <td>@Html.DisplayFor(modelItem => item.Symbol2)</td>
+                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit") |
+                    @Html.ActionLink("Details", "Details") |
+                    @Html.ActionLink("Delete", "Delete")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#stockTable').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "lengthChange": true,
+            "lengthMenu": [5, 10, 15, 20],
+            "searching": true,
+            "ordering": true,
+            "order": [[1, 'asc']], // Default ordering by second column (Description)
+            "autoWidth": false,
+            "columnDefs": [
+                { "orderable": false, "targets": -1 } // Disable ordering on the last column (Actions)
+            ]
+        });
+    });
+</script>

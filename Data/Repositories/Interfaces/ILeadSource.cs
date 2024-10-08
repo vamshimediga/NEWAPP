@@ -18,5 +18,7 @@ namespace Data.Repositories.Interfaces
 
         Task<bool> DeleteMultipleAsync(string leadSourceIds); // For bulk delete
 
+        Task<List<LeadSource>> GetleadSourcespaging(int startindex,int endindex);
+
     }
 }

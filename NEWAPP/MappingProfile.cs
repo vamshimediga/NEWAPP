@@ -33,6 +33,8 @@ namespace NEWAPP
             CreateMap<UserData, UserDataViewModel>();
             CreateMap<UserDataViewModel, UserData>();
 
+            CreateMap<Stock, StockViewModel>();
+
         }
     }
 }

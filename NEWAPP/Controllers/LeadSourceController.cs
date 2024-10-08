@@ -49,6 +49,25 @@ namespace NEWAPP.Controllers
             //List<LeadSourceViewModel> viewModel = _mapper.Map<List<LeadSourceViewModel>>(leadSources);
             //return View(viewModel);
         }
+        [HttpGet]
+        public async Task<IActionResult> Getpaging(int start = 0, int length = 10)
+        {
+
+            int startIndex = start + 1; // DataTables sends start as 0-indexed, so add 1 for SQL
+            int pageSize = length;
+            List<LeadSource> leads = await _leadSource.GetleadSourcespaging(startIndex, pageSize);
+            List<LeadSourceViewModel> viewModel = _mapper.Map<List<LeadSourceViewModel>>(leads);
+            leads = await _leadSource.GetleadSources();
+            int totalRecords = leads.Count();
+           return Json(new
+            {
+                draw = Request.Query["draw"].FirstOrDefault(), // DataTables draw count
+                recordsTotal = totalRecords, // Total records before filtering
+                recordsFiltered = totalRecords, // Total records after filtering (if any)
+                data = viewModel // Data for the current page
+            });
+           
+        }
 
 
 

@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,12 @@ namespace Data.Repositories.Implemention
             var result = await _connection.QueryAsync<LeadSource>(storedProcedure, parameters);
 
             return result.ToList();
+        }
+
+        public async Task<List<LeadSource>> GetleadSourcespaging(int startindex, int endindex)
+        {
+            List<LeadSource> leadSources = (List<LeadSource>)await _connection.QueryAsync<LeadSource>("GETLeadSourcePaginated", new { @StartIndex=startindex, @PageSize=endindex});
+            return leadSources;
         }
     }
 }
