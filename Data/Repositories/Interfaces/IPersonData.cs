@@ -13,7 +13,7 @@ namespace Data.Repositories.Interfaces
         Task<PersonData> GetPersonById(int id); 
         Task<int> insertPerson(PersonData person);
         Task<int> updatePerson(PersonData person);
-        Task<int> deletePerson(int id);
+        Task<bool> deletePerson(string[] ids);
 
     }
 }

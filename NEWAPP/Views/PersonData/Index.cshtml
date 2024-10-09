@@ -10,9 +10,11 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<button id="delete-selected" type="button" class="btn btn-danger">Delete Selected</button>
 <table class="table">
     <thead>
         <tr>
+            <th>Select</th> <!-- For checkboxes -->
             <th>
                 @Html.DisplayNameFor(model => model.PersonID)
             </th>
@@ -44,6 +46,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    <input type="checkbox" class="delete-checkbox" value="@item.PersonID" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PersonID)
             </td>
@@ -69,3 +74,38 @@
 }
     </tbody>
 </table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {debugger
+        $('#delete-selected').click(function () {debugger
+            var selectedIds = [];
+            $('.delete-checkbox:checked').each(function () {
+                selectedIds.push($(this).val());
+            });
+
+            if (selectedIds.length === 0) {
+                alert("Please select at least one record to delete.");
+                return;
+            }
+
+            if (confirm("Are you sure you want to delete the selected records?")) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete")',
+                    data: { ids: selectedIds },
+                    traditional: true,
+                    success: function (response) {debugger
+                        if (response.success) {
+                            window.location.reload(); // Reload the page to refresh the data
+                        } else {
+                            alert("An error occurred while deleting records.");
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while processing your request.");
+                    }
+                });
+            }
+        });
+    });
+</script>

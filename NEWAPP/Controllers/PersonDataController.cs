@@ -1,6 +1,7 @@
 ﻿using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace NEWAPP.Controllers
 {
@@ -20,6 +21,26 @@ namespace NEWAPP.Controllers
         {
             PersonData personData = await _personData.GetPersonById(id);
             return  View(personData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string[] ids)
+        {
+            try
+            {
+                bool issuccess = await _personData.deletePerson(ids);
+                if (issuccess)
+                {
+                    return Json(new { success = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = false });
         }
     }
 }

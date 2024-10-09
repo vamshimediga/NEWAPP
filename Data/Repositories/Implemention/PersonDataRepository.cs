@@ -19,9 +19,14 @@ namespace Data.Repositories.Implemention
         {
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
-        public Task<int> deletePerson(int id)
+        public async Task<bool> deletePerson(string[] ids)
         {
-            throw new NotImplementedException();
+            var id=string.Join(",", ids);   
+            var parameters = new DynamicParameters();
+            parameters.Add("@RecordIds", id);  // Pass the comma-separated list of IDs
+            string storedProcedure = "dbo.DeleteMultipleRecordsPersonDataAddressData";
+            await _connection.ExecuteAsync(storedProcedure, parameters);
+            return true;
         }
 
        
