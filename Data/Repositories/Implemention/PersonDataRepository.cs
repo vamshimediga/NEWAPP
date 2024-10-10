@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System.IO;
 
 namespace Data.Repositories.Implemention
 {
@@ -72,9 +73,24 @@ namespace Data.Repositories.Implemention
             return personDatas;
         }
 
-        public Task<int> insertPerson(PersonData person)
+        public async Task<int> insertPerson(PersonData person)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@PersonID", person.PersonID);
+            parameters.Add("@FirstName", person.FirstName);
+            parameters.Add("@LastName", person.LastName);
+            parameters.Add("@Age", person.Age);
+            parameters.Add("@Street", person.Address.Street);
+            parameters.Add("@City", person.Address.City);
+            parameters.Add("@PostalCode", person.Address.PostalCode);
+            parameters.Add("@AddressID", person.Address.AddressID);
+            parameters.Add("@Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            // Execute the stored procedure
+            await _connection.ExecuteAsync("InsertPersonWithAddressWithoutAutoIncrement", parameters);
+
+            // Get the output value
+            int idOutput = parameters.Get<int>("@Id");
+            return idOutput;
         }
 
         public Task<int> updatePerson(PersonData person)

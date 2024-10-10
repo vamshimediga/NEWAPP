@@ -41,5 +41,19 @@ namespace NEWAPP.Controllers
 
             return Json(new { success = false });
         }
+        public async Task<IActionResult> Create()
+        {
+            PersonData personData =  new PersonData();
+            personData.Address = new AddressData();
+            return View(personData);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(PersonData personData)
+        {
+            int id = await _personData.insertPerson(personData);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

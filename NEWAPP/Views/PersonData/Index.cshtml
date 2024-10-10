@@ -40,6 +40,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Address.PostalCode)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonID)
+            </th>
             <th>Deatils</th>
         </tr>
     </thead>
@@ -65,6 +68,7 @@
                 <td>@(item.Address != null ? item.Address.Street : "N/A")</td>
                 <td>@(item.Address != null ? item.Address.City : "N/A")</td>
                 <td>@(item.Address != null ? item.Address.PostalCode : "N/A")</td>
+                <td>@(item.Address != null ? item.Address.PersonID : "N/A")</td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new {  id=item.PersonID }) 
                     @Html.ActionLink("Details", "Details", new { id = item.PersonID }) 
