@@ -1,6 +1,7 @@
 ﻿using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging.Signing;
 
 namespace NEWAPP.Controllers
 {
@@ -53,6 +54,27 @@ namespace NEWAPP.Controllers
         {
             int id = await _personData.insertPerson(personData);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(PersonData personData)
+        {
+           
+            try
+            {
+                int id = await _personData.updatePerson(personData);
+                if (id > 0)
+                {
+                    return Json(new { success = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = false });
         }
 
     }

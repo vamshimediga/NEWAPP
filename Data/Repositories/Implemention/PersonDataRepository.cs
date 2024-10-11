@@ -93,9 +93,22 @@ namespace Data.Repositories.Implemention
             return idOutput;
         }
 
-        public Task<int> updatePerson(PersonData person)
+        public async  Task<int> updatePerson(PersonData person)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@PersonID", person.PersonID);
+            parameters.Add("@FirstName", person.FirstName);
+            parameters.Add("@LastName", person.LastName);
+            parameters.Add("@Age", person.Age);
+            parameters.Add("@AddressID", person.Address.AddressID);
+            parameters.Add("@City", person.Address.City);
+            parameters.Add("@Street", person.Address.Street);
+            parameters.Add("@PostalCode", person.Address.PostalCode);
+            parameters.Add("@Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            await _connection.ExecuteAsync("dbo.UpdatePersonWithAddress", parameters);
+            // Retrieve the output value
+            int updatedPersonId = parameters.Get<int>("@Id");
+            return updatedPersonId;
         }
     }
 }
