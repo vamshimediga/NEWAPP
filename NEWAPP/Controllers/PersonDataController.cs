@@ -55,5 +55,26 @@ namespace NEWAPP.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Edit(PersonData personData)
+        {
+           
+            try
+            {
+                int id = await _personData.updatePerson(personData);
+                if (id > 0)
+                {
+                    return Json(new { success = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = false });
+        }
+
     }
 }

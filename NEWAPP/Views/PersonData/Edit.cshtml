@@ -39,6 +39,11 @@
                 <span asp-validation-for="Address.AddressID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Address.PersonID" class="control-label"></label>
+                <input asp-for="Address.PersonID" class="form-control" />
+                <span asp-validation-for="Address.PersonID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Address.PostalCode" class="control-label"></label>
                 <input asp-for="Address.PostalCode" class="form-control" />
                 <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
@@ -65,3 +70,30 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {debugger
+        $("form").submit(function (event) {debugger
+            event.preventDefault(); // Prevent default form submission
+
+            // Send the form data via AJAX
+            $.ajax({
+                type: "POST",
+                url: $(this).attr("action"), // Get the form action URL (Edit method)
+                data: $(this).serialize(), // Serialize form data for submission
+                success: function (response) {
+                    if (response.success) {
+                        alert("Record updated successfully!");
+                        // Optionally redirect or refresh the page
+                        window.location.href = '@Url.Action("Index")';
+                    } else {
+                        alert("Failed to update record: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while processing your request.");
+                }
+            });
+        });
+    });
+</script>
