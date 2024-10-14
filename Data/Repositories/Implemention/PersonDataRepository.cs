@@ -13,12 +13,12 @@ using System.IO;
 
 namespace Data.Repositories.Implemention
 {
-    public class PersonDataRepository : IPersonData
+    public class PersonDataRepository : BaseRepository,IPersonData 
     {
-        public readonly IDbConnection _connection;
-        public PersonDataRepository(IConfiguration configuration)
+      //  public readonly IDbConnection _connection;
+        public PersonDataRepository(IConfiguration configuration):base(configuration)
         {
-            _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+           // _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
         public async Task<bool> deletePerson(string[] ids)
         {
@@ -26,7 +26,7 @@ namespace Data.Repositories.Implemention
             var parameters = new DynamicParameters();
             parameters.Add("@RecordIds", id);  // Pass the comma-separated list of IDs
             string storedProcedure = "dbo.DeleteMultipleRecordsPersonDataAddressData";
-            await _connection.ExecuteAsync(storedProcedure, parameters);
+            await ExecuteAsync(storedProcedure, parameters);
             return true;
         }
 
@@ -40,12 +40,12 @@ namespace Data.Repositories.Implemention
             string sqlAddressData = @"SELECT a.* FROM AddressData a WHERE a.PersonID = @PersonID";
 
             // Fetch the person data using the personId parameter
-            PersonData personData = await _connection.QueryFirstOrDefaultAsync<PersonData>(sqlPersonData, new { PersonID = personId });
+            PersonData personData = await QueryFirstOrDefaultAsync<PersonData>(sqlPersonData, new { PersonID = personId });
 
             if (personData != null)
             {
                 // Fetch the address data for the person
-                AddressData address = await _connection.QueryFirstOrDefaultAsync<AddressData>(sqlAddressData, new { PersonID = personId });
+                AddressData address = await QueryFirstOrDefaultAsync<AddressData>(sqlAddressData, new { PersonID = personId });
 
                 // Assign the address to the person if it exists
                 if (address != null)
@@ -61,8 +61,8 @@ namespace Data.Repositories.Implemention
         {
             string sqlPersonData = @"SELECT p.* FROM PersonData p";
             string sqlAddressData = @"SELECT a.* FROM AddressData a";
-            List<PersonData> personDatas = (List<PersonData>)await _connection.QueryAsync<PersonData>(sqlPersonData);
-            List<AddressData> addresses = (List<AddressData>) await _connection.QueryAsync<AddressData>(sqlAddressData);
+            List<PersonData> personDatas = (List<PersonData>)await QueryAsync<PersonData>(sqlPersonData);
+            List<AddressData> addresses = (List<AddressData>) await QueryAsync<AddressData>(sqlAddressData);
             for (int i = 0;i< addresses.Count; i++)
             {
                 if (personDatas[i].PersonID == addresses[i].PersonID)
@@ -86,7 +86,7 @@ namespace Data.Repositories.Implemention
             parameters.Add("@AddressID", person.Address.AddressID);
             parameters.Add("@Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
             // Execute the stored procedure
-            await _connection.ExecuteAsync("InsertPersonWithAddressWithoutAutoIncrement", parameters);
+            await ExecuteAsync("InsertPersonWithAddressWithoutAutoIncrement", parameters);
 
             // Get the output value
             int idOutput = parameters.Get<int>("@Id");
@@ -105,7 +105,7 @@ namespace Data.Repositories.Implemention
             parameters.Add("@Street", person.Address.Street);
             parameters.Add("@PostalCode", person.Address.PostalCode);
             parameters.Add("@Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            await _connection.ExecuteAsync("dbo.UpdatePersonWithAddress", parameters);
+            await ExecuteAsync("dbo.UpdatePersonWithAddress", parameters);
             // Retrieve the output value
             int updatedPersonId = parameters.Get<int>("@Id");
             return updatedPersonId;
