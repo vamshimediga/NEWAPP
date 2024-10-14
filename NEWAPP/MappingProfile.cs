@@ -35,6 +35,11 @@ namespace NEWAPP
 
             CreateMap<Stock, StockViewModel>();
 
+            CreateMap<PersonData, PersonDataViewModel>();
+            CreateMap<PersonDataViewModel, PersonData>();
+
+            CreateMap<AddressData, AddressDataViewModel>();
+            CreateMap<AddressDataViewModel, AddressData>();
         }
     }
 }

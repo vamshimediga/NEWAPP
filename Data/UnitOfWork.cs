@@ -74,5 +74,7 @@ namespace Data
 
     
         public IPersonData PersonData {  get; }
+
+        public ICompany company { get; }
     }
 }

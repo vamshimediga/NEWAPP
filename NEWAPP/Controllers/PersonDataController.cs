@@ -1,6 +1,8 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Mvc;
+using NEWAPP.Models;
 using NuGet.Packaging.Signing;
 
 namespace NEWAPP.Controllers
@@ -8,19 +10,24 @@ namespace NEWAPP.Controllers
     public class PersonDataController : Controller
     {
         public readonly IPersonData _personData;
-        public PersonDataController(IPersonData personData) {
+        private readonly IMapper _mapper; // Inject AutoMapper
+        public PersonDataController(IPersonData personData, IMapper mapper) {
         _personData = personData;
+         _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
             List<PersonData> personDatas = await _personData.GetPersonList();
-            return View(personDatas);
+            List<PersonDataViewModel> viewModel = _mapper.Map<List<PersonDataViewModel>>(personDatas);
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             PersonData personData = await _personData.GetPersonById(id);
-            return  View(personData);
+            PersonDataViewModel viewModel = _mapper.Map<PersonDataViewModel>(personData);
+            return View(viewModel);
+            
         }
 
         [HttpPost]
@@ -44,25 +51,27 @@ namespace NEWAPP.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            PersonData personData =  new PersonData();
-            personData.Address = new AddressData();
+            PersonDataViewModel personData =  new PersonDataViewModel();
+            personData.Address = new AddressDataViewModel();
             return View(personData);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(PersonData personData)
+        public async Task<ActionResult> Create(PersonDataViewModel personData)
         {
-            int id = await _personData.insertPerson(personData);
+            PersonData newpersonData = _mapper.Map<PersonData>(personData);
+            int id = await _personData.insertPerson(newpersonData);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(PersonData personData)
+        public async Task<ActionResult> Edit(PersonDataViewModel personData)
         {
            
             try
             {
-                int id = await _personData.updatePerson(personData);
+                PersonData newpersonData = _mapper.Map<PersonData>(personData);
+                int id = await _personData.updatePerson(newpersonData);
                 if (id > 0)
                 {
                     return Json(new { success = true });

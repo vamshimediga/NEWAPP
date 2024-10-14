@@ -92,6 +92,7 @@
     <Compile Include="AdminUser.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Company.cs" />
     <Compile Include="CompanyUsers.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Course.cs" />

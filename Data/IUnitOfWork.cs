@@ -53,5 +53,7 @@ namespace Data
         IUserData UserData { get; }
         IPersonData PersonData { get; }
 
+        ICompany company { get; }
+
     }
 }

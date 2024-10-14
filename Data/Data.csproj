@@ -153,6 +153,7 @@
     <Compile Include="RegisterService.cs" />
     <Compile Include="Repositories\Implemention\AdminUsersRepository.cs" />
     <Compile Include="Repositories\Implemention\CommonServiceRepository.cs" />
+    <Compile Include="Repositories\Implemention\CompanyRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyUsersRepository.cs" />
     <Compile Include="Repositories\Implemention\CourseRepository.cs" />
     <Compile Include="Repositories\Implemention\CustomerDATARepository.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Repositories\Interfaces\IAdminUsers.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
     <Compile Include="Repositories\Interfaces\ICommonService.cs" />
+    <Compile Include="Repositories\Interfaces\ICompany.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyUsers.cs" />
     <Compile Include="Repositories\Interfaces\ICourse.cs" />
     <Compile Include="Repositories\Interfaces\IDefectiveProducts.cs" />
