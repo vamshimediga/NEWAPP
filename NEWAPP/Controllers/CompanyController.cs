@@ -46,9 +46,10 @@ namespace NEWAPP.Controllers
         }
 
         // GET: CompanyController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Company company = await _company.GetById(id);
+            return View(company);
         }
 
         // POST: CompanyController/Edit/5

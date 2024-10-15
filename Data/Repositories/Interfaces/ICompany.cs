@@ -10,5 +10,12 @@ namespace Data.Repositories.Interfaces
     public interface ICompany
     {
         Task<List<Company>> GetAll();
+
+        Task<Company> GetById(int id);
+
+        Task<int> insert(Company company);
+        Task<int> update(Company company);
+        Task<int> delete(int id);
+
     }
 }
