@@ -40,6 +40,9 @@ namespace NEWAPP
 
             CreateMap<AddressData, AddressDataViewModel>();
             CreateMap<AddressDataViewModel, AddressData>();
+
+            CreateMap<Company, CompanyViewModel>();
+            CreateMap<CompanyViewModel, Company>();
         }
     }
 }

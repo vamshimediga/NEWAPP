@@ -48,14 +48,39 @@ namespace Data.Repositories.Implemention
             return  _connection.QuerySingleOrDefault<Company>("GetCompanyByID", parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public Task<int> insert(Company company)
+        public async Task<int> insert(Company company)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@CompanyName", company.CompanyName);
+            parameters.Add("@City", company.City);
+            parameters.Add("@PhoneNumber", company.PhoneNumber);
+            parameters.Add("@IsActive", company.IsActive);
+
+            // Output parameter for the inserted CompanyID
+            parameters.Add("@InsertedID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            // Execute the stored procedure using Dapper
+            await _connection.ExecuteAsync("InsertCompany", parameters);
+
+            // Retrieve the output parameter value
+            int insertedCompanyId = parameters.Get<int>("@InsertedID");
+
+            return insertedCompanyId;
         }
 
-        public Task<int> update(Company company)
+        public async Task<int> update(Company company)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@CompanyID", company.CompanyID, DbType.Int32);
+            parameters.Add("@CompanyName", company.CompanyName, DbType.String);
+            parameters.Add("@City", company.City, DbType.String);
+            parameters.Add("@PhoneNumber", company.PhoneNumber, DbType.String);
+            parameters.Add("@IsActive", company.IsActive, DbType.Boolean);
+
+            // Execute stored procedure and get the updated CompanyID
+            int updatedCompanyId =await _connection.ExecuteAsync("[dbo].[UpdateCompany]",parameters);
+
+            return updatedCompanyId;
         }
     }
 }

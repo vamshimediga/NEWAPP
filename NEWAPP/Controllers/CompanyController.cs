@@ -1,42 +1,48 @@
-﻿using Data.Repositories.Interfaces;
+﻿using AutoMapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWAPP.Models;
 
 namespace NEWAPP.Controllers
 {
     public class CompanyController : Controller
     {
         public readonly ICompany _company;
-        public CompanyController(ICompany company) {
-        _company = company;
-        }  
+        public readonly IMapper _mapper;
+        public CompanyController(ICompany company,IMapper mapper)
+        {
+            _company = company;
+            _mapper = mapper;
+        }
         // GET: CompanyController
         public async Task<ActionResult> Index()
         {
             List<Company> companies = await _company.GetAll();
-            return View(companies);
+            List<CompanyViewModel> viewModel = _mapper.Map<List<CompanyViewModel>>(companies);
+            return View(viewModel);
         }
 
         // GET: CompanyController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+      
 
         // GET: CompanyController/Create
         public ActionResult Create()
         {
-            return View();
+            CompanyViewModel viewModel = new CompanyViewModel();
+            return View(viewModel);
         }
 
         // POST: CompanyController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CompanyViewModel company)
         {
             try
             {
+               Company company1=_mapper.Map<Company>(company);  
+                int id = await _company.insert(company1);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -49,16 +55,19 @@ namespace NEWAPP.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             Company company = await _company.GetById(id);
-            return View(company);
+            CompanyViewModel viewModel =_mapper.Map<CompanyViewModel>(company);
+            return View(viewModel);
         }
 
         // POST: CompanyController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async  Task<ActionResult> Edit(CompanyViewModel company)
         {
             try
             {
+                Company company1 =_mapper.Map<Company>(company);
+                int id =await _company.update(company1);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -68,10 +77,7 @@ namespace NEWAPP.Controllers
         }
 
         // GET: CompanyController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+     
 
         // POST: CompanyController/Delete/5
         [HttpPost]
