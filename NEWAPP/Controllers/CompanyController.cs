@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Data.Repositories.Implemention;
 using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
@@ -82,11 +83,17 @@ namespace NEWAPP.Controllers
         // POST: CompanyController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(List<int> companyIDs)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (companyIDs != null && companyIDs.Count > 0)
+                {
+                    // Call the repository to delete the companies
+                    await _company.delete(companyIDs);
+                    return RedirectToAction("Index"); // Redirect to the index page after deletion
+                }
+                return BadRequest("Invalid company IDs");
             }
             catch
             {

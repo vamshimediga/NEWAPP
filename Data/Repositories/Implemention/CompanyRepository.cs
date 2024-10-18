@@ -22,9 +22,15 @@ namespace Data.Repositories.Implemention
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public Task<int> delete(int id)
+        public async Task<bool> delete(List<int> id)
         {
-            throw new NotImplementedException();
+            string companyIDsString = string.Join(",", id);
+
+            // Call the stored procedure to delete the companies
+            var parameters = new DynamicParameters();
+            parameters.Add("@CompanyIDs", companyIDsString);
+            await _connection.ExecuteAsync("[dbo].[DeleteCompanies]", parameters);
+            return true;
         }
 
         public async Task<List<Company>> GetAll()
@@ -46,6 +52,7 @@ namespace Data.Repositories.Implemention
 
             // QuerySingleOrDefault calls the stored procedure and maps the result to the Company class
             return  _connection.QuerySingleOrDefault<Company>("GetCompanyByID", parameters, commandType: CommandType.StoredProcedure);
+
         }
 
         public async Task<int> insert(Company company)

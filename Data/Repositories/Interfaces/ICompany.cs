@@ -15,7 +15,7 @@ namespace Data.Repositories.Interfaces
 
         Task<int> insert(Company company);
         Task<int> update(Company company);
-        Task<int> delete(int id);
+        Task<bool> delete(List<int> ids);
 
     }
 }
