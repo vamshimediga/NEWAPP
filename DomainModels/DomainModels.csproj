@@ -94,6 +94,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyUsers.cs" />
+    <Compile Include="Contect.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CustomerData.cs" />

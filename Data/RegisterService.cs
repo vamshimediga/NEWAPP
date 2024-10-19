@@ -43,6 +43,7 @@ namespace Data
             service.AddScoped<IUserData, UserDataRepository>();
             service.AddScoped<IPersonData, PersonDataRepository>();
             service.AddScoped<ICompany, CompanyRepository>();
+            service.AddScoped<IContect, ContectRepository>();
         }
     }
 }

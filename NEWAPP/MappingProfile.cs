@@ -43,6 +43,9 @@ namespace NEWAPP
 
             CreateMap<Company, CompanyViewModel>();
             CreateMap<CompanyViewModel, Company>();
+
+            CreateMap<Contect, ContectViewModel>();
+            CreateMap<ContectViewModel, Contect>();
         }
     }
 }

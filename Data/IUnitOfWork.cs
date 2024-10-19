@@ -55,5 +55,7 @@ namespace Data
 
         ICompany company { get; }
 
+        IContect Contect { get; }
+
     }
 }
