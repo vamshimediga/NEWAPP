@@ -52,9 +52,11 @@ namespace NEWAPP.Controllers
         }
 
         // GET: Controller/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Contect contect = await _contact.GetContectById(id);
+            ContectViewModel viewModel = _mapper.Map<ContectViewModel>(contect);    
+            return View(viewModel);
         }
 
         // POST: Controller/Edit/5

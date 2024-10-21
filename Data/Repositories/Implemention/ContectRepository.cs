@@ -1,4 +1,5 @@
-﻿using Data.Repositories.Interfaces;
+﻿using Dapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,9 +21,12 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
-        public Task<Contect> GetContectById(int id)
+        public async Task<Contect> GetContectById(int id)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@ContectID", id);
+            Contect contect= await QueryFirstOrDefaultAsync<Contect>("GetContectByID",parameters);
+            return contect;
         }
 
         public async Task<List<Contect>> GetContects()
