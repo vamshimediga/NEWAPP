@@ -4,7 +4,9 @@ using DomainModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,14 +37,50 @@ namespace Data.Repositories.Implemention
             return contects;
         }
 
-        public Task<int> insert(Contect contect)
+        public async Task<int> insert(Contect contect)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@FirstName", contect.FirstName, DbType.String);
+            parameters.Add("@LastName", contect.LastName, DbType.String);
+            parameters.Add("@Email", contect.Email, DbType.String);
+            parameters.Add("@PhoneNumber", contect.PhoneNumber, DbType.String);
+            parameters.Add("@Address", contect.Address, DbType.String);
+            parameters.Add("@CreatedDate", contect.CreatedDate, DbType.DateTime);
+            parameters.Add("@ModifiedDate", contect.ModifiedDate, DbType.DateTime);
+
+            // Output parameter for the new ContectID
+            parameters.Add("@NewContectID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            // Execute the stored procedure
+            await  ExecuteAsync("dbo.InsertContect", parameters);
+
+            // Retrieve the new ContectID from the output parameter
+            int newContectID = parameters.Get<int>("@NewContectID");
+
+            return newContectID;
         }
 
-        public Task<int> update(Contect contect)
+        public async Task<int> update(Contect contect)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@ContectID", contect.ContectID, DbType.Int32);
+            parameters.Add("@FirstName", contect.FirstName, DbType.String);
+            parameters.Add("@LastName", contect.LastName, DbType.String);
+            parameters.Add("@Email", contect.Email, DbType.String);
+            parameters.Add("@PhoneNumber", contect.PhoneNumber, DbType.String);
+            parameters.Add("@Address", contect.Address, DbType.String);
+            parameters.Add("@ModifiedDate", contect.ModifiedDate, DbType.DateTime);
+
+            // Output parameter for updated ContectID
+            parameters.Add("@UpdatedContectID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            // Execute the stored procedure
+            await ExecuteAsync("dbo.UpdateContect", parameters);
+
+            // Retrieve the updated ContectID from the output parameter
+            int updatedContectID = parameters.Get<int>("@UpdatedContectID");
+
+            return updatedContectID;
         }
     }
 }

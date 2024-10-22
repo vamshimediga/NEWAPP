@@ -33,23 +33,35 @@ namespace NEWAPP.Controllers
         // GET: Controller/Create
         public ActionResult Create()
         {
-            return View();
+            ContectViewModel contectView = new ContectViewModel();
+            return View("Create", contectView);
         }
 
         // POST: Controller/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(ContectViewModel contectView)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                Contect contect = _mapper.Map<Contect>(contectView);
+                int id = await _contact.insert(contect);
+                if (id != 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                // In case of validation failure or error, return view with a warning message
+                ViewBag.ErrorMessage = "Failed to create the contact. Please try again.Enter  Unique email id";
+                return View("Create", contectView);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Pass the error message to the view
+                ViewBag.ErrorMessage = "An error occurred: " + ex.Message;
+                return View("Create", contectView);
             }
         }
+
 
         // GET: Controller/Edit/5
         public async Task<ActionResult> Edit(int id)
@@ -62,11 +74,17 @@ namespace NEWAPP.Controllers
         // POST: Controller/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ContectViewModel contectViewModel)
         {
             try
             {
+                Contect contect = _mapper.Map<Contect>(contectViewModel);
+                int id= await _contact.update(contect);
+                if(id != 0)
+                {
                 return RedirectToAction(nameof(Index));
+                }
+                return View("Edit",contectViewModel);
             }
             catch
             {
