@@ -31,6 +31,7 @@ namespace DomainModels
 
         // Timestamp for last modification (Defaults to current date/time)
         public DateTime ModifiedDate { get; set; } = DateTime.Now;
+
     }
 
 }

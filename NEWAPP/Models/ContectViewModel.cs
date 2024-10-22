@@ -3,7 +3,7 @@
     public class ContectViewModel
     {
         // Auto-incremented unique ID (Primary Key)
-        public int ContectID { get; set; }
+        public Nullable<int> ContectID { get; set; }
 
         // First Name of the contact (Required)
         public string FirstName { get; set; }
@@ -21,9 +21,9 @@
         public string Address { get; set; }
 
         // Timestamp for when the contact is created (Defaults to current date/time)
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public Nullable<DateTime> CreatedDate { get; set; } = DateTime.Now;
 
         // Timestamp for last modification (Defaults to current date/time)
-        public DateTime ModifiedDate { get; set; } = DateTime.Now;
+        public Nullable<DateTime> ModifiedDate { get; set; } = DateTime.Now;
     }
 }
