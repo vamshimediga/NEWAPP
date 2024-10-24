@@ -13,6 +13,8 @@ namespace Data.Repositories.Interfaces
         Task<Contect> GetContectById(int id);   
         Task<int> insert(Contect contect);  
         Task<int> update(Contect contect);
-        Task<int> delete(int id);   
+        Task<int> delete(int id);
+
+        Task<List<Contect>> SearchContectByFirstNameAsync(string firstName);
     }
 }

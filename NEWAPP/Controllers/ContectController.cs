@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Data.Repositories.Implemention;
 using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,25 @@ namespace NEWAPP.Controllers
             List<Contect> contects = await _contact.GetContects();
             List<ContectViewModel> viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             return View(viewModels);
+        }
+        public async Task<IActionResult> SearchContect(string searchString)
+        {
+            List<ContectViewModel> viewModels = new List<ContectViewModel>(); // Initialize viewModels
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                ViewData["CurrentFilter"] = searchString;
+                List<Contect> contects = await _contact.SearchContectByFirstNameAsync(searchString);
+                viewModels = _mapper.Map<List<ContectViewModel>>(contects);
+            }
+            else
+            {
+                ViewData["CurrentFilter"] = "";
+                List<Contect> contects = await _contact.GetContects();
+                viewModels = _mapper.Map<List<ContectViewModel>>(contects);
+            }
+
+            // Return the view with the viewModels
+            return View("Index", viewModels);
         }
 
         // GET: Controller/Details/5
@@ -68,7 +88,7 @@ namespace NEWAPP.Controllers
         {
             Contect contect = await _contact.GetContectById(id);
             ContectViewModel viewModel = _mapper.Map<ContectViewModel>(contect);    
-            return View(viewModel);
+            return View("Edit",viewModel);
         }
 
         // POST: Controller/Edit/5

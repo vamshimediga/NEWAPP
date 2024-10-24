@@ -60,6 +60,14 @@ namespace Data.Repositories.Implemention
             return newContectID;
         }
 
+        public async Task<List<Contect>> SearchContectByFirstNameAsync(string firstName)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@FirstName", firstName);
+            List<Contect> contects = await QueryAsync<Contect>("[dbo].[SearchContectByFirstName]", parameters);
+            return contects.ToList();
+        }
+
         public async Task<int> update(Contect contect)
         {
             var parameters = new DynamicParameters();
