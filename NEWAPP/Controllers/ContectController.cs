@@ -44,6 +44,7 @@ namespace NEWAPP.Controllers
             return View("Index", viewModels);
         }
 
+
         // GET: Controller/Details/5
         public ActionResult Details(int id)
         {
