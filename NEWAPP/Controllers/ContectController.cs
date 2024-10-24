@@ -45,6 +45,7 @@ namespace NEWAPP.Controllers
         }
 
 
+
         // GET: Controller/Details/5
         public ActionResult Details(int id)
         {
