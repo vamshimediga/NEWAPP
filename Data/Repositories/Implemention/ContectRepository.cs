@@ -60,6 +60,13 @@ namespace Data.Repositories.Implemention
             return newContectID;
         }
 
+        public async Task<IEnumerable<Contect>> SearchContactsAsync(string firstName, string lastName)
+        {
+            var parameters = new { FirstName = firstName, LastName = lastName };
+            IEnumerable<Contect> result = await QueryAsync<Contect>("SearchContectByFirstNameandLastname", parameters);
+            return result;
+        }
+
         public async Task<List<Contect>> SearchContectByFirstNameAsync(string firstName)
         {
             var parameters = new DynamicParameters();

@@ -24,19 +24,39 @@ namespace NEWAPP.Controllers
             List<ContectViewModel> viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             return View(viewModels);
         }
-        public async Task<IActionResult> SearchContect(string searchString)
+        public async Task<IActionResult> SearchContect(string firstName, string lastName)
         {
             List<ContectViewModel> viewModels = new List<ContectViewModel>(); // Initialize viewModels
-            if (!string.IsNullOrEmpty(searchString))
+
+            // If both firstName and lastName are empty, get all contacts
+            if (string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
             {
-                ViewData["CurrentFilter"] = searchString;
-                List<Contect> contects = await _contact.SearchContectByFirstNameAsync(searchString);
+                ViewData["CurrentFilterFirstName"] = "";
+                ViewData["CurrentFilterLastName"] = "";
+                List<Contect> contects = await _contact.GetContects();
                 viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             }
             else
             {
-                ViewData["CurrentFilter"] = "";
-                List<Contect> contects = await _contact.GetContects();
+                if (!string.IsNullOrEmpty(firstName))
+                {
+                    ViewData["CurrentFilterFirstName"] = firstName;
+                }
+                else
+                {
+                    ViewData["CurrentFilterFirstName"] = "";
+                }
+
+                if (!string.IsNullOrEmpty(lastName))
+                {
+                    ViewData["CurrentFilterLastName"] = lastName;
+                }
+                else
+                {
+                    ViewData["CurrentFilterLastName"] = "";
+                }
+
+                List<Contect> contects = (List<Contect>)await _contact.SearchContactsAsync(firstName, lastName);
                 viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             }
 

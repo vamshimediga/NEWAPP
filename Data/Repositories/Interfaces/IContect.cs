@@ -16,5 +16,6 @@ namespace Data.Repositories.Interfaces
         Task<int> delete(int id);
 
         Task<List<Contect>> SearchContectByFirstNameAsync(string firstName);
+        Task<IEnumerable<Contect>> SearchContactsAsync(string firstName, string lastName);
     }
 }
