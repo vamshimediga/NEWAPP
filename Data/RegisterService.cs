@@ -44,6 +44,7 @@ namespace Data
             service.AddScoped<IPersonData, PersonDataRepository>();
             service.AddScoped<ICompany, CompanyRepository>();
             service.AddScoped<IContect, ContectRepository>();
+            service.AddScoped<Ionline_retailUserLogin,online_retailUserLoginRepository>();
         }
     }
 }

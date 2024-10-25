@@ -46,6 +46,10 @@ namespace NEWAPP
 
             CreateMap<Contect, ContectViewModel>();
             CreateMap<ContectViewModel, Contect>();
+
+            CreateMap<online_retailUserLogin, online_retailUserLoginClientViewModel>();
+            CreateMap<online_retailUserLoginClientViewModel, online_retailUserLogin>();
+            
         }
     }
 }

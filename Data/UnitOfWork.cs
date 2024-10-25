@@ -78,5 +78,7 @@ namespace Data
         public ICompany company { get; }
 
         public IContect Contect { get; }
+
+        public Ionline_retailUserLogin ionline_RetailUserLogin { get; }
     }
 }

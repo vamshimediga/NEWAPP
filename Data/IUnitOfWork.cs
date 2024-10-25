@@ -57,5 +57,7 @@ namespace Data
 
         IContect Contect { get; }
 
+        Ionline_retailUserLogin ionline_RetailUserLogin { get; }
+
     }
 }

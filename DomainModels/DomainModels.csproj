@@ -110,6 +110,7 @@
     <Compile Include="Manager.cs" />
     <Compile Include="MasterAdmin.cs" />
     <Compile Include="MediaWithCategory.cs" />
+    <Compile Include="online_retailUserLogin.cs" />
     <Compile Include="OrdersWithCustomer.cs" />
     <Compile Include="PersonData.cs" />
     <Compile Include="ProductChart.cs" />
