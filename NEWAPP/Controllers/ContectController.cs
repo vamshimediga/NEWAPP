@@ -133,20 +133,22 @@ namespace NEWAPP.Controllers
             }
         }
 
-        // GET: Controller/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+      
 
         // POST: Controller/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(List<int> IDs)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (IDs != null && IDs.Count > 0)
+                {
+                    // Call the repository to delete the companies
+                    await _contact.DeleteIds(IDs);
+                    return RedirectToAction("Index"); // Redirect to the index page after deletion
+                }
+                return BadRequest("Invalid company IDs");
             }
             catch
             {

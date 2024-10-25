@@ -17,5 +17,7 @@ namespace Data.Repositories.Interfaces
 
         Task<List<Contect>> SearchContectByFirstNameAsync(string firstName);
         Task<IEnumerable<Contect>> SearchContactsAsync(string firstName, string lastName);
+
+        Task<bool> DeleteIds(List<int> ids);
     }
 }

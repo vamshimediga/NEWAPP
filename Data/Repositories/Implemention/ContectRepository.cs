@@ -23,6 +23,17 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
+        public async Task<bool> DeleteIds(List<int> ids)
+        {
+            string companyIDsString = string.Join(",", ids);
+
+            // Call the stored procedure to delete the companies
+            var parameters = new DynamicParameters();
+            parameters.Add("@ContectIDs", companyIDsString);
+            await ExecuteAsync("[dbo].[DeleteMultipleContects]", parameters);
+            return true;
+        }
+
         public async Task<Contect> GetContectById(int id)
         {
             var parameters = new DynamicParameters();
