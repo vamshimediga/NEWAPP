@@ -80,5 +80,7 @@ namespace Data
         public IContect Contect { get; }
 
         public Ionline_retailUserLogin ionline_RetailUserLogin { get; }
+
+        public IAccessTable accessTable { get; }
     }
 }

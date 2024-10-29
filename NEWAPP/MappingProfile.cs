@@ -49,7 +49,10 @@ namespace NEWAPP
 
             CreateMap<online_retailUserLogin, online_retailUserLoginClientViewModel>();
             CreateMap<online_retailUserLoginClientViewModel, online_retailUserLogin>();
-            
+
+            CreateMap<AccessTable, AccessTableViewModel>();
+            CreateMap<AccessTableViewModel, AccessTable>();
+
         }
     }
 }

@@ -99,6 +99,7 @@ namespace startupfile
           services.AddScoped<ICompany, CompanyRepository>();
           services.AddScoped<IContect, ContectRepository>();
           services.AddScoped<Ionline_retailUserLogin, online_retailUserLoginRepository>();
+          services.AddScoped<IAccessTable, AccessTableRepository>();
           services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally

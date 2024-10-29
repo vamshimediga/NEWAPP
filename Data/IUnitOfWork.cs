@@ -59,5 +59,7 @@ namespace Data
 
         Ionline_retailUserLogin ionline_RetailUserLogin { get; }
 
+        IAccessTable accessTable { get; }
+
     }
 }
