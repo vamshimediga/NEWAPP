@@ -10,6 +10,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search" method="get">
+    <div class="form-group">
+        <label for="searchPermissionLevel">Search by Permission Level:</label>
+        <input type="text" name="searchPermissionLevel" value="@ViewData["searchPermissionLevel"]" class="form-control" placeholder="Enter Permission Level" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="Index" class="btn btn-secondary">Clear</a> <!-- Clear button -->
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -56,7 +66,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.AccessID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

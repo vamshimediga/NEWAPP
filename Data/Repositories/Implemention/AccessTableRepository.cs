@@ -21,6 +21,14 @@ namespace Data.Repositories.Implemention
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
+        public async Task<AccessTable> GetAccessTableByIdAsync(int id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@AccessID", id);
+            AccessTable accessTable = await _connection.QuerySingleAsync<AccessTable>("[dbo].[GetAccessByAccessID]", parameters);
+            return accessTable;
+        }
+
         public async Task<List<AccessTable>> GetAllAccessTablesAsync()
         {
             List<AccessTable> accessTables = (List<AccessTable>)await _connection.QueryAsync<AccessTable>("sp_GetAllAccessRecords");

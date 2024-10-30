@@ -11,5 +11,8 @@ namespace Data.Repositories.Interfaces
     {
 
         Task<List<AccessTable>> GetAllAccessTablesAsync();
+
+        Task<AccessTable> GetAccessTableByIdAsync(int id);
+
     }
 }
