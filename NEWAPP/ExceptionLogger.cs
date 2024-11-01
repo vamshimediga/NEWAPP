@@ -27,6 +27,8 @@ namespace NEWAPP
                 {
                     writer.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}");
                     writer.WriteLine(ex.ToString());
+                    writer.WriteLine(ex.Message);
+                    writer.WriteLine(ex.StackTrace);
                     writer.WriteLine("----------------------------------------------------");
                 }
             }
