@@ -11,13 +11,17 @@ namespace NEWAPP.Controllers
 {
     public class AccessTableController : Controller
     {
+        private readonly ILogger<AccessTableController> _logger;
         public readonly IAccessTable _accessTable;
         public readonly IMapper _mapper;
+        public readonly ExceptionLogger _exceptionLogger;
         // GET: AccessTableController
-        public AccessTableController(IAccessTable accessTable,IMapper mapper) { 
+        public AccessTableController(IAccessTable accessTable,IMapper mapper, ILogger<AccessTableController> logger,ExceptionLogger exceptionLogger) { 
         
-         _accessTable = accessTable;
-         _mapper = mapper;  
+          _accessTable = accessTable;
+          _mapper = mapper;  
+          _logger = logger;
+          _exceptionLogger = exceptionLogger;
 
         }
         public async Task<ActionResult> Index()
@@ -51,21 +55,32 @@ namespace NEWAPP.Controllers
         // GET: AccessTableController/Create
         public ActionResult Create()
         {
-            return View();
+            AccessTableViewModel viewModel = new AccessTableViewModel();
+            return View(viewModel);
         }
 
         // POST: AccessTableController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(AccessTableViewModel accessTableViewModel)
         {
             try
             {
+                // Map ViewModel to the entity
+                AccessTable accessTable = _mapper.Map<AccessTable>(accessTableViewModel);
+
+                // Call the insert method
+                int id = await _accessTable.insert(accessTable);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)  // Log the exception
             {
-                return View();
+                // Log the error details
+                //_logger.LogError(ex, "An error occurred while creating an AccessTable record.");
+                _exceptionLogger.LogException(ex, "An error occurred while creating an AccessTable record.");
+
+                // Return the view with the error
+                return View("Create", accessTableViewModel);
             }
         }
 

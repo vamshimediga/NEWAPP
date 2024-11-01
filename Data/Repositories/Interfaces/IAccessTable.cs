@@ -14,5 +14,10 @@ namespace Data.Repositories.Interfaces
 
         Task<AccessTable> GetAccessTableByIdAsync(int id);
 
+        Task<int> insert(AccessTable accessTable);
+        Task<int> update(AccessTable accessTable);
+        Task<int> delete(int id);   
+
+
     }
 }

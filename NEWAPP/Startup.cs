@@ -37,8 +37,8 @@ namespace startupfile
             services.AddSingleton<TokenService>(new TokenService("A4e1eYB4WmI1D9Cj/NBzNp1HzNs30WqO2yZVoUmD8GQ="));
             services.AddControllersWithViews().AddNewtonsoftJson();
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
-
-            
+            services.AddLogging();
+            services.AddSingleton<ExceptionLogger>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
