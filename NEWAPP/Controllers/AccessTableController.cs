@@ -16,13 +16,22 @@ namespace NEWAPP.Controllers
         public readonly IAccessTable _accessTable;
         public readonly IMapper _mapper;
         public readonly ExceptionLogger _exceptionLogger;
+        public readonly HttpClient _httpClient;
+        public readonly IConfiguration _configuration;
         // GET: AccessTableController
-        public AccessTableController(IAccessTable accessTable,IMapper mapper, ILogger<AccessTableController> logger,ExceptionLogger exceptionLogger) { 
+        public AccessTableController(IAccessTable accessTable,
+            IMapper mapper, 
+            ILogger<AccessTableController> logger,
+            ExceptionLogger exceptionLogger,
+            HttpClient httpClient,
+            IConfiguration configuration) { 
         
           _accessTable = accessTable;
           _mapper = mapper;  
           _logger = logger;
           _exceptionLogger = exceptionLogger;
+          _httpClient = httpClient;
+           _configuration = configuration;
 
         }
         public async Task<ActionResult> Index()
@@ -110,11 +119,28 @@ namespace NEWAPP.Controllers
             }
         }
 
-        //// GET: AccessTableController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        // GET: AccessTableController/Delete/5
+        public async Task<ActionResult> Postjson()
+        {
+            string url = _configuration["Apis:JosonApi"];
+            List<PostViewModel> postViewModels = new List<PostViewModel>();
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    postViewModels= JsonConvert.DeserializeObject<List<PostViewModel>>(responseData);
+                }
+                return View(postViewModels);
+               
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return View();
+        }
 
         // POST: AccessTableController/Delete/5
         [HttpPost]
@@ -135,5 +161,7 @@ namespace NEWAPP.Controllers
                 return View();
             }
         }
+
+       
     }
 }
