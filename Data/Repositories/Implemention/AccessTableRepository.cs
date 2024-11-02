@@ -21,9 +21,12 @@ namespace Data.Repositories.Implemention
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public Task<int> delete(int id)
+        public  async  Task<int> delete(int id)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@AccessID", id, DbType.Int32);
+            await _connection.ExecuteAsync("[dbo].[DeleteAccessRecord]", parameters);
+            return id;
         }
 
         public async Task<AccessTable> GetAccessTableByIdAsync(int id)
@@ -58,9 +61,26 @@ namespace Data.Repositories.Implemention
             return newAccessID;
         }
 
-        public Task<int> update(AccessTable accessTable)
+        public async Task<int> update(AccessTable accessTable)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@AccessID", accessTable.AccessID, DbType.Int32);
+            parameters.Add("@UserID", accessTable.UserID);
+            parameters.Add("@PermissionLevel", accessTable.PermissionLevel, DbType.String);
+            parameters.Add("@Resource", accessTable.Resource, DbType.String);
+            parameters.Add("@GrantedDate", accessTable.GrantedDate, DbType.Date);
+            parameters.Add("@IsActive", accessTable.IsActive, DbType.Boolean);
+
+            // Output parameter to capture the updated AccessID
+            parameters.Add("@UpdatedAccessID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            // Execute the stored procedure
+            await _connection.ExecuteAsync("[dbo].[UpdateAccessTable]", parameters);
+
+            // Retrieve the value of the output parameter
+            int updatedAccessID = parameters.Get<int>("@UpdatedAccessID");
+
+            return updatedAccessID;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NEWAPP.Models;
 using Newtonsoft.Json;
@@ -95,10 +96,12 @@ namespace NEWAPP.Controllers
         // POST: AccessTableController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(AccessTableViewModel accessTableViewModel)
         {
             try
             {
+                AccessTable accessTable =_mapper.Map<AccessTable>(accessTableViewModel);    
+                int id =await _accessTable.update(accessTable);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -107,20 +110,25 @@ namespace NEWAPP.Controllers
             }
         }
 
-        // GET: AccessTableController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: AccessTableController/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: AccessTableController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+      
+        public async Task<ActionResult> Delete(int accessID)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                int ID= await _accessTable.delete(accessID);
+                if (ID != 0)
+                {
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, message = "Error deleting record." });
             }
             catch
             {
