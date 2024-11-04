@@ -12,20 +12,20 @@ using Dapper;
 
 namespace Data.Repositories.Implemention
 {
-    public class AccessTableRepository : IAccessTable
+    public class AccessTableRepository : BaseRepository,IAccessTable
     {
         public readonly IDbConnection _connection;
 
-        public AccessTableRepository(IConfiguration configuration)
+        public AccessTableRepository(IConfiguration configuration):base(configuration) 
         {
-            _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+          //  _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
         public  async  Task<int> delete(int id)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AccessID", id, DbType.Int32);
-            await _connection.ExecuteAsync("[dbo].[DeleteAccessRecord]", parameters);
+            await ExecuteAsync("[dbo].[DeleteAccessRecord]", parameters);
             return id;
         }
 
@@ -33,13 +33,13 @@ namespace Data.Repositories.Implemention
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AccessID", id);
-            AccessTable accessTable = await _connection.QuerySingleAsync<AccessTable>("[dbo].[GetAccessByAccessID]", parameters);
+            AccessTable accessTable = await QueryFirstOrDefaultAsync<AccessTable>("[dbo].[GetAccessByAccessID]", parameters);
             return accessTable;
         }
 
         public async Task<List<AccessTable>> GetAllAccessTablesAsync()
         {
-            List<AccessTable> accessTables = (List<AccessTable>)await _connection.QueryAsync<AccessTable>("sp_GetAllAccessRecords");
+            List<AccessTable> accessTables = (List<AccessTable>)await QueryAsync<AccessTable>("sp_GetAllAccessRecords");
             return accessTables;
         }
 
@@ -54,7 +54,7 @@ namespace Data.Repositories.Implemention
             parameters.Add("@NewAccessID", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             // Execute the stored procedure
-            await _connection.ExecuteAsync("InsertAccessRecord", parameters);
+            await ExecuteAsync("InsertAccessRecord", parameters);
 
             // Retrieve the output parameter (newly inserted AccessID)
             int newAccessID = parameters.Get<int>("@NewAccessID");
@@ -75,7 +75,7 @@ namespace Data.Repositories.Implemention
             parameters.Add("@UpdatedAccessID", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             // Execute the stored procedure
-            await _connection.ExecuteAsync("[dbo].[UpdateAccessTable]", parameters);
+            await ExecuteAsync("[dbo].[UpdateAccessTable]", parameters);
 
             // Retrieve the value of the output parameter
             int updatedAccessID = parameters.Get<int>("@UpdatedAccessID");
