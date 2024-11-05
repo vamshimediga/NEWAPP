@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NEWAPP.Areas.Controllers
+namespace NEWAPP.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class AdminController : Controller

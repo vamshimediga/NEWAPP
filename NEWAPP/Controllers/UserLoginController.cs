@@ -68,18 +68,22 @@ namespace NEWAPP.Controllers
         }
 
         // GET: UserLoginController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            UserLogin userLogin = await _userLogin.UserLoginAsync(id);
+            UserLoginViewModel userLoginViewModel = _mapper.Map<UserLoginViewModel>(userLogin);
+            return View(userLoginViewModel);
         }
 
         // POST: UserLoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(UserLoginViewModel userLoginViewModel)
         {
             try
             {
+                UserLogin userLogin = _mapper.Map<UserLogin>(userLoginViewModel);
+                string id = await _userLogin.update(userLogin);
                 return RedirectToAction(nameof(Index));
             }
             catch

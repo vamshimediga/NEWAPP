@@ -42,6 +42,7 @@ namespace Data
         //DataBase Disconnection
         //Deallocation of Memory
         public void Dispose()
+        
         {
             if (_connection != null)
             {

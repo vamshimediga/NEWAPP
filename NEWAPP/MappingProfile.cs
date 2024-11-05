@@ -53,9 +53,29 @@ namespace NEWAPP
             CreateMap<AccessTable, AccessTableViewModel>();
             CreateMap<AccessTableViewModel, AccessTable>();
 
-            CreateMap<UserLogin, UserLoginViewModel>();
-            CreateMap<UserLoginViewModel, UserLogin>();
+            CreateMap<UserLogin, UserLoginViewModel>()
+           .ForMember(dest => dest.full_name, opt => opt.MapFrom(src => $"{src.first_name} {src.last_name}"));
+            CreateMap<UserLoginViewModel, UserLogin>()
+            .ForMember(dest => dest.first_name, opt => opt.MapFrom(src => NameSplitter.SplitFullName(src.full_name).firstName))
+             .ForMember(dest => dest.last_name, opt => opt.MapFrom(src => NameSplitter.SplitFullName(src.full_name).lastName));
 
+
+
+
+        }
+    }
+    public static class NameSplitter
+    {
+        public static (string firstName, string lastName) SplitFullName(string fullName)
+        {
+            if (string.IsNullOrEmpty(fullName))
+                return (string.Empty, string.Empty);
+
+            var parts = fullName.Split(' ');
+            var firstName = parts[0];
+            var lastName = parts.Length > 1 ? parts[1] : string.Empty;
+
+            return (firstName, lastName);
         }
     }
 }

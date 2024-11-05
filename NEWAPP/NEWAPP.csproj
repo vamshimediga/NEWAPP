@@ -27,10 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Views\Admin\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Data\" />
     <Folder Include="Filters\AuthenticationFilter\" />
     <Folder Include="NewFolder\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
