@@ -53,6 +53,9 @@ namespace NEWAPP
             CreateMap<AccessTable, AccessTableViewModel>();
             CreateMap<AccessTableViewModel, AccessTable>();
 
+            CreateMap<UserLogin, UserLoginViewModel>();
+            CreateMap<UserLoginViewModel, UserLogin>();
+
         }
     }
 }

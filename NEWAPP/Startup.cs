@@ -100,7 +100,8 @@ namespace startupfile
           services.AddScoped<IContect, ContectRepository>();
           services.AddScoped<Ionline_retailUserLogin, online_retailUserLoginRepository>();
           services.AddScoped<IAccessTable, AccessTableRepository>();
-          services.AddControllersWithViews(options =>
+          services.AddScoped<IUserLogin, UserLoginRepository>();
+            services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
             });
@@ -146,6 +147,9 @@ namespace startupfile
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                        name: "areas",
+                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

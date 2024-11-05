@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Views\Admin\" />
     <Folder Include="Data\" />
     <Folder Include="Filters\AuthenticationFilter\" />
     <Folder Include="NewFolder\" />

@@ -61,5 +61,7 @@ namespace Data
 
         IAccessTable accessTable { get; }
 
+        IUserLogin UserLogin { get; }
+
     }
 }

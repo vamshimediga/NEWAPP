@@ -82,5 +82,10 @@ namespace Data
         public Ionline_retailUserLogin ionline_RetailUserLogin { get; }
 
         public IAccessTable accessTable { get; }
+
+      
+
+        public IUserLogin UserLogin { get; }
+
     }
 }
