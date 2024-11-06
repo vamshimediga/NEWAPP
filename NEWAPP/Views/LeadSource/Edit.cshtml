@@ -6,6 +6,12 @@
 }
 
 <h1>Edit</h1>
+<p>Original Created Date: @ViewData["OriginalCreatedDate"]</p>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 
 <h4>LeadSource</h4>
 <hr />
