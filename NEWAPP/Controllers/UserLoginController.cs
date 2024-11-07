@@ -49,16 +49,19 @@ namespace NEWAPP.Controllers
         // GET: UserLoginController/Create
         public ActionResult Create()
         {
-            return View();
+            UserLoginViewModel userLoginViewModel = new UserLoginViewModel();
+            return View(userLoginViewModel);
         }
 
         // POST: UserLoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(UserLoginViewModel userLoginViewModel)
         {
             try
             {
+                UserLogin userLogin  = _mapper.Map<UserLogin>(userLoginViewModel);
+                string idstr = await _userLogin.insert(userLogin);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -92,20 +95,25 @@ namespace NEWAPP.Controllers
             }
         }
 
-        // GET: UserLoginController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+       
 
         // POST: UserLoginController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                 
+                   string ids= await  _userLogin.delete(id); // Delete the user
+                    return Json(new { success = true });
+                }
+                catch
+                {
+                    // In case of any exception, return a failure response
+                    return Json(new { success = false });
+                }
             }
             catch
             {

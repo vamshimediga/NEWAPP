@@ -22,14 +22,37 @@ namespace Data.Repositories.Implemention
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public Task<int> delete(int id)
+       
+        public async Task<string> delete(string id)
         {
-            throw new NotImplementedException();
+            // Execute the stored procedure
+            var parameters = new { UserID = id };
+
+            // Dapper executes the procedure and returns the number of affected rows
+            var rowsAffected = await _connection.ExecuteAsync("railway_system.DeleteUser", parameters);
+
+            // Return true if the deletion was successful (i.e., at least one row was affected)
+            return  rowsAffected > 0 ? Convert.ToString(rowsAffected) : "1";
         }
 
-        public Task<int> insert(UserLogin userLogin)
+        public async Task<string> insert(UserLogin userLogin)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@UserID", userLogin.user_id, DbType.String);
+            parameters.Add("@UserPassword", userLogin.user_password, DbType.String);
+            parameters.Add("@FirstName", userLogin.first_name, DbType.String);
+            parameters.Add("@LastName", userLogin.last_name, DbType.String);
+            parameters.Add("@EmailID", userLogin.email_id, DbType.String);
+
+            // Output parameter to get the created UserID
+            parameters.Add("@CreatedUserID", dbType: DbType.String, size: 50, direction: ParameterDirection.Output);
+
+            // Call the stored procedure
+            await _connection.ExecuteAsync("[railway_system].[InsertUser]", parameters);
+
+            // Retrieve the value of the output parameter
+            string createdUserId = parameters.Get<string>("@CreatedUserID");
+            return createdUserId;
         }
 
         public async Task<string> update(UserLogin userLogin)

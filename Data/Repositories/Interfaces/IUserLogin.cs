@@ -13,9 +13,9 @@ namespace Data.Repositories.Interfaces
 
         Task<UserLogin> UserLoginAsync(string id);
 
-        Task<int> insert(UserLogin userLogin);
+        Task<string> insert(UserLogin userLogin);
         Task<string> update(UserLogin userLogin);
-        Task<int> delete(int id);
+        Task<string> delete(string id);
 
     }
 }
