@@ -47,6 +47,7 @@ namespace Data
             service.AddScoped<Ionline_retailUserLogin,online_retailUserLoginRepository>();
             service.AddScoped<IAccessTable, AccessTableRepository>();
             service.AddScoped<IUserLogin, UserLoginRepository>();
+            service.AddScoped<ICookingRecipe, CookingRecipeRepository>();
         }
     }
 }

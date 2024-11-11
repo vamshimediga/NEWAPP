@@ -96,6 +96,7 @@
     <Compile Include="Company.cs" />
     <Compile Include="CompanyUsers.cs" />
     <Compile Include="Contect.cs" />
+    <Compile Include="CookingRecipe.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CustomerData.cs" />

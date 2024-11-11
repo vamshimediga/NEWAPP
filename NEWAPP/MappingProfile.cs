@@ -60,8 +60,8 @@ namespace NEWAPP
              .ForMember(dest => dest.last_name, opt => opt.MapFrom(src => NameSplitter.SplitFullName(src.full_name).lastName));
 
 
-
-
+            CreateMap<CookingRecipe, CookingRecipeViewModel>();
+            CreateMap<CookingRecipeViewModel, CookingRecipe>();
         }
     }
     public static class NameSplitter

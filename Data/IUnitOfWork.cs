@@ -63,5 +63,7 @@ namespace Data
 
         IUserLogin UserLogin { get; }
 
+        ICookingRecipe CookingRecipe { get; }
+
     }
 }

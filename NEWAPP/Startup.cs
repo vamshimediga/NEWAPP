@@ -101,6 +101,7 @@ namespace startupfile
           services.AddScoped<Ionline_retailUserLogin, online_retailUserLoginRepository>();
           services.AddScoped<IAccessTable, AccessTableRepository>();
           services.AddScoped<IUserLogin, UserLoginRepository>();
+            services.AddScoped<ICookingRecipe, CookingRecipeRepository>();
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
