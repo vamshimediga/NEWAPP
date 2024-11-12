@@ -10,5 +10,7 @@ namespace Data.Repositories.Interfaces
     public interface ICookingRecipe
     {
         Task<List<CookingRecipe>> GetcookingRecipesAsync();
+
+        Task<CookingRecipe> GetcookingRecipebyid(int id);
     }
 }

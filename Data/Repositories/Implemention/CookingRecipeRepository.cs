@@ -15,6 +15,12 @@ namespace Data.Repositories.Implemention
         {
         }
 
+        public async Task<CookingRecipe> GetcookingRecipebyid(int id)
+        {
+            CookingRecipe recipe = await QueryFirstOrDefaultAsync<CookingRecipe>("dbo.GetRecipeById", new { @RecipeId = id });// Retrieves the first result (or null if not found)
+            return recipe;
+        }
+
         public async Task<List<CookingRecipe>> GetcookingRecipesAsync()
         {
             List<CookingRecipe> cookingRecipes = await QueryAsync<CookingRecipe>("GetAllCookingRecipes");
