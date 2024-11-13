@@ -32,15 +32,19 @@ namespace NEWAPP.Controllers
         }
 
         // GET: CookingRecipeController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            CookingRecipe cookingRecipe = await _cookingRecipe.GetcookingRecipebyid(id);
+            CookingRecipeViewModel cookingRecipeViewModel = _mapper.Map<CookingRecipeViewModel>(cookingRecipe);
+            return View(cookingRecipeViewModel);
+            
         }
 
         // GET: CookingRecipeController/Create
         public ActionResult Create()
         {
-            return View();
+            CookingRecipeViewModel cookingRecipeView = new CookingRecipeViewModel();
+            return View(cookingRecipeView);
         }
 
         // POST: CookingRecipeController/Create
