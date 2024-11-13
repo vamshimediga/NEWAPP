@@ -1,8 +1,10 @@
-﻿using Data.Repositories.Interfaces;
+﻿using Dapper;
+using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,16 @@ namespace Data.Repositories.Implemention
         public async Task<List<CookingRecipe>> GetcookingRecipesAsync()
         {
             List<CookingRecipe> cookingRecipes = await QueryAsync<CookingRecipe>("GetAllCookingRecipes");
+            return cookingRecipes;
+        }
+
+        public async Task<List<CookingRecipe>> GetSearchCookingRecipes(string name)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@RecipeName", name, DbType.String);
+
+            // Executing the stored procedure using Dapper
+            List<CookingRecipe> cookingRecipes = await QueryAsync<CookingRecipe>("SearchRecipesByName", parameters);
             return cookingRecipes;
         }
     }

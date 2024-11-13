@@ -24,6 +24,13 @@ namespace NEWAPP.Controllers
              return View(viewModels);
         }
 
+        public async Task<ActionResult> Search(string name)
+        {
+            List<CookingRecipe> CookingRecipe = await _cookingRecipe.GetSearchCookingRecipes(name);
+            List<CookingRecipeViewModel> viewModels = _mapper.Map<List<CookingRecipeViewModel>>(CookingRecipe);
+            return View("index",viewModels);
+        }
+
         // GET: CookingRecipeController/Details/5
         public ActionResult Details(int id)
         {

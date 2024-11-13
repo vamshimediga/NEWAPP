@@ -12,5 +12,7 @@ namespace Data.Repositories.Interfaces
         Task<List<CookingRecipe>> GetcookingRecipesAsync();
 
         Task<CookingRecipe> GetcookingRecipebyid(int id);
+
+        Task<List<CookingRecipe>> GetSearchCookingRecipes(string name);
     }
 }
