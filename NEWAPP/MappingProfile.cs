@@ -62,6 +62,9 @@ namespace NEWAPP
 
             CreateMap<CookingRecipe, CookingRecipeViewModel>();
             CreateMap<CookingRecipeViewModel, CookingRecipe>();
+
+            CreateMap<Image, ImageViewModel>();
+            CreateMap<ImageViewModel, Image>();
         }
     }
     public static class NameSplitter

@@ -32,6 +32,7 @@ namespace startupfile
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddAutoMapper(typeof(MappingProfile));
             // Add TokenService to the DI container
             services.AddSingleton<TokenService>(new TokenService("A4e1eYB4WmI1D9Cj/NBzNp1HzNs30WqO2yZVoUmD8GQ="));

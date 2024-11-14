@@ -14,5 +14,9 @@ namespace Data.Repositories.Interfaces
         Task<CookingRecipe> GetcookingRecipebyid(int id);
 
         Task<List<CookingRecipe>> GetSearchCookingRecipes(string name);
+
+        Task<List<Image>> GetImages();
+
+        Task<int> insertimagebase64(Image image);
     }
 }
