@@ -4,6 +4,7 @@ using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using NEWAPP.Models;
 using System.Collections.Generic;
@@ -72,9 +73,7 @@ namespace NEWAPP.Controllers
                             ImageName = model.ImageName,
                             ImageData = base64String
                         };
-
-                        Image img = _mapper.Map<Image>(image);
-                        // Save to database
+                             // Save to database
                         int id = await _cookingRecipe.insertimagebase64(image);
 
                         if (id > 0)
@@ -100,14 +99,17 @@ namespace NEWAPP.Controllers
         // POST: CookingRecipeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CookingRecipeViewModel cookingRecipeViewModel)
         {
             try
             {
+                CookingRecipe cookingRecipe = _mapper.Map<CookingRecipe>(cookingRecipeViewModel);
+                int id = await _cookingRecipe.insert(cookingRecipe);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
+                
                 return View();
             }
         }

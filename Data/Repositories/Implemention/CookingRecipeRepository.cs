@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Data.Repositories.Implemention
 {
@@ -43,6 +44,25 @@ namespace Data.Repositories.Implemention
             // Executing the stored procedure using Dapper
             List<CookingRecipe> cookingRecipes = await QueryAsync<CookingRecipe>("SearchRecipesByName", parameters);
             return cookingRecipes;
+        }
+
+       
+        //
+        public async Task<int> insert(CookingRecipe cookingRecipe)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@RecipeId",cookingRecipe.recipe_Id, dbType: DbType.Int32);
+            parameters.Add("@Name", cookingRecipe.name, DbType.String);
+            parameters.Add("@Description", cookingRecipe.description, DbType.String);
+            parameters.Add("@Instructions", cookingRecipe.instructions, DbType.String);
+            parameters.Add("@ID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            // Execute the stored procedure
+           await ExecuteAsync("[dbo].[InsertCookingRecipe]", parameters);
+
+            // Retrieve the output parameter
+            int recipeId = parameters.Get<int>("@ID");
+            return recipeId;
         }
 
         public async Task<int> insertimagebase64(Image image)
