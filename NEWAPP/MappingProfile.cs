@@ -65,6 +65,17 @@ namespace NEWAPP
 
             CreateMap<Image, ImageViewModel>();
             CreateMap<ImageViewModel, Image>();
+
+
+            CreateMap<ITInstitute, ITInstituteViewModel>()
+            .ForMember(dest => dest.CreatedDateFormatted, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss"))) // Format CreatedDate
+            .ForMember(dest => dest.ModifiedDateFormatted, opt => opt.MapFrom(src => src.ModifiedDate.HasValue ? src.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")) // Format ModifiedDate
+            .ForMember(dest => dest.FormattedRating, opt => opt.MapFrom(src => src.Rating.HasValue ? $"{src.Rating.Value:F1} / 5" : "No Rating"));
+
+            // Map ITInstituteViewModel back to ITInstitute
+            CreateMap<ITInstituteViewModel, ITInstitute>()
+                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore()) // Ignore these fields during reverse mapping
+                .ForMember(dest => dest.ModifiedDate, opt => opt.Ignore());
         }
     }
     public static class NameSplitter

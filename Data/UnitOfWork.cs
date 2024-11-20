@@ -88,5 +88,7 @@ namespace Data
         public IUserLogin UserLogin { get; }
 
         public ICookingRecipe CookingRecipe { get; }
+
+        public IITInstitute ITInstitute { get; }
     }
 }

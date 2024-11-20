@@ -166,6 +166,7 @@
     <Compile Include="Repositories\Implemention\FileRepository.cs" />
     <Compile Include="Repositories\Implemention\HRMGERRepository.cs" />
     <Compile Include="Repositories\Implemention\HumanResourcesRepository.cs" />
+    <Compile Include="Repositories\Implemention\IITInstituteRepository.cs" />
     <Compile Include="Repositories\Implemention\LeadSourceRepository.cs" />
     <Compile Include="Repositories\Implemention\LeadsRepository.cs" />
     <Compile Include="Repositories\Implemention\MAdminRepository.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Repositories\Interfaces\IFile.cs" />
     <Compile Include="Repositories\Interfaces\IHRMGER.cs" />
     <Compile Include="Repositories\Interfaces\IHumanResources.cs" />
+    <Compile Include="Repositories\Interfaces\IITInstitute.cs" />
     <Compile Include="Repositories\Interfaces\ILeads.cs" />
     <Compile Include="Repositories\Interfaces\ILeadSource.cs" />
     <Compile Include="Repositories\Interfaces\IMAdmin.cs" />

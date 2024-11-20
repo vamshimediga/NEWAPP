@@ -65,5 +65,7 @@ namespace Data
 
         ICookingRecipe CookingRecipe { get; }
 
+        IITInstitute ITInstitute { get; }
+
     }
 }

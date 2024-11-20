@@ -1,0 +1,50 @@
+﻿@model List<ITInstituteViewModel>;
+
+@{
+    ViewData["Title"] = "IT Institutes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>IT Institutes</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Institute ID</th>
+            <th>Institute Name</th>
+            <th>Location</th>
+            <th>Contact Number</th>
+            <th>Established Year</th>
+            <th>Courses Offered</th>
+            <th>Rating</th>
+            <th>Created Date</th>
+            <th>Modified Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (ITInstituteViewModel institute in Model)
+            {
+                <tr>
+                    <td>@institute.InstituteID</td>
+                    <td>@institute.InstituteName</td>
+                    <td>@institute.Location</td>
+                    <td>@institute.ContactNumber</td>
+                    <td>@(institute.EstablishedYear.HasValue ? institute.EstablishedYear.ToString() : "N/A")</td>
+                    <td>@institute.CoursesOffered</td>
+                    <td>@institute.FormattedRating</td>
+                    <td>@institute.CreatedDateFormatted</td>
+                    <td>@institute.ModifiedDateFormatted</td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9" class="text-center">No records found</td>
+            </tr>
+        }
+    </tbody>
+</table>

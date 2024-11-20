@@ -110,7 +110,7 @@ namespace NEWAPP.Controllers
             catch(Exception ex)
             {
                 
-                return View();
+                return View("Create", cookingRecipeViewModel);
             }
         }
 

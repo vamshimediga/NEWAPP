@@ -106,6 +106,7 @@
     <Compile Include="HRMGER.cs" />
     <Compile Include="HumanResources.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="ITInstitute.cs" />
     <Compile Include="Lead.cs" />
     <Compile Include="LeadSource.cs" />
     <Compile Include="LoginModel.cs" />
