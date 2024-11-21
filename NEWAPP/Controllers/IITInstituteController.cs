@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NEWAPP.Models;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace NEWAPP.Controllers
 {
@@ -55,9 +56,18 @@ namespace NEWAPP.Controllers
         }
 
         // GET: IITInstituteController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            ITInstitute institute = await _iTInstitute.GetById(id); // Fetch institute by ID
+            if (institute == null)
+            {
+               return NotFound();
+            }
+            // Format the ContactNumber to be in the format 111-111-2323
+            institute.ContactNumber = Regex.Replace(institute.ContactNumber, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3");
+            ITInstituteViewModel iTInstituteViewModel = _mapper.Map<ITInstituteViewModel>(institute);
+            return View("Edit",iTInstituteViewModel);
         }
 
         // POST: IITInstituteController/Edit/5

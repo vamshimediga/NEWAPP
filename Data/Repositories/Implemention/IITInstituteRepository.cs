@@ -26,9 +26,10 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
-        public Task<ITInstitute> GetById(int id)
+        public async Task<ITInstitute> GetById(int id)
         {
-            throw new NotImplementedException();
+            ITInstitute iTInstitute = await _connection.QueryFirstOrDefaultAsync<ITInstitute>("GetITInstituteById", new { InstituteID = id });
+            return iTInstitute;
         }
 
         public async Task<List<ITInstitute>> GetITInstitutes()
