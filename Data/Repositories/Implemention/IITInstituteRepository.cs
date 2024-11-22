@@ -38,9 +38,21 @@ namespace Data.Repositories.Implemention
             return iTInstitutes;
         }
 
-        public Task<int> insert(ITInstitute institute)
+        public async Task<int> insert(ITInstitute institute)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@InstituteName", institute.InstituteName);
+            parameters.Add("@Location", institute.Location);
+            parameters.Add("@ContactNumber", institute.ContactNumber);
+            parameters.Add("@EstablishedYear", institute.EstablishedYear);
+            parameters.Add("@CoursesOffered", institute.CoursesOffered);
+            parameters.Add("@Rating", institute.Rating);
+            parameters.Add("@CreatedDate", institute.CreatedDate);
+            parameters.Add("@ModifiedDate", institute.ModifiedDate);
+            parameters.Add("@InsID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            await _connection.ExecuteAsync("InsertITInstitute", parameters);
+            int instituteId = parameters.Get<int>("@InsID");
+            return instituteId;
         }
 
         public async Task<int> update(ITInstitute institute)
@@ -59,5 +71,6 @@ namespace Data.Repositories.Implemention
             var outputInstituteID = parameters.Get<int>("@OutputInstituteID");
             return outputInstituteID;
         }
+        
     }
 }

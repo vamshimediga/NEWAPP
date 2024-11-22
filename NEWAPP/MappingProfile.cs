@@ -73,14 +73,17 @@ namespace NEWAPP
             .ForMember(dest => dest.FormattedRating, opt => opt.MapFrom(src => src.Rating.HasValue ? $"{src.Rating.Value:F1} / 5" : "No Rating"));
 
             CreateMap<ITInstituteViewModel, ITInstitute>()
-              .ForMember(dest => dest.CreatedDate,opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.CreatedDateFormatted)
-              ? DateTime.Now // Default to current date if not provided
-              : DateTime.Parse(src.CreatedDateFormatted))) // Parse CreatedDateFormatted
-             .ForMember(dest => dest.ModifiedDate,
-              opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ModifiedDateFormatted)
-              ? (DateTime?)null
-              : DateTime.Parse(src.ModifiedDateFormatted))) // Parse ModifiedDateFormatted
-           .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => NameSplitter.ParseFormattedRating(src.FormattedRating)));
+     .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src =>
+         !string.IsNullOrWhiteSpace(src.CreatedDateFormatted)
+             ? NameSplitter.ParseDate(src.CreatedDateFormatted) // Custom parser for string to DateTime
+             : DateTime.Now)) // Default value for null or empty input
+     .ForMember(dest => dest.ModifiedDate, opt => opt.MapFrom(src =>
+         !string.IsNullOrWhiteSpace(src.ModifiedDateFormatted)
+             ? NameSplitter.ParseDate(src.ModifiedDateFormatted) // Custom parser for string to DateTime
+             : (DateTime?)null)) // Null value for missing input
+     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src =>
+         NameSplitter.ParseFormattedRating(src.FormattedRating))); // Parsing formatted rating
+
 
 
 
@@ -108,6 +111,15 @@ namespace NEWAPP
             var parts = formattedRating.Split('/');
             return decimal.TryParse(parts[0], out var result) ? result : (decimal?)null;
         }
+
+        public static DateTime ParseDate(string date)
+        {
+            var parsedDate = DateTime.Now;
+            parsedDate = Convert.ToDateTime(date);
+            return parsedDate;
+        }
+
+       
     }
    
 

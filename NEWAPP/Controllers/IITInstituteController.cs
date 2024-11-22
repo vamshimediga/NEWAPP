@@ -23,6 +23,7 @@ namespace NEWAPP.Controllers
             _mapper = mapper;   
         }
         public async Task<ActionResult> Index()
+        
         {
             List<ITInstitute>  iTInstitutes = await _iTInstitute.GetITInstitutes();
             List<ITInstituteViewModel> iTInstituteViewModels = _mapper.Map<List<ITInstituteViewModel>>(iTInstitutes);
@@ -38,16 +39,21 @@ namespace NEWAPP.Controllers
         // GET: IITInstituteController/Create
         public ActionResult Create()
         {
-            return View();
+            ITInstituteViewModel iTInstituteViewModel = new ITInstituteViewModel();
+            return View(iTInstituteViewModel);
         }
 
         // POST: IITInstituteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(ITInstituteViewModel iTInstituteViewModel)
         {
             try
             {
+                var instituteViewModel = JsonConvert.SerializeObject(iTInstituteViewModel);
+                ITInstituteViewModel instituteViewModel1 = JsonConvert.DeserializeObject<ITInstituteViewModel>(instituteViewModel);
+                ITInstitute institute = _mapper.Map<ITInstitute>(instituteViewModel1);
+                int id = await _iTInstitute.insert(institute);
                 return RedirectToAction(nameof(Index));
             }
             catch

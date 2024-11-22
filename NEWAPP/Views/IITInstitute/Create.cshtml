@@ -1,0 +1,79 @@
+﻿@model NEWAPP.Models.ITInstituteViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ITInstituteViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("Create", "IITInstitute", FormMethod.Post))
+        {
+            <div class="text-danger">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstituteID, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.InstituteID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InstituteID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstituteName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.InstituteName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InstituteName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EstablishedYear, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.EstablishedYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstablishedYear, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoursesOffered, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.CoursesOffered, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CoursesOffered, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FormattedRating, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FormattedRating, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FormattedRating, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedDateFormatted, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.CreatedDateFormatted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CreatedDateFormatted, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModifiedDateFormatted, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ModifiedDateFormatted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModifiedDateFormatted, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
