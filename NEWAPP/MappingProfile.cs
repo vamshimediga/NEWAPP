@@ -72,10 +72,19 @@ namespace NEWAPP
             .ForMember(dest => dest.ModifiedDateFormatted, opt => opt.MapFrom(src => src.ModifiedDate.HasValue ? src.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")) // Format ModifiedDate
             .ForMember(dest => dest.FormattedRating, opt => opt.MapFrom(src => src.Rating.HasValue ? $"{src.Rating.Value:F1} / 5" : "No Rating"));
 
-            // Map ITInstituteViewModel back to ITInstitute
             CreateMap<ITInstituteViewModel, ITInstitute>()
-                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore()) // Ignore these fields during reverse mapping
-                .ForMember(dest => dest.ModifiedDate, opt => opt.Ignore());
+              .ForMember(dest => dest.CreatedDate,opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.CreatedDateFormatted)
+              ? DateTime.Now // Default to current date if not provided
+              : DateTime.Parse(src.CreatedDateFormatted))) // Parse CreatedDateFormatted
+             .ForMember(dest => dest.ModifiedDate,
+              opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ModifiedDateFormatted)
+              ? (DateTime?)null
+              : DateTime.Parse(src.ModifiedDateFormatted))) // Parse ModifiedDateFormatted
+           .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => NameSplitter.ParseFormattedRating(src.FormattedRating)));
+
+
+
+
         }
     }
     public static class NameSplitter
@@ -91,5 +100,15 @@ namespace NEWAPP
 
             return (firstName, lastName);
         }
+        public static decimal? ParseFormattedRating(string formattedRating)
+        {
+            if (string.IsNullOrWhiteSpace(formattedRating))
+                return null;
+
+            var parts = formattedRating.Split('/');
+            return decimal.TryParse(parts[0], out var result) ? result : (decimal?)null;
+        }
     }
+   
+
 }

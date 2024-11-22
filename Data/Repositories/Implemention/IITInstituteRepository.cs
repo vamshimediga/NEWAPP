@@ -43,9 +43,21 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
-        public Task<int> update(ITInstitute institute)
+        public async Task<int> update(ITInstitute institute)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@InstituteID", institute.InstituteID);  // Input parameter
+            parameters.Add("@InstituteName", institute.InstituteName);  // Input parameter
+            parameters.Add("@Location", institute.Location);  // Input parameter
+            parameters.Add("@ContactNumber", institute.ContactNumber);  // Input parameter
+            parameters.Add("@EstablishedYear", institute.EstablishedYear);  // Input parameter
+            parameters.Add("@CoursesOffered", institute.CoursesOffered);  // Input parameter
+            parameters.Add("@Rating", institute.Rating);  // Input parameter
+            parameters.Add("@ModifiedDate", institute.ModifiedDate);  // Input parameter
+            parameters.Add("@OutputInstituteID", dbType: DbType.Int32, direction: ParameterDirection.Output);  // Output parameter
+            await  _connection.ExecuteAsync("dbo.UpdateITInstitute", parameters);
+            var outputInstituteID = parameters.Get<int>("@OutputInstituteID");
+            return outputInstituteID;
         }
     }
 }

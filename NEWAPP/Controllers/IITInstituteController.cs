@@ -4,6 +4,7 @@ using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NEWAPP.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -73,10 +74,14 @@ namespace NEWAPP.Controllers
         // POST: IITInstituteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ITInstituteViewModel iTInstituteViewModel)
         {
             try
             {
+                var instituteViewModel = JsonConvert.SerializeObject(iTInstituteViewModel);
+                ITInstituteViewModel instituteViewModel1 = JsonConvert.DeserializeObject<ITInstituteViewModel>(instituteViewModel);
+                ITInstitute institute = _mapper.Map<ITInstitute>(instituteViewModel1);
+                int id = await _iTInstitute.update(institute);
                 return RedirectToAction(nameof(Index));
             }
             catch
