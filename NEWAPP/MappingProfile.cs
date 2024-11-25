@@ -66,6 +66,8 @@ namespace NEWAPP
             CreateMap<Image, ImageViewModel>();
             CreateMap<ImageViewModel, Image>();
 
+        
+
 
             CreateMap<ITInstitute, ITInstituteViewModel>()
             .ForMember(dest => dest.CreatedDateFormatted, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss"))) // Format CreatedDate
@@ -85,7 +87,8 @@ namespace NEWAPP
          NameSplitter.ParseFormattedRating(src.FormattedRating))); // Parsing formatted rating
 
 
-
+            CreateMap<Author, AuthorViewModel>();
+            CreateMap<AuthorViewModel, Author>();
 
 
         }

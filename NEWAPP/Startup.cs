@@ -104,6 +104,7 @@ namespace startupfile
           services.AddScoped<IUserLogin, UserLoginRepository>();
           services.AddScoped<ICookingRecipe, CookingRecipeRepository>();
           services.AddScoped<IITInstitute,IITInstituteRepository>();
+          services.AddScoped<IAuthor,  AuthorRepository>(); 
           services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally

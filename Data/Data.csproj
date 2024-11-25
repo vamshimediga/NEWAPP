@@ -154,6 +154,7 @@
     <Compile Include="RegisterService.cs" />
     <Compile Include="Repositories\Implemention\AccessTableRepository.cs" />
     <Compile Include="Repositories\Implemention\AdminUsersRepository.cs" />
+    <Compile Include="Repositories\Implemention\AuthorRepository.cs" />
     <Compile Include="Repositories\Implemention\CommonServiceRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyUsersRepository.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Repositories\Implemention\UserradiochkdropRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAccessTable.cs" />
     <Compile Include="Repositories\Interfaces\IAdminUsers.cs" />
+    <Compile Include="Repositories\Interfaces\IAuthor.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
     <Compile Include="Repositories\Interfaces\ICommonService.cs" />
     <Compile Include="Repositories\Interfaces\ICompany.cs" />

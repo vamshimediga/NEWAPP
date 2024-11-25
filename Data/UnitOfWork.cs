@@ -90,5 +90,9 @@ namespace Data
         public ICookingRecipe CookingRecipe { get; }
 
         public IITInstitute ITInstitute { get; }
+
+        public IAuthor Author {  get; }
+
+       
     }
 }

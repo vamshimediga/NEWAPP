@@ -67,5 +67,7 @@ namespace Data
 
         IITInstitute ITInstitute { get; }
 
+        IAuthor Author { get; }
+
     }
 }
