@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System.Data.Common;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Data.Repositories.Implemention
 {
@@ -37,9 +39,12 @@ namespace Data.Repositories.Implemention
             throw new NotImplementedException();
         }
 
-        public Task<int> insert(Author author)
+        public async Task insert(Author author)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthorID", author.AuthorID, DbType.Int32);
+            parameters.Add("@AuthorName", author.AuthorName, DbType.String);
+            await _connection.ExecuteAsync("InsertAuthor", parameters);
         }
 
         public Task<int> update(Author author)

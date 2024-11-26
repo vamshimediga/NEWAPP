@@ -3,6 +3,7 @@ using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NEWAPP.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -39,6 +40,16 @@ namespace NEWAPP.Controllers
         // GET: IITInstituteController/Create
         public ActionResult Create()
         {
+            ViewBag.CoursesList = new SelectList(new[]
+              {
+                  new { Id = 1, Name = "C" },
+                  new { Id = 2, Name = "C++" },
+                  new { Id = 3, Name = ".NET" },
+                  new { Id = 4, Name = "Java" },
+                  new { Id = 5, Name = "Ruby" },
+                  new { Id = 6, Name = "Angular" },
+                  new { Id = 7, Name = "React" }
+             }, "Id", "Name");
             ITInstituteViewModel iTInstituteViewModel = new ITInstituteViewModel();
             return View(iTInstituteViewModel);
         }

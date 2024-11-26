@@ -3,6 +3,7 @@ using Data.Repositories.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NEWAPP.Models;
 
 namespace NEWAPP.Controllers
@@ -11,7 +12,7 @@ namespace NEWAPP.Controllers
     {
         public readonly IAuthor _author;
         public readonly IMapper _mapper;
-        public AuthorController(IAuthor author,Mapper mapper)
+        public AuthorController(IAuthor author, IMapper mapper)
         {
 
             _author = author;
@@ -24,7 +25,20 @@ namespace NEWAPP.Controllers
             List<AuthorViewModel> authorViewModelList = _mapper.Map<List<AuthorViewModel>>(authorList);
              return View(authorViewModelList);
         }
-
+        [HttpGet]
+        public IActionResult FileCreate()
+        {
+            // Example data for dropdown
+            ViewBag.FileTypes = new SelectList(new[] { "PDF", "DOCX", "XLSX", "ZIP", "IMG" });
+            FileViewModel fileViewModel = new FileViewModel();
+            return View(fileViewModel);
+        }
+        [HttpPost]
+        public IActionResult FileCreate(FileViewModel fileViewModel)
+        {
+           
+            return View();
+        }
         // GET: AuthorController/Details/5
         public ActionResult Details(int id)
         {
@@ -34,16 +48,20 @@ namespace NEWAPP.Controllers
         // GET: AuthorController/Create
         public ActionResult Create()
         {
-            return View();
+            AuthorViewModel authorViewModel = new AuthorViewModel();    
+            return View(authorViewModel);
         }
 
         // POST: AuthorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(AuthorViewModel authorViewModel)
         {
             try
             {
+                Author author = _mapper.Map<Author>(authorViewModel);
+                await _author.insert(author);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

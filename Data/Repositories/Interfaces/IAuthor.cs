@@ -11,7 +11,7 @@ namespace Data.Repositories.Interfaces
     {
         Task<List<Author>> GetAuthors();
         Task<Author> GetByid(int id);
-        Task<int> insert(Author author);
+        Task insert(Author author);
         Task<int> update(Author author);    
         Task<int> delete(int id);   
 

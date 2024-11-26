@@ -30,6 +30,10 @@ namespace NEWAPP
             CreateMap<Lead, LeadViewModel>();
             CreateMap<LeadViewModel, Lead>();
 
+
+            CreateMap<Author, AuthorViewModel>();
+            CreateMap<AuthorViewModel, Author>();
+
             CreateMap<UserData, UserDataViewModel>();
             CreateMap<UserDataViewModel, UserData>();
 
@@ -87,8 +91,7 @@ namespace NEWAPP
          NameSplitter.ParseFormattedRating(src.FormattedRating))); // Parsing formatted rating
 
 
-            CreateMap<Author, AuthorViewModel>();
-            CreateMap<AuthorViewModel, Author>();
+          
 
 
         }
