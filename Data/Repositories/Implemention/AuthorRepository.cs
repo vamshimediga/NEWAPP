@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data.Common;
 using static System.Collections.Specialized.BitVector32;
+using System.Collections.ObjectModel;
 
 namespace Data.Repositories.Implemention
 {
@@ -23,9 +24,13 @@ namespace Data.Repositories.Implemention
         {
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
-        public Task<int> delete(int id)
+        public async Task<bool> delete(List<string> authorIds)
         {
-            throw new NotImplementedException();
+            string ids = string.Join(",", authorIds);
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthorIDs", ids);
+            await _connection.ExecuteAsync("dbo.DeleteAuthors", parameters);
+            return true;
         }
 
         public async Task<List<Author>> GetAuthors()
@@ -34,9 +39,14 @@ namespace Data.Repositories.Implemention
             return authors;
         }
 
-        public Task<Author> GetByid(int id)
+        public async Task<Author> GetByid(int id)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthorID", id, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+
+            // Execute stored procedure and return the result
+            Author author = await _connection.QuerySingleOrDefaultAsync<Author>("dbo.GetAuthorByID", parameters);
+            return author;// Assuming the result is a single record or null
         }
 
         public async Task insert(Author author)
@@ -47,9 +57,12 @@ namespace Data.Repositories.Implemention
             await _connection.ExecuteAsync("InsertAuthor", parameters);
         }
 
-        public Task<int> update(Author author)
+        public async Task update(Author author)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthorID", author.AuthorID, DbType.Int32);
+            parameters.Add("@AuthorName", author.AuthorName, DbType.String);
+            await _connection.ExecuteAsync("[dbo].[UpdateAuthor]", parameters);
         }
     }
 }

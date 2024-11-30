@@ -39,11 +39,36 @@ namespace NEWAPP.Controllers
            
             return View();
         }
-        // GET: AuthorController/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public async Task<ActionResult> DeleteMultiple([FromBody] List<string> ids)
         {
-            return View();
+            if (ids == null || !ids.Any())
+            {
+                TempData["ErrorMessage"] = "No authors selected for deletion.";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                bool isDeleted = await _author.delete(ids);
+
+                if (isDeleted)
+                {
+                    TempData["SuccessMessage"] = "Selected authors were deleted successfully.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to delete the selected authors.";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An error occurred: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
         }
+
 
         // GET: AuthorController/Create
         public ActionResult Create()
@@ -71,19 +96,23 @@ namespace NEWAPP.Controllers
         }
 
         // GET: AuthorController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Author author = await _author.GetByid(id);
+            AuthorViewModel authorViewModel = _mapper.Map<AuthorViewModel>(author);
+            return View(authorViewModel);
         }
 
         // POST: AuthorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(AuthorViewModel authorViewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                 Author author = _mapper.Map<Author>(authorViewModel);
+                 await _author.update(author);
+                 return RedirectToAction(nameof(Index));
             }
             catch
             {

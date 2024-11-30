@@ -5,38 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Authors</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <button id="deleteSelected" class="btn btn-danger">Delete Selected</button>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorName)
-            </th>
-            <th></th>
+            <th><input type="checkbox" id="selectAll" /></th>
+            <th>@Html.DisplayNameFor(model => model.AuthorID)</th>
+            <th>@Html.DisplayNameFor(model => model.AuthorName)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox" class="select-item" value="@item.AuthorID" /></td>
+                <td>@Html.DisplayFor(modelItem => item.AuthorID)</td>
+                <td>@Html.DisplayFor(modelItem => item.AuthorName)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AuthorID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AuthorID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AuthorID })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {debugger
+            // Select or deselect all checkboxes
+            $('#selectAll').on('change', function () {debugger
+                $('.select-item').prop('checked', this.checked);
+            });
+
+            // Delete selected items
+            $('#deleteSelected').on('click', function () {debugger
+                let selectedIds = [];
+                $('.select-item:checked').each(function () {
+                    selectedIds.push($(this).val()); // Collect all selected checkboxes
+                });
+
+                if (selectedIds.length === 0) {debugger
+                    alert('Please select at least one author to delete.');
+                    return;
+                }
+
+                if (confirm('Are you sure you want to delete the selected authors?')) {debugger
+                    $.ajax({
+                        url: '@Url.Action("DeleteMultiple", "Author")', // Ensure correct URL
+                        type: 'POST',
+                        contentType: 'application/json', // Set content type to JSON
+                        data: JSON.stringify(selectedIds), // Send data as an array
+                        success: function (response) {
+                            location.reload();
+                        },
+                        error: function () {
+                            alert('An error occurred while deleting authors.');
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+}
