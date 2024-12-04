@@ -12,5 +12,7 @@ namespace Data.Repositories.Interfaces
         Task<List<PsplCustomer>> GetPsplCustomers();
         
         Task<PsplCustomer> GetPsplCustomersByidAsync(int id);
+        Task update (PsplCustomer customer);
+      
     }
 }

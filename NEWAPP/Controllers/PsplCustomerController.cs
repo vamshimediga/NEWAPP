@@ -62,10 +62,12 @@ namespace NEWAPP.Controllers
         // POST: PsplCustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(PsplCustomerViewModel psplCustomerViewModel)
         {
             try
             {
+                PsplCustomer psplcus = _mapper.Map<PsplCustomer>(psplCustomerViewModel);
+                await _psplCustomer.update(psplcus);
                 return RedirectToAction(nameof(Index));
             }
             catch
