@@ -70,7 +70,8 @@ namespace NEWAPP
             CreateMap<Image, ImageViewModel>();
             CreateMap<ImageViewModel, Image>();
 
-        
+            CreateMap<PsplCustomer, PsplCustomerViewModel>();
+            CreateMap<PsplCustomerViewModel, PsplCustomer>();
 
 
             CreateMap<ITInstitute, ITInstituteViewModel>()

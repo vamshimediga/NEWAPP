@@ -49,7 +49,8 @@ namespace Data
             service.AddScoped<IUserLogin, UserLoginRepository>();
             service.AddScoped<ICookingRecipe, CookingRecipeRepository>();
             service.AddScoped<IITInstitute, IITInstituteRepository>();
-            service.AddScoped<IAuthor, AuthorRepository>(); 
+            service.AddScoped<IAuthor, AuthorRepository>();
+            service.AddScoped<IPsplCustomer, PsplCustomerRepository>();
         }
     }
 }

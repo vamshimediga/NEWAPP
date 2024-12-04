@@ -53,6 +53,8 @@ namespace Data
 
         public IPsplCompany psplCompany { get; }
 
+        public IPsplCustomer PsplCustomer { get; }
+
         public IMediaWithCategory media { get; }
 
         public IRestaurant restaurant { get; }
@@ -93,6 +95,6 @@ namespace Data
 
         public IAuthor Author {  get; }
 
-       
+      
     }
 }
