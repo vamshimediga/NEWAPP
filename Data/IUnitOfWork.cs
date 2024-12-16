@@ -70,5 +70,9 @@ namespace Data
         IAuthor Author { get; }
         IPsplCustomer PsplCustomer { get; }
 
+        IPsplClient PsplClient { get; }
+
+        IAuthor_US Author_US { get; }
+
     }
 }

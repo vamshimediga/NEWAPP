@@ -106,6 +106,8 @@ namespace startupfile
           services.AddScoped<IITInstitute,IITInstituteRepository>();
           services.AddScoped<IAuthor,  AuthorRepository>();
           services.AddScoped<IPsplCustomer, PsplCustomerRepository>();
+          services.AddScoped<IPsplClient, PsplClientRepository>();
+          services.AddScoped<IAuthor_US, Author_USRepository>();
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally

@@ -155,6 +155,7 @@
     <Compile Include="Repositories\Implemention\AccessTableRepository.cs" />
     <Compile Include="Repositories\Implemention\AdminUsersRepository.cs" />
     <Compile Include="Repositories\Implemention\AuthorRepository.cs" />
+    <Compile Include="Repositories\Implemention\Author_USRepository.cs" />
     <Compile Include="Repositories\Implemention\CommonServiceRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyUsersRepository.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Repositories\Implemention\PersonDataRepository.cs" />
     <Compile Include="Repositories\Implemention\ProductChartRepository.cs" />
     <Compile Include="Repositories\Implemention\ProjectInfoRepository.cs" />
+    <Compile Include="Repositories\Implemention\PsplClientRepository.cs" />
     <Compile Include="Repositories\Implemention\PsplCompanyReposisitory.cs" />
     <Compile Include="Repositories\Implemention\PsplCustomerRepository.cs" />
     <Compile Include="Repositories\Implemention\RestaurantRepository.cs" />
@@ -191,6 +193,7 @@
     <Compile Include="Repositories\Interfaces\IAccessTable.cs" />
     <Compile Include="Repositories\Interfaces\IAdminUsers.cs" />
     <Compile Include="Repositories\Interfaces\IAuthor.cs" />
+    <Compile Include="Repositories\Interfaces\IAuthor_US.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
     <Compile Include="Repositories\Interfaces\ICommonService.cs" />
     <Compile Include="Repositories\Interfaces\ICompany.cs" />
@@ -225,6 +228,7 @@
     <Compile Include="Repositories\Interfaces\IUserData.cs" />
     <Compile Include="Repositories\Interfaces\IUserLogin.cs" />
     <Compile Include="Repositories\Interfaces\IUserradiochkdrop.cs" />
+    <Compile Include="Repositories\Interfaces\PsplClient.cs" />
     <Compile Include="SessionExtensions.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

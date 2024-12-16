@@ -31,8 +31,15 @@ namespace NEWAPP
             CreateMap<LeadViewModel, Lead>();
 
 
+            CreateMap<PsplClient, PsplClientViewModel>();
+            CreateMap<PsplClientViewModel, PsplClient>();
+
+
             CreateMap<Author, AuthorViewModel>();
             CreateMap<AuthorViewModel, Author>();
+
+            CreateMap<Author_US, Author_USViewModel>();
+            CreateMap<Author_USViewModel, Author_US>();
 
             CreateMap<UserData, UserDataViewModel>();
             CreateMap<UserDataViewModel, UserData>();

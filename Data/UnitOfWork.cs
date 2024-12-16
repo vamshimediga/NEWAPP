@@ -95,6 +95,9 @@ namespace Data
 
         public IAuthor Author {  get; }
 
-      
+        public IPsplClient PsplClient { get; }
+
+        public IAuthor_US Author_US { get; }
+
     }
 }

@@ -51,6 +51,8 @@ namespace Data
             service.AddScoped<IITInstitute, IITInstituteRepository>();
             service.AddScoped<IAuthor, AuthorRepository>();
             service.AddScoped<IPsplCustomer, PsplCustomerRepository>();
+            service.AddScoped<IPsplClient , PsplClientRepository>();
+            service.AddScoped<IAuthor_US, Author_USRepository>();
         }
     }
 }
