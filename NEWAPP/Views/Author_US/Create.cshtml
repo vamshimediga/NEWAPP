@@ -1,0 +1,73 @@
+﻿@model NEWAPP.Models.Author_USViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Author_USViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- Standard form structure -->
+        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("", "", FormMethod.Post, new { @id = "createForm", @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuthorName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.AuthorName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<!-- Result div for AJAX response -->
+<div id="result"></div>
+
+@section Scripts {
+   
+    <script>
+        $(document).ready(function () {
+            $("#createForm").submit(function (e) {debugger
+                e.preventDefault(); // Prevent default form submission
+
+                $.ajax({
+                    url: '@Url.Action("Create", "Author_US")', // Controller action URL
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    success: function (response) {
+                        if (response.success) {
+                            $("#result").html("<div class='alert alert-success'>" + response.message + "</div>");
+                            $("#createForm")[0].reset(); // Reset form fields
+                            setTimeout(function () {
+                                window.location.href = '@Url.Action("Index", "Author_US")';
+                            }, 2000); // 2-second delay
+                        } else {
+                            $("#result").html("<div class='alert alert-danger'>" + response.message + "</div>");
+                        }
+                    },
+                    error: function () {
+                        $("#result").html("<div class='alert alert-danger'>An error occurred while creating the author.</div>");
+                    }
+                });
+            });
+        });
+    </script>
+}

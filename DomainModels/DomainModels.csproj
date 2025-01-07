@@ -93,6 +93,7 @@
     <Compile Include="AdminUser.cs" />
     <Compile Include="Author.cs" />
     <Compile Include="Author_US.cs" />
+    <Compile Include="Bodyguardcs.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />

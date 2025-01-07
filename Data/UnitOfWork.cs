@@ -99,5 +99,7 @@ namespace Data
 
         public IAuthor_US Author_US { get; }
 
+        public IBodyguard Bodyguard { get; }
+
     }
 }

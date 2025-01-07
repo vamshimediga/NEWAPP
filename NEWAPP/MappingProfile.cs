@@ -80,6 +80,9 @@ namespace NEWAPP
             CreateMap<PsplCustomer, PsplCustomerViewModel>();
             CreateMap<PsplCustomerViewModel, PsplCustomer>();
 
+            CreateMap<Bodyguard, BodyguardViewModel>();
+            CreateMap<BodyguardViewModel, Bodyguard>();
+
 
             CreateMap<ITInstitute, ITInstituteViewModel>()
             .ForMember(dest => dest.CreatedDateFormatted, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss"))) // Format CreatedDate

@@ -73,6 +73,8 @@ namespace Data
         IPsplClient PsplClient { get; }
 
         IAuthor_US Author_US { get; }
+        IBodyguard Bodyguard { get; }
+
 
     }
 }
