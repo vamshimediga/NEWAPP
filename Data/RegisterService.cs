@@ -53,6 +53,9 @@ namespace Data
             service.AddScoped<IPsplCustomer, PsplCustomerRepository>();
             service.AddScoped<IPsplClient , PsplClientRepository>();
             service.AddScoped<IAuthor_US, Author_USRepository>();
+            service.AddScoped<IUsersList,UsersListRepository>();   
+            service.AddScoped<IUserRoles, UserRolesRepository>();
+
         }
     }
 }

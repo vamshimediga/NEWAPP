@@ -165,6 +165,7 @@
     <Compile Include="Repositories\Implemention\CourseRepository.cs" />
     <Compile Include="Repositories\Implemention\CustomerDATARepository.cs" />
     <Compile Include="Repositories\Implemention\DefectiveProductsRepository.cs" />
+    <Compile Include="Repositories\Implemention\DoctorRepository.cs" />
     <Compile Include="Repositories\Implemention\EmployeesRepository.cs" />
     <Compile Include="Repositories\Implemention\FileRepository.cs" />
     <Compile Include="Repositories\Implemention\HRMGERRepository.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Repositories\Implemention\MediaWithCategoryRepository.cs" />
     <Compile Include="Repositories\Implemention\online_retailUserLoginRepository.cs" />
     <Compile Include="Repositories\Implemention\OrdersWithCustomerRepository.cs" />
+    <Compile Include="Repositories\Implemention\PatientRepository.cs" />
     <Compile Include="Repositories\Implemention\PersonDataRepository.cs" />
     <Compile Include="Repositories\Implemention\ProductChartRepository.cs" />
     <Compile Include="Repositories\Implemention\ProjectInfoRepository.cs" />
@@ -191,6 +193,8 @@
     <Compile Include="Repositories\Implemention\UserDataRepository.cs" />
     <Compile Include="Repositories\Implemention\UserLoginRepository.cs" />
     <Compile Include="Repositories\Implemention\UserradiochkdropRepository.cs" />
+    <Compile Include="Repositories\Implemention\UserRolesRepository.cs" />
+    <Compile Include="Repositories\Implemention\UsersListRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAccessTable.cs" />
     <Compile Include="Repositories\Interfaces\IAdminUsers.cs" />
     <Compile Include="Repositories\Interfaces\IAuthor.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="Repositories\Interfaces\ICookingRecipe.cs" />
     <Compile Include="Repositories\Interfaces\ICourse.cs" />
     <Compile Include="Repositories\Interfaces\IDefectiveProducts.cs" />
+    <Compile Include="Repositories\Interfaces\IDoctorRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployees.cs" />
     <Compile Include="Repositories\Interfaces\IFile.cs" />
     <Compile Include="Repositories\Interfaces\IHRMGER.cs" />
@@ -216,6 +221,7 @@
     <Compile Include="Repositories\Interfaces\IMediaWithCategory.cs" />
     <Compile Include="Repositories\Interfaces\Ionline_retailUserLogin.cs" />
     <Compile Include="Repositories\Interfaces\IOrdersWithCustomer.cs" />
+    <Compile Include="Repositories\Interfaces\IPatientRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPersonData.cs" />
     <Compile Include="Repositories\Interfaces\IProductChart.cs" />
     <Compile Include="Repositories\Interfaces\IProjectInfo.cs" />
@@ -230,6 +236,8 @@
     <Compile Include="Repositories\Interfaces\IUserData.cs" />
     <Compile Include="Repositories\Interfaces\IUserLogin.cs" />
     <Compile Include="Repositories\Interfaces\IUserradiochkdrop.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRoles.cs" />
+    <Compile Include="Repositories\Interfaces\IUsersList.cs" />
     <Compile Include="Repositories\Interfaces\PsplClient.cs" />
     <Compile Include="SessionExtensions.cs" />
     <Compile Include="UnitOfWork.cs" />

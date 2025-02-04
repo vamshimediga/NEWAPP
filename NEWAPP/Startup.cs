@@ -109,7 +109,10 @@ namespace startupfile
           services.AddScoped<IPsplClient, PsplClientRepository>();
           services.AddScoped<IAuthor_US, Author_USRepository>();
           services.AddScoped<IBodyguard, BodyguardRepository>();
-            
+          services.AddScoped<IPatientRepository, PatientRepository>();
+          services.AddScoped<IDoctorRepository, DoctorRepository>();
+          services.AddScoped<IUsersList, UsersListRepository>();
+          services.AddScoped<IUserRoles, UserRolesRepository>();
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally

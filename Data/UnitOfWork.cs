@@ -101,5 +101,9 @@ namespace Data
 
         public IBodyguard Bodyguard { get; }
 
+        public IUsersList UsersList { get; }
+
+        public IUserRoles UsersRoles { get; }
+
     }
 }

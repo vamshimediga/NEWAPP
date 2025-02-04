@@ -104,6 +104,7 @@
     <Compile Include="Course.cs" />
     <Compile Include="CustomerData.cs" />
     <Compile Include="DefectiveProducts.cs" />
+    <Compile Include="Doctor.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="FileUploadModel.cs" />
     <Compile Include="HRMGER.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="MediaWithCategory.cs" />
     <Compile Include="online_retailUserLogin.cs" />
     <Compile Include="OrdersWithCustomer.cs" />
+    <Compile Include="Patient.cs" />
     <Compile Include="PersonData.cs" />
     <Compile Include="ProductChart.cs" />
     <Compile Include="ProjectInfo.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="UserData.cs" />
     <Compile Include="UserLogin.cs" />
     <Compile Include="UserProfile.cs" />
+    <Compile Include="UserRoles.cs" />
+    <Compile Include="UsersList.cs" />
     <Compile Include="Xlsheet.cs" />
   </ItemGroup>
   <ItemGroup>

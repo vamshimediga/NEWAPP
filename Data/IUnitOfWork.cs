@@ -75,6 +75,8 @@ namespace Data
         IAuthor_US Author_US { get; }
         IBodyguard Bodyguard { get; }
 
+        IUsersList UsersList { get; }
 
+        IUserRoles UsersRoles { get; }
     }
 }

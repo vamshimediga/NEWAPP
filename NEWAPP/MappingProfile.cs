@@ -80,8 +80,22 @@ namespace NEWAPP
             CreateMap<PsplCustomer, PsplCustomerViewModel>();
             CreateMap<PsplCustomerViewModel, PsplCustomer>();
 
+
+            CreateMap<Patient, PatientViewModel>();
+            CreateMap<PatientViewModel, Patient>();
+
+            CreateMap<Doctor, DoctorViewModel>();
+            CreateMap<DoctorViewModel, Doctor>();
+
             CreateMap<Bodyguard, BodyguardViewModel>();
             CreateMap<BodyguardViewModel, Bodyguard>();
+
+
+            CreateMap<UserRoles, UserRolesViewModel>();
+            CreateMap<UserRolesViewModel, UserRoles>();
+
+            CreateMap<UsersList, UsersListViewModel>();
+            CreateMap<UsersListViewModel, UsersList>();
 
 
             CreateMap<ITInstitute, ITInstituteViewModel>()
