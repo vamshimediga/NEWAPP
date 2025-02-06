@@ -94,6 +94,7 @@
     <Compile Include="Author.cs" />
     <Compile Include="Author_US.cs" />
     <Compile Include="Bodyguardcs.cs" />
+    <Compile Include="CampaignModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Manager.cs" />
     <Compile Include="MasterAdmin.cs" />
     <Compile Include="MediaWithCategory.cs" />
+    <Compile Include="MeetingModel.cs" />
     <Compile Include="online_retailUserLogin.cs" />
     <Compile Include="OrdersWithCustomer.cs" />
     <Compile Include="Patient.cs" />

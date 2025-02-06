@@ -105,5 +105,9 @@ namespace Data
 
         public IUserRoles UsersRoles { get; }
 
+        public IMeeting meeting { get; }
+
+        public ICampaign Campaign { get; }
+
     }
 }

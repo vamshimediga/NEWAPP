@@ -55,6 +55,8 @@ namespace Data
             service.AddScoped<IAuthor_US, Author_USRepository>();
             service.AddScoped<IUsersList,UsersListRepository>();   
             service.AddScoped<IUserRoles, UserRolesRepository>();
+            service.AddScoped<IMeeting, MeetingRepository>();
+            service.AddScoped<ICampaign, CampaignRepository>();
 
         }
     }

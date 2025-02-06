@@ -157,6 +157,7 @@
     <Compile Include="Repositories\Implemention\AuthorRepository.cs" />
     <Compile Include="Repositories\Implemention\Author_USRepository.cs" />
     <Compile Include="Repositories\Implemention\BodyguardRepository.cs" />
+    <Compile Include="Repositories\Implemention\CampaignRepository.cs" />
     <Compile Include="Repositories\Implemention\CommonServiceRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyUsersRepository.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Repositories\Implemention\MAdminRepository.cs" />
     <Compile Include="Repositories\Implemention\ManagerRepository.cs" />
     <Compile Include="Repositories\Implemention\MediaWithCategoryRepository.cs" />
+    <Compile Include="Repositories\Implemention\MeetingRepository.cs" />
     <Compile Include="Repositories\Implemention\online_retailUserLoginRepository.cs" />
     <Compile Include="Repositories\Implemention\OrdersWithCustomerRepository.cs" />
     <Compile Include="Repositories\Implemention\PatientRepository.cs" />
@@ -200,6 +202,7 @@
     <Compile Include="Repositories\Interfaces\IAuthor.cs" />
     <Compile Include="Repositories\Interfaces\IAuthor_US.cs" />
     <Compile Include="Repositories\Interfaces\IBodyguard.cs" />
+    <Compile Include="Repositories\Interfaces\ICampaign.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
     <Compile Include="Repositories\Interfaces\ICommonService.cs" />
     <Compile Include="Repositories\Interfaces\ICompany.cs" />
@@ -219,6 +222,7 @@
     <Compile Include="Repositories\Interfaces\IMAdmin.cs" />
     <Compile Include="Repositories\Interfaces\IManager.cs" />
     <Compile Include="Repositories\Interfaces\IMediaWithCategory.cs" />
+    <Compile Include="Repositories\Interfaces\IMeeting.cs" />
     <Compile Include="Repositories\Interfaces\Ionline_retailUserLogin.cs" />
     <Compile Include="Repositories\Interfaces\IOrdersWithCustomer.cs" />
     <Compile Include="Repositories\Interfaces\IPatientRepository.cs" />

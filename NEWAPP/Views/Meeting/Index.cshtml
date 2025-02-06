@@ -1,0 +1,140 @@
+﻿@model IEnumerable<NEWAPP.Models.MeetingViewModel>
+
+@{
+    ViewData["Title"] = "Meeting Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (ViewBag.IsListView != null && ViewBag.IsListView == true)
+{
+    <!-- Index (List of Meetings) -->
+    <p>
+        <a asp-action="Create">Create New Meeting</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.MeetingID)</th>
+                <th>@Html.DisplayNameFor(model => model.CampaignID)</th>
+                <th>@Html.DisplayNameFor(model => model.MeetingDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Location)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MeetingID)</td>
+                <td>@Html.DisplayFor(modelItem => item.CampaignID)</td>
+                <td>@Html.DisplayFor(modelItem => item.MeetingDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MeetingID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MeetingID })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@* @if (ViewBag.IsCreateView != null && ViewBag.IsCreateView == true)
+{
+    <!-- Create View (Form) -->
+    <h2>Create New Meeting</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CampaignID)
+            @Html.EditorFor(model => model.CampaignID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MeetingDate)
+            @Html.EditorFor(model => model.MeetingDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location)
+            @Html.EditorFor(model => model.Location)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description)
+            @Html.EditorFor(model => model.Description)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    }
+}
+
+@if (ViewBag.IsEditView != null && ViewBag.IsEditView == true)
+{
+    <!-- Edit View (Form) -->
+    <h2>Edit Meeting</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CampaignID)
+            @Html.EditorFor(model => model.CampaignID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MeetingDate)
+            @Html.EditorFor(model => model.MeetingDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location)
+            @Html.EditorFor(model => model.Location)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description)
+            @Html.EditorFor(model => model.Description)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    }
+}
+
+@if (ViewBag.IsDeleteView != null && ViewBag.IsDeleteView == true)
+{
+    <!-- Delete View (Confirmation) -->
+    <h2>Delete Meeting</h2>
+    <p>Are you sure you want to delete this meeting?</p>
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+}
+
+@if (ViewBag.IsDetailsView != null && ViewBag.IsDetailsView == true)
+{
+    <!-- Details View -->
+    <h2>Meeting Details</h2>
+    <div>
+        <strong>Campaign ID:</strong> @Model.CampaignID
+    </div>
+    <div>
+        <strong>Meeting Date:</strong> @Model.MeetingDate
+    </div>
+    <div>
+        <strong>Location:</strong> @Model.Location
+    </div>
+    <div>
+        <strong>Description:</strong> @Model.Description
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+}
+ *@

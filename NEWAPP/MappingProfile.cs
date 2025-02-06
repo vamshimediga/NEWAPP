@@ -98,6 +98,15 @@ namespace NEWAPP
             CreateMap<UsersListViewModel, UsersList>();
 
 
+            CreateMap<MeetingModel, MeetingViewModel>();
+            CreateMap<MeetingViewModel, MeetingModel>();
+
+            CreateMap<CampaignModel, CampaignViewModel>();
+            CreateMap<CampaignViewModel, CampaignModel>();
+            
+
+
+
             CreateMap<ITInstitute, ITInstituteViewModel>()
             .ForMember(dest => dest.CreatedDateFormatted, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss"))) // Format CreatedDate
             .ForMember(dest => dest.ModifiedDateFormatted, opt => opt.MapFrom(src => src.ModifiedDate.HasValue ? src.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")) // Format ModifiedDate

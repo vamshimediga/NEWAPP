@@ -78,5 +78,9 @@ namespace Data
         IUsersList UsersList { get; }
 
         IUserRoles UsersRoles { get; }
+
+        IMeeting meeting { get; }
+
+        ICampaign Campaign { get; }
     }
 }
