@@ -17,6 +17,6 @@ namespace Data.Repositories.Interfaces
 
         Task<int> update(CampaignModel model);  
 
-        Task<int> deleteById(int id);
+        Task<bool> deleteById(int id);
     }
 }

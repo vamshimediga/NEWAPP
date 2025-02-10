@@ -14,7 +14,13 @@ namespace DomainModels
         public DateTime? EndDate { get; set; }
         public decimal Budget { get; set; }
 
+        public string MeetingID { get; set; }
         // Navigation Property
         public ICollection<MeetingModel> Meetings { get; set; }
+
+        public static implicit operator int(CampaignModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

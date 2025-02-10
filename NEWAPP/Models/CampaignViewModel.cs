@@ -10,6 +10,7 @@ namespace NEWAPP.Models
         public DateTime? EndDate { get; set; }
         public decimal Budget { get; set; }
 
+        public string MeetingID { get; set; }
         // Navigation Property
         public ICollection<MeetingViewModel> Meetings { get; set; }
     }
