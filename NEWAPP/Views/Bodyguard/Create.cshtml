@@ -1,0 +1,54 @@
+﻿@model NEWAPP.Models.BodyguardViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>BodyguardViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "Bodyguard", FormMethod.Post))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Hidden Field for BodyguardID -->
+            @Html.HiddenFor(model => model.BodyguardID)
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                @Html.TextBoxFor(model => model.Status, new { @class = "form-control" })
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}

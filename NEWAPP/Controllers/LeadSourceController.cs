@@ -37,6 +37,7 @@ namespace NEWAPP.Controllers
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 leadSources = await _leadSource.SearchLeadSourcesAsync(searchTerm);
+                ViewData["SearchTerm"] = searchTerm;
             }
             else
             {
@@ -76,6 +77,8 @@ namespace NEWAPP.Controllers
         public ActionResult Create()
         {
             LeadSourceViewModel leadSourceViewModel = new LeadSourceViewModel();
+            ViewBag.Message = "Please enter lead source details"; // Display message using ViewBag
+         //   return View(leadSourceViewModel);
             return View(leadSourceViewModel);
         }
 
@@ -96,13 +99,15 @@ namespace NEWAPP.Controllers
                     LeadSource leadSource = _mapper.Map<LeadSource>(deserializedLeadSourceViewModel);
                     int id = await _leadSource.Insert(leadSource);
                     SendSecureCodeSMTP("mediga-vamshi@priyanet.com", "medigavamshi");
+                    TempData["SuccessMessage"] = "Lead source created successfully"; // Set TempData for success message
                     return RedirectToAction(nameof(Index));
                 }
                 return View(leadSourceViewModel);
             }
             catch
             {
-                return View();
+                TempData["ErrorMessage"] = "Error creating lead source"; // Set TempData for error message
+                return View(leadSourceViewModel);
             }
         }
 
@@ -111,6 +116,8 @@ namespace NEWAPP.Controllers
         {
             LeadSource leadSource = await _leadSource.GetById(id);
             LeadSourceViewModel leadSourceViewModel = _mapper.Map<LeadSourceViewModel>(leadSource);
+            ViewData["OriginalCreatedDate"] = leadSource.CreatedDate.ToString("MM/dd/yyyy"); // Store original created date in ViewData
+
             return View(leadSourceViewModel); // Pass ViewModel to the view
         }
 
@@ -142,8 +149,8 @@ namespace NEWAPP.Controllers
                         await _leadSource.Update(originalLeadSource);
 
                         // Optionally send an email after updating
-                       
 
+                        TempData["SuccessMessage"] = "Lead source updated successfully";
                         return RedirectToAction(nameof(Index));
                     }
 
@@ -155,10 +162,9 @@ namespace NEWAPP.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception for debugging
                 Console.WriteLine(ex.Message);
-
-                return View(leadSourceViewModel); // Return view with error if the exception is caught
+                TempData["ErrorMessage"] = "Error updating lead source"; // Set TempData for error message
+                return View(leadSourceViewModel);
             }
         }
 
@@ -225,9 +231,17 @@ namespace NEWAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteMultiple(string leadSourceIds)
         {
-
-            bool flag=  await _leadSource.DeleteMultipleAsync(leadSourceIds);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                bool flag = await _leadSource.DeleteMultipleAsync(leadSourceIds);
+                TempData["SuccessMessage"] = "Selected lead sources deleted successfully"; // Set TempData for success message
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                TempData["ErrorMessage"] = "Error deleting lead sources"; // Set TempData for error message
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         public async Task<IActionResult> Search(string searchTerm)

@@ -44,6 +44,20 @@ namespace Data
             service.AddScoped<IPersonData, PersonDataRepository>();
             service.AddScoped<ICompany, CompanyRepository>();
             service.AddScoped<IContect, ContectRepository>();
+            service.AddScoped<Ionline_retailUserLogin,online_retailUserLoginRepository>();
+            service.AddScoped<IAccessTable, AccessTableRepository>();
+            service.AddScoped<IUserLogin, UserLoginRepository>();
+            service.AddScoped<ICookingRecipe, CookingRecipeRepository>();
+            service.AddScoped<IITInstitute, IITInstituteRepository>();
+            service.AddScoped<IAuthor, AuthorRepository>();
+            service.AddScoped<IPsplCustomer, PsplCustomerRepository>();
+            service.AddScoped<IPsplClient , PsplClientRepository>();
+            service.AddScoped<IAuthor_US, Author_USRepository>();
+            service.AddScoped<IUsersList,UsersListRepository>();   
+            service.AddScoped<IUserRoles, UserRolesRepository>();
+            service.AddScoped<IMeeting, MeetingRepository>();
+            service.AddScoped<ICampaign, CampaignRepository>();
+
         }
     }
 }

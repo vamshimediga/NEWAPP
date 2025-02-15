@@ -53,6 +53,8 @@ namespace Data
 
         public IPsplCompany psplCompany { get; }
 
+        public IPsplCustomer PsplCustomer { get; }
+
         public IMediaWithCategory media { get; }
 
         public IRestaurant restaurant { get; }
@@ -78,5 +80,34 @@ namespace Data
         public ICompany company { get; }
 
         public IContect Contect { get; }
+
+        public Ionline_retailUserLogin ionline_RetailUserLogin { get; }
+
+        public IAccessTable accessTable { get; }
+
+      
+
+        public IUserLogin UserLogin { get; }
+
+        public ICookingRecipe CookingRecipe { get; }
+
+        public IITInstitute ITInstitute { get; }
+
+        public IAuthor Author {  get; }
+
+        public IPsplClient PsplClient { get; }
+
+        public IAuthor_US Author_US { get; }
+
+        public IBodyguard Bodyguard { get; }
+
+        public IUsersList UsersList { get; }
+
+        public IUserRoles UsersRoles { get; }
+
+        public IMeeting meeting { get; }
+
+        public ICampaign Campaign { get; }
+
     }
 }

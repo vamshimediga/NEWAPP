@@ -11,76 +11,72 @@
     <a asp-action="Create">Create New</a>
 </p>
 
+
 <form asp-controller="Contect" asp-action="SearchContect" method="get">
     <p>
-        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search by First Name" />
+        <input type="text" name="firstName" value="@ViewData["CurrentFilterFirstName"]" placeholder="Search by First Name" />
+        <input type="text" name="lastName" value="@ViewData["CurrentFilterLastName"]" placeholder="Search by Last Name" />
         <input type="submit" value="Search" class="btn btn-secondary" />
-        <a href="@Url.Action("SearchContect", "Contect")" class="btn btn-secondary">Clear</a>
- </p>
+        <a href="@Url.Action("Index", "Contect")" class="btn btn-secondary">Clear</a>
+        
+    </p>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ContectID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContectID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ContectID }) 
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form asp-controller="Contect" asp-action="Delete" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContectID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="IDs" value="@item.ContectID" />
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.ContectID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ModifiedDate)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ContectID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ContectID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ContectID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <input type="submit" value="Delete Selected" class="btn btn-danger" />
+</form>

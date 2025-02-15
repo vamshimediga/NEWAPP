@@ -1,0 +1,82 @@
+﻿@model NEWAPP.Models.ITInstituteViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ITInstituteViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.AntiForgeryToken()
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InstituteID" class="control-label"></label>
+                <input asp-for="InstituteID" class="form-control" />
+                <span asp-validation-for="InstituteID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstituteName" class="control-label"></label>
+                <input asp-for="InstituteName" class="form-control" />
+                <span asp-validation-for="InstituteName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" id="contactNumber" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstablishedYear" class="control-label"></label>
+                <input asp-for="EstablishedYear" class="form-control" />
+                <span asp-validation-for="EstablishedYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoursesOffered" class="control-label"></label>
+                <input asp-for="CoursesOffered" class="form-control" />
+                <span asp-validation-for="CoursesOffered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormattedRating" class="control-label"></label>
+                <input asp-for="FormattedRating" class="form-control" />
+                <span asp-validation-for="FormattedRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDateFormatted" class="control-label"></label>
+                <input asp-for="CreatedDateFormatted" class="form-control" type="datetime-local" />
+                <span asp-validation-for="CreatedDateFormatted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedDateFormatted" class="control-label"></label>
+                <input asp-for="ModifiedDateFormatted" class="form-control" type="datetime-local" />
+                <span asp-validation-for="ModifiedDateFormatted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8-beta.5/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#contactNumber').inputmask('999-999-9999'); // Define the phone number format
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

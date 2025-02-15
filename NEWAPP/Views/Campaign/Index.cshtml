@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NEWAPP.Models.CampaignViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CampaignID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CampaignName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Budget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampaignID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampaignName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeetingID)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.CampaignID}) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CampaignID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CampaignID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,97 @@
+﻿@model NEWAPP.Models.ITInstituteViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ITInstituteViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("Create", "IITInstitute", FormMethod.Post))
+        {
+            <div class="text-danger">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstituteID, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.InstituteID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InstituteID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstituteName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.InstituteName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InstituteName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control", @id = "ContactNumber" })
+                @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EstablishedYear, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.EstablishedYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstablishedYear, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoursesOffered, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.CoursesOffered, (SelectList)ViewBag.CoursesList,"Select a course", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CoursesOffered, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FormattedRating, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FormattedRating, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FormattedRating, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedDateFormatted, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.CreatedDateFormatted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CreatedDateFormatted, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModifiedDateFormatted, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ModifiedDateFormatted, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModifiedDateFormatted, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Listen for input changes in the ContactNumber field
+            $('#ContactNumber').on('input', function () {
+                // Get the input value and remove any non-numeric characters
+                var value = $(this).val().replace(/\D/g, '');
+
+                // Format the phone number with dashes (XXX-XXX-XXXX)
+                if (value.length <= 3) {
+                    $(this).val(value);
+                } else if (value.length <= 6) {
+                    $(this).val(value.substring(0, 3) + '-' + value.substring(3));
+                } else {
+                    $(this).val(value.substring(0, 3) + '-' + value.substring(3, 6) + '-' + value.substring(6, 10));
+                }
+            });
+        });
+    </script>
+}

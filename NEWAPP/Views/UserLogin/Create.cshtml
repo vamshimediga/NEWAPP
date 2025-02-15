@@ -1,0 +1,52 @@
+﻿@model NEWAPP.Models.UserLoginViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>UserLoginViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.AntiForgeryToken()
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="user_id" class="control-label"></label>
+                <input asp-for="user_id" class="form-control" />
+                <span asp-validation-for="user_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="user_password" class="control-label"></label>
+                <input asp-for="user_password" class="form-control" />
+                <span asp-validation-for="user_password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="full_name" class="control-label"></label>
+                <input asp-for="full_name" class="form-control" />
+                <span asp-validation-for="full_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sign_up_on" class="control-label"></label>
+                <input asp-for="sign_up_on" class="form-control" />
+                <span asp-validation-for="sign_up_on" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email_id" class="control-label"></label>
+                <input asp-for="email_id" class="form-control" />
+                <span asp-validation-for="email_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

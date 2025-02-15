@@ -24,19 +24,39 @@ namespace NEWAPP.Controllers
             List<ContectViewModel> viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             return View(viewModels);
         }
-        public async Task<IActionResult> SearchContect(string searchString)
+        public async Task<IActionResult> SearchContect(string firstName, string lastName)
         {
             List<ContectViewModel> viewModels = new List<ContectViewModel>(); // Initialize viewModels
-            if (!string.IsNullOrEmpty(searchString))
+
+            // If both firstName and lastName are empty, get all contacts
+            if (string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
             {
-                ViewData["CurrentFilter"] = searchString;
-                List<Contect> contects = await _contact.SearchContectByFirstNameAsync(searchString);
+                ViewData["CurrentFilterFirstName"] = "";
+                ViewData["CurrentFilterLastName"] = "";
+                List<Contect> contects = await _contact.GetContects();
                 viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             }
             else
             {
-                ViewData["CurrentFilter"] = "";
-                List<Contect> contects = await _contact.GetContects();
+                if (!string.IsNullOrEmpty(firstName))
+                {
+                    ViewData["CurrentFilterFirstName"] = firstName;
+                }
+                else
+                {
+                    ViewData["CurrentFilterFirstName"] = "";
+                }
+
+                if (!string.IsNullOrEmpty(lastName))
+                {
+                    ViewData["CurrentFilterLastName"] = lastName;
+                }
+                else
+                {
+                    ViewData["CurrentFilterLastName"] = "";
+                }
+
+                List<Contect> contects = (List<Contect>)await _contact.SearchContactsAsync(firstName, lastName);
                 viewModels = _mapper.Map<List<ContectViewModel>>(contects);
             }
 
@@ -113,20 +133,22 @@ namespace NEWAPP.Controllers
             }
         }
 
-        // GET: Controller/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+      
 
         // POST: Controller/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(List<int> IDs)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (IDs != null && IDs.Count > 0)
+                {
+                    // Call the repository to delete the companies
+                    await _contact.DeleteIds(IDs);
+                    return RedirectToAction("Index"); // Redirect to the index page after deletion
+                }
+                return BadRequest("Invalid company IDs");
             }
             catch
             {

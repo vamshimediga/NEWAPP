@@ -1,0 +1,108 @@
+﻿@model IEnumerable<NEWAPP.Models.AccessTableViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@Html.AntiForgeryToken()
+<form asp-action="Search" method="get">
+    <div class="form-group">
+        <label for="searchPermissionLevel">Search by Permission Level:</label>
+        <input type="text" name="searchPermissionLevel" value="@ViewData["searchPermissionLevel"]" class="form-control" placeholder="Enter Permission Level" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="Index" class="btn btn-secondary">Clear</a> <!-- Clear button -->
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermissionLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrantedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermissionLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resource)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrantedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.AccessID }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    <button class="btn btn-danger" type="button" onclick="deleteAccessRecord(@item.AccessID)">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function deleteAccessRecord(accessID) {debugger
+            if (confirm('Are you sure you want to delete this record?')) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "AccessTable")', // Replace with your actual controller name
+                    type: 'POST',
+                    data: {
+                        accessID: accessID
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            // Remove the deleted row from the table
+                            $('#row-' + accessID).remove();
+                            
+                            alert('Record deleted successfully!');
+                            window.location.reload();
+                        } else {
+                            alert('Error deleting record: ' + result.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('An error occurred: ' + xhr.responseText);
+                    }
+                });
+            }
+        }
+    </script>
+}

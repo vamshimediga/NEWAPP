@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public abstract class BaseRepository
+    public abstract class BaseRepository: IDisposable
     {
         protected readonly DbConnection _connection;
 
@@ -38,5 +38,18 @@ namespace Data
             return await _connection.QueryFirstOrDefaultAsync<T>(storedProcedure, parameters);
         }
 
+        //GarbageCollection 
+        //DataBase Disconnection
+        //Deallocation of Memory
+
+        public void Dispose()
+        
+        {
+            if (_connection != null)
+            {
+                _connection.Close();
+                _connection.Dispose();
+            }
+        }
     }
 }

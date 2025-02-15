@@ -88,21 +88,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessTable.cs" />
     <Compile Include="AddressData.cs" />
     <Compile Include="AdminUser.cs" />
+    <Compile Include="Author.cs" />
+    <Compile Include="Author_US.cs" />
+    <Compile Include="Bodyguardcs.cs" />
+    <Compile Include="CampaignModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyUsers.cs" />
     <Compile Include="Contect.cs" />
+    <Compile Include="CookingRecipe.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CustomerData.cs" />
     <Compile Include="DefectiveProducts.cs" />
+    <Compile Include="Doctor.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="FileUploadModel.cs" />
     <Compile Include="HRMGER.cs" />
     <Compile Include="HumanResources.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ITInstitute.cs" />
     <Compile Include="Lead.cs" />
     <Compile Include="LeadSource.cs" />
     <Compile Include="LoginModel.cs" />
@@ -110,12 +119,17 @@
     <Compile Include="Manager.cs" />
     <Compile Include="MasterAdmin.cs" />
     <Compile Include="MediaWithCategory.cs" />
+    <Compile Include="MeetingModel.cs" />
+    <Compile Include="online_retailUserLogin.cs" />
     <Compile Include="OrdersWithCustomer.cs" />
+    <Compile Include="Patient.cs" />
     <Compile Include="PersonData.cs" />
     <Compile Include="ProductChart.cs" />
     <Compile Include="ProjectInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PsplClient.cs" />
     <Compile Include="PsplCompany.cs" />
+    <Compile Include="PsplCustomer.cs" />
     <Compile Include="Restaurant.cs" />
     <Compile Include="SampleStudent.cs" />
     <Compile Include="Stock.cs" />
@@ -124,7 +138,10 @@
     <Compile Include="UserAdmin.cs" />
     <Compile Include="Userchkradio.cs" />
     <Compile Include="UserData.cs" />
+    <Compile Include="UserLogin.cs" />
     <Compile Include="UserProfile.cs" />
+    <Compile Include="UserRoles.cs" />
+    <Compile Include="UsersList.cs" />
     <Compile Include="Xlsheet.cs" />
   </ItemGroup>
   <ItemGroup>

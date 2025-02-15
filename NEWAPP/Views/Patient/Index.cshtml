@@ -1,0 +1,48 @@
+﻿@model IEnumerable<NEWAPP.Models.PatientViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.PatientID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PatientID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PatientID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

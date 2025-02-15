@@ -1,0 +1,92 @@
+﻿@model IEnumerable<NEWAPP.Models.UserLoginViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.user_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user_password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.full_name)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.sign_up_on)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email_id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.user_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user_password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.full_name)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.sign_up_on)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email_id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.user_id }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    <a href="#" class="delete-link" data-id="@item.user_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".delete-link").on("click", function (e) {
+                e.preventDefault();
+                var userId = $(this).data("id");
+                var row = $("#user-" + userId); // Get the row element
+
+                if (confirm("Are you sure you want to delete this user?")) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "UserLogin")/' + userId,
+                        type: 'POST',
+                        data: {
+                            id: userId
+                        },
+                        success: function (response) {
+                            window.location.reload();
+                            // Remove the row from the table after successful deletion
+                            row.remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alert("An error occurred while deleting the user: " + error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

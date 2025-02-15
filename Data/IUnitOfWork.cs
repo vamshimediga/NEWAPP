@@ -57,5 +57,30 @@ namespace Data
 
         IContect Contect { get; }
 
+        Ionline_retailUserLogin ionline_RetailUserLogin { get; }
+
+        IAccessTable accessTable { get; }
+
+        IUserLogin UserLogin { get; }
+
+        ICookingRecipe CookingRecipe { get; }
+
+        IITInstitute ITInstitute { get; }
+
+        IAuthor Author { get; }
+        IPsplCustomer PsplCustomer { get; }
+
+        IPsplClient PsplClient { get; }
+
+        IAuthor_US Author_US { get; }
+        IBodyguard Bodyguard { get; }
+
+        IUsersList UsersList { get; }
+
+        IUserRoles UsersRoles { get; }
+
+        IMeeting meeting { get; }
+
+        ICampaign Campaign { get; }
     }
 }

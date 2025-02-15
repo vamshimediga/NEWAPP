@@ -1,0 +1,39 @@
+﻿@model NEWAPP.Models.AuthorViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>AuthorViewModel</h4>
+<hr />
+@using (Html.BeginForm("Create", "Author", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-danger">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuthorID, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.AuthorID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AuthorID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuthorName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.AuthorName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>

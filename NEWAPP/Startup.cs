@@ -32,13 +32,14 @@ namespace startupfile
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddAutoMapper(typeof(MappingProfile));
             // Add TokenService to the DI container
             services.AddSingleton<TokenService>(new TokenService("A4e1eYB4WmI1D9Cj/NBzNp1HzNs30WqO2yZVoUmD8GQ="));
             services.AddControllersWithViews().AddNewtonsoftJson();
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
-
-            
+            services.AddLogging();
+            services.AddSingleton<ExceptionLogger>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -98,7 +99,23 @@ namespace startupfile
           services.AddScoped<IPersonData, PersonDataRepository>();
           services.AddScoped<ICompany, CompanyRepository>();
           services.AddScoped<IContect, ContectRepository>();
-          services.AddControllersWithViews(options =>
+          services.AddScoped<Ionline_retailUserLogin, online_retailUserLoginRepository>();
+          services.AddScoped<IAccessTable, AccessTableRepository>();
+          services.AddScoped<IUserLogin, UserLoginRepository>();
+          services.AddScoped<ICookingRecipe, CookingRecipeRepository>();
+          services.AddScoped<IITInstitute,IITInstituteRepository>();
+          services.AddScoped<IAuthor,  AuthorRepository>();
+          services.AddScoped<IPsplCustomer, PsplCustomerRepository>();
+          services.AddScoped<IPsplClient, PsplClientRepository>();
+          services.AddScoped<IAuthor_US, Author_USRepository>();
+          services.AddScoped<IBodyguard, BodyguardRepository>();
+          services.AddScoped<IPatientRepository, PatientRepository>();
+          services.AddScoped<IDoctorRepository, DoctorRepository>();
+          services.AddScoped<IUsersList, UsersListRepository>();
+          services.AddScoped<IUserRoles, UserRolesRepository>();
+          services.AddScoped<IMeeting, MeetingRepository>();
+          services.AddScoped<ICampaign, CampaignRepository>();
+            services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
             });
@@ -144,6 +161,9 @@ namespace startupfile
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                        name: "areas",
+                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
