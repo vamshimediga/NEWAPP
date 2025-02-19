@@ -104,6 +104,13 @@ namespace NEWAPP
             CreateMap<CampaignModel, CampaignViewModel>();
             CreateMap<CampaignViewModel, CampaignModel>();
             
+            CreateMap<BuildingOwner, BuildingOwnerViewModel>();
+            CreateMap<BuildingOwnerViewModel, BuildingOwner>();
+
+
+            CreateMap<ConstructionBuilder, ConstructionBuilderViewModel>();
+            CreateMap<ConstructionBuilderViewModel, ConstructionBuilder>();
+
 
 
 

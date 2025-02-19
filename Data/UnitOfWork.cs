@@ -109,5 +109,9 @@ namespace Data
 
         public ICampaign Campaign { get; }
 
+        public IBuildingOwner BuildingOwner { get; }
+
+        public IConstructionBuilder ConstructionBuilder { get; }
+
     }
 }
