@@ -1,0 +1,62 @@
+﻿@model NEWAPP.Models.BuildingOwnerViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Building Owner Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.LabelFor(model => model.OwnerID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextBoxFor(model => model.OwnerID, new { @class = "form-control", @readonly = "readonly" })
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.LabelFor(model => model.OwnerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control", @readonly = "readonly" })
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.LabelFor(model => model.PropertyAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextBoxFor(model => model.PropertyAddress, new { @class = "form-control", @readonly = "readonly" })
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.LabelFor(model => model.BuilderID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DropDownListFor(model => model.BuilderID, new SelectList(Model.ConstructionBuilders, "BuilderID", "BuilderName"),"--Please Select--", new { @class = "form-control", @readonly = "readonly" })
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.LabelFor(model => model.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control", @readonly = "readonly" })
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "BuildingOwner", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.OwnerID)
+
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+   
+</div>

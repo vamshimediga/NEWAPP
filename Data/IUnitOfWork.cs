@@ -82,5 +82,9 @@ namespace Data
         IMeeting meeting { get; }
 
         ICampaign Campaign { get; }
+
+        IBuildingOwner BuildingOwner { get; }
+
+        IConstructionBuilder ConstructionBuilder { get; }
     }
 }

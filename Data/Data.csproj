@@ -157,10 +157,12 @@
     <Compile Include="Repositories\Implemention\AuthorRepository.cs" />
     <Compile Include="Repositories\Implemention\Author_USRepository.cs" />
     <Compile Include="Repositories\Implemention\BodyguardRepository.cs" />
+    <Compile Include="Repositories\Implemention\BuildingOwnerRepository.cs" />
     <Compile Include="Repositories\Implemention\CampaignRepository.cs" />
     <Compile Include="Repositories\Implemention\CommonServiceRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyRepository.cs" />
     <Compile Include="Repositories\Implemention\CompanyUsersRepository.cs" />
+    <Compile Include="Repositories\Implemention\ConstructionBuilderRepository.cs" />
     <Compile Include="Repositories\Implemention\ContectRepository.cs" />
     <Compile Include="Repositories\Implemention\CookingRecipeRepository.cs" />
     <Compile Include="Repositories\Implemention\CourseRepository.cs" />
@@ -202,11 +204,13 @@
     <Compile Include="Repositories\Interfaces\IAuthor.cs" />
     <Compile Include="Repositories\Interfaces\IAuthor_US.cs" />
     <Compile Include="Repositories\Interfaces\IBodyguard.cs" />
+    <Compile Include="Repositories\Interfaces\IBuildingOwner.cs" />
     <Compile Include="Repositories\Interfaces\ICampaign.cs" />
     <Compile Include="Repositories\Interfaces\IClient.cs" />
     <Compile Include="Repositories\Interfaces\ICommonService.cs" />
     <Compile Include="Repositories\Interfaces\ICompany.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyUsers.cs" />
+    <Compile Include="Repositories\Interfaces\IConstructionBuilder.cs" />
     <Compile Include="Repositories\Interfaces\IContect.cs" />
     <Compile Include="Repositories\Interfaces\ICookingRecipe.cs" />
     <Compile Include="Repositories\Interfaces\ICourse.cs" />
