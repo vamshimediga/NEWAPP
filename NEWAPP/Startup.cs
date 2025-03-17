@@ -117,6 +117,8 @@ namespace startupfile
           services.AddScoped<ICampaign, CampaignRepository>();
           services.AddScoped<IBuildingOwner, BuildingOwnerRepository>();
           services.AddScoped<IConstructionBuilder, ConstructionBuilderRepository>();
+          services.AddScoped<IFlat, FlatRepository>();
+          services.AddScoped<IPropertyOwners, PropertyOwnersRepository>();
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomActionFilter>(); // Apply the filter globally
