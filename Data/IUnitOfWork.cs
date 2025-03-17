@@ -86,5 +86,9 @@ namespace Data
         IBuildingOwner BuildingOwner { get; }
 
         IConstructionBuilder ConstructionBuilder { get; }
+
+        IFlat Flat {  get; }
+
+        IPropertyOwners propertyOwners { get; }
     }
 }

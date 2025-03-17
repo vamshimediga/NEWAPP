@@ -110,6 +110,7 @@
     <Compile Include="Doctor.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="FileUploadModel.cs" />
+    <Compile Include="Flat.cs" />
     <Compile Include="HRMGER.cs" />
     <Compile Include="HumanResources.cs" />
     <Compile Include="Image.cs" />
@@ -129,6 +130,8 @@
     <Compile Include="ProductChart.cs" />
     <Compile Include="ProjectInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyOwner.cs" />
+    <Compile Include="PropertyOwners.cs" />
     <Compile Include="PsplClient.cs" />
     <Compile Include="PsplCompany.cs" />
     <Compile Include="PsplCustomer.cs" />

@@ -113,6 +113,23 @@ namespace NEWAPP
 
 
 
+            CreateMap<BuildingOwner, BuildingOwnerViewModel>();
+            CreateMap<BuildingOwnerViewModel, BuildingOwner>();
+
+
+            CreateMap<PropertyOwner, PropertyOwnerViewModel>();
+            CreateMap<PropertyOwnerViewModel, PropertyOwner>();
+
+            CreateMap<Flat, FlatViewModel>();
+            CreateMap<FlatViewModel, Flat>();
+
+            // ✅ Domain → ViewModel
+            CreateMap<PropertyOwners, PropertyOwnerViewModel>()
+                .ForMember(dest => dest.OwnerFullName, opt => opt.MapFrom(src => src.OwnerFullName));
+
+            // ✅ ViewModel → Domain
+            CreateMap<PropertyOwnerViewModel, PropertyOwners>()
+                .ForMember(dest => dest.OwnerFullName, opt => opt.MapFrom(src => src.OwnerFullName));
 
             CreateMap<ITInstitute, ITInstituteViewModel>()
             .ForMember(dest => dest.CreatedDateFormatted, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss"))) // Format CreatedDate

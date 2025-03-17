@@ -1,0 +1,73 @@
+﻿@model IEnumerable<NEWAPP.Models.FlatViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlatID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PropertyOwnerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PropertyOwner.OwnerFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlatNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlatID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PropertyOwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PropertyOwner.OwnerFullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FlatID }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FlatID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

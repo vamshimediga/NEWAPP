@@ -113,5 +113,9 @@ namespace Data
 
         public IConstructionBuilder ConstructionBuilder { get; }
 
+        public IFlat Flat { get; }
+
+        public IPropertyOwners propertyOwners { get; }
+
     }
 }

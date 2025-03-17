@@ -171,6 +171,7 @@
     <Compile Include="Repositories\Implemention\DoctorRepository.cs" />
     <Compile Include="Repositories\Implemention\EmployeesRepository.cs" />
     <Compile Include="Repositories\Implemention\FileRepository.cs" />
+    <Compile Include="Repositories\Implemention\FlatRepository.cs" />
     <Compile Include="Repositories\Implemention\HRMGERRepository.cs" />
     <Compile Include="Repositories\Implemention\HumanResourcesRepository.cs" />
     <Compile Include="Repositories\Implemention\IITInstituteRepository.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Repositories\Implemention\PersonDataRepository.cs" />
     <Compile Include="Repositories\Implemention\ProductChartRepository.cs" />
     <Compile Include="Repositories\Implemention\ProjectInfoRepository.cs" />
+    <Compile Include="Repositories\Implemention\PropertyOwnersRepository.cs" />
     <Compile Include="Repositories\Implemention\PsplClientRepository.cs" />
     <Compile Include="Repositories\Implemention\PsplCompanyReposisitory.cs" />
     <Compile Include="Repositories\Implemention\PsplCustomerRepository.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Repositories\Interfaces\IDoctorRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployees.cs" />
     <Compile Include="Repositories\Interfaces\IFile.cs" />
+    <Compile Include="Repositories\Interfaces\IFlat.cs" />
     <Compile Include="Repositories\Interfaces\IHRMGER.cs" />
     <Compile Include="Repositories\Interfaces\IHumanResources.cs" />
     <Compile Include="Repositories\Interfaces\IITInstitute.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Repositories\Interfaces\IPersonData.cs" />
     <Compile Include="Repositories\Interfaces\IProductChart.cs" />
     <Compile Include="Repositories\Interfaces\IProjectInfo.cs" />
+    <Compile Include="Repositories\Interfaces\IPropertyOwners.cs" />
     <Compile Include="Repositories\Interfaces\IPsplCompany.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerDATARepository.cs" />
     <Compile Include="Repositories\Interfaces\IPsplCustomer.cs" />
